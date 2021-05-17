@@ -14,8 +14,10 @@ abstract class NoteRoomDatabase : RoomDatabase(){
     abstract fun noteDao(): NoteDao
 
     companion object {
+
         @Volatile
         private var INSTANCE: NoteRoomDatabase? = null
+
         @JvmStatic
         fun getDatabase(context: Context): NoteRoomDatabase {
             if (INSTANCE == null) {
@@ -28,4 +30,5 @@ abstract class NoteRoomDatabase : RoomDatabase(){
             return INSTANCE as NoteRoomDatabase
         }
     }
+
 }
