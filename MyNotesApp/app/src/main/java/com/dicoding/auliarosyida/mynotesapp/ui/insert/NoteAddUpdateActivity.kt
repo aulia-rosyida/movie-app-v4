@@ -137,6 +137,9 @@ class NoteAddUpdateActivity : AppCompatActivity() {
         return ViewModelProvider(activity, factory).get(NoteAddUpdateViewModel::class.java)
     }
 
+    /**
+     * menghapus item dari database
+     * */
     private fun showAlertDialog(type: Int) {
         val isDialogClose = type == ALERT_DIALOG_CLOSE
         val dialogTitle: String
