@@ -1,4 +1,4 @@
-package com.dicoding.auliarosyida.mynotesapp.ui
+package com.dicoding.auliarosyida.mynotesapp.ui.insert
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
