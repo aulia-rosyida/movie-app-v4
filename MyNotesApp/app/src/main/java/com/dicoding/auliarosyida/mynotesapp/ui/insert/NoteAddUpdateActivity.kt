@@ -1,11 +1,13 @@
 package com.dicoding.auliarosyida.mynotesapp.ui.insert
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.auliarosyida.mynotesapp.R
 import com.dicoding.auliarosyida.mynotesapp.databinding.ActivityNoteAddUpdateBinding
 import com.dicoding.auliarosyida.mynotesapp.db.Note
+import com.dicoding.auliarosyida.mynotesapp.helper.DateHelper
 import com.dicoding.auliarosyida.mynotesapp.helper.ViewModelFactory
 
 class NoteAddUpdateActivity : AppCompatActivity() {
@@ -38,6 +40,40 @@ class NoteAddUpdateActivity : AppCompatActivity() {
         noteAddUpdateViewModel = obtainViewModel(this@NoteAddUpdateActivity)
 
         /**
+         *  aksi untuk button
+         * */
+        binding?.btnSubmit?.setOnClickListener {
+            val title = binding?.edtTitle?.text.toString().trim()
+            val description = binding?.edtDescription?.text.toString().trim()
+
+            if (title.isEmpty()) {
+                binding?.edtTitle?.error = getString(R.string.empty)
+            } else if (description.isEmpty()) {
+                binding?.edtDescription?.error = getString(R.string.empty)
+            } else {
+                note.let { note ->
+                    note?.title = title
+                    note?.description = description
+                }
+                val intent = Intent().apply {
+                    putExtra(EXTRA_NOTE, note)
+                    putExtra(EXTRA_POSITION, position)
+                }
+                if (isEdit) {
+                    noteAddUpdateViewModel.update(note as Note)
+                    setResult(RESULT_UPDATE, intent)
+                    finish()
+                } else {
+                    note.let { note ->
+                        note?.date = DateHelper.getCurrentDate()
+                    }
+                    noteAddUpdateViewModel.insert(note as Note)
+                    setResult(RESULT_ADD, intent)
+                    finish()
+                }
+            }
+        }
+        /**
          * fungsi untuk menambahkan, memperbarui dan menghapus item
          * */
         note = intent.getParcelableExtra(EXTRA_NOTE)
@@ -47,6 +83,7 @@ class NoteAddUpdateActivity : AppCompatActivity() {
         } else {
             note = Note()
         }
+
         val actionBarTitle: String
         val btnTitle: String
         if (isEdit) {
@@ -62,6 +99,7 @@ class NoteAddUpdateActivity : AppCompatActivity() {
             actionBarTitle = getString(R.string.add)
             btnTitle = getString(R.string.save)
         }
+
         supportActionBar?.title = actionBarTitle
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding?.btnSubmit?.text = btnTitle
