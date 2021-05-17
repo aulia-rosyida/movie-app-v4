@@ -1,7 +1,8 @@
-package com.dicoding.auliarosyida.mynotesapp
+package com.dicoding.auliarosyida.mynotesapp.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.dicoding.auliarosyida.mynotesapp.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
