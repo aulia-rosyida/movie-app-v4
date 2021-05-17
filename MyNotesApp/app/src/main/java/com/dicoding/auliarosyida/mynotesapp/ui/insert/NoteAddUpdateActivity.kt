@@ -36,6 +36,35 @@ class NoteAddUpdateActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
         noteAddUpdateViewModel = obtainViewModel(this@NoteAddUpdateActivity)
+
+        /**
+         * fungsi untuk menambahkan, memperbarui dan menghapus item
+         * */
+        note = intent.getParcelableExtra(EXTRA_NOTE)
+        if (note != null) {
+            position = intent.getIntExtra(EXTRA_POSITION, 0)
+            isEdit = true
+        } else {
+            note = Note()
+        }
+        val actionBarTitle: String
+        val btnTitle: String
+        if (isEdit) {
+            actionBarTitle = getString(R.string.change)
+            btnTitle = getString(R.string.update)
+            if (note != null) {
+                note?.let { note ->
+                    binding?.edtTitle?.setText(note.title)
+                    binding?.edtDescription?.setText(note.description)
+                }
+            }
+        } else {
+            actionBarTitle = getString(R.string.add)
+            btnTitle = getString(R.string.save)
+        }
+        supportActionBar?.title = actionBarTitle
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding?.btnSubmit?.text = btnTitle
     }
 
     override fun onDestroy() {
