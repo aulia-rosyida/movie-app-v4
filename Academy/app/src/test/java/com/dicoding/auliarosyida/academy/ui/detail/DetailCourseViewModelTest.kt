@@ -6,7 +6,9 @@ import androidx.lifecycle.Observer
 import com.dicoding.auliarosyida.academy.data.source.local.entity.CourseEntity
 import com.dicoding.auliarosyida.academy.data.source.local.entity.ModuleEntity
 import com.dicoding.auliarosyida.academy.data.AcademyRepository
+import com.dicoding.auliarosyida.academy.data.source.local.entity.CourseWithModule
 import com.dicoding.auliarosyida.academy.utils.DataDummy
+import com.dicoding.auliarosyida.academy.vo.Resource
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
 import org.junit.Before
@@ -46,9 +48,7 @@ class DetailCourseViewModelTest {
     private lateinit var academyRepository: AcademyRepository
 
     @Mock
-    private lateinit var courseObserver: Observer<CourseEntity>
-    @Mock
-    private lateinit var modulesObserver: Observer<List<ModuleEntity>>
+    private lateinit var observer: Observer<Resource<CourseWithModule>>
 
     @Before
     fun setUp() {
@@ -56,44 +56,13 @@ class DetailCourseViewModelTest {
         viewModel.setSelectedCourse(courseId)
     }
 
-    /**
-     * membandingkan data CourseEntity hasil dari viewModel.getCourses().
-     * */
     @Test
-    fun getCourse() {
-        val course = MutableLiveData<CourseEntity>()
-        course.value = dummyCourse
-
+    fun getCourseWithModule() {
+        val dummyCourseWithModule = Resource.success(DataDummy.generateDummyCourseWithModules(dummyCourse, true))
+        val course = MutableLiveData<Resource<CourseWithModule>>()
+        course.value = dummyCourseWithModule
         `when`(academyRepository.getCourseWithModules(courseId)).thenReturn(course)
-        val courseEntity = viewModel.getCourse().value as CourseEntity
-        verify(academyRepository).getCourseWithModules(courseId)
-
-        assertNotNull(courseEntity)
-        assertEquals(dummyCourse.courseId, courseEntity.courseId)
-        assertEquals(dummyCourse.deadline, courseEntity.deadline)
-        assertEquals(dummyCourse.description, courseEntity.description)
-        assertEquals(dummyCourse.imagePath, courseEntity.imagePath)
-        assertEquals(dummyCourse.title, courseEntity.title)
-
-        viewModel.getCourse().observeForever(courseObserver)
-        verify(courseObserver).onChanged(dummyCourse)
-    }
-
-    /**
-     *menguji DetailCourseViewModel dengan cara membandingkan ukuran dari array viewModel.getModules()
-     * */
-    @Test
-    fun getModules() {
-        val module = MutableLiveData<List<ModuleEntity>>()
-        module.value = dummyModules
-
-        `when`(academyRepository.getAllModulesByCourse(courseId)).thenReturn(module)
-        val moduleEntities = viewModel.getModules().value
-        verify(academyRepository).getAllModulesByCourse(courseId)
-        assertNotNull(moduleEntities)
-        assertEquals(7, moduleEntities?.size)
-
-        viewModel.getModules().observeForever(modulesObserver)
-        verify(modulesObserver).onChanged(dummyModules)
+        viewModel.courseModule.observeForever(observer)
+        verify(observer).onChanged(dummyCourseWithModule)
     }
 }
