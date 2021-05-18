@@ -187,12 +187,12 @@ object DataDummy {
         return CourseWithModule(course, generateDummyModules(course.courseId))
     }
 
-    fun generateDummyContent(moduleId: String): ContentEntity =
+    fun generateDummyContent(): ContentEntity =
         ContentEntity("This is a dummy content")
 
     fun generateDummyModuleWithContent(courseId: String): ModuleEntity {
         val moduleEntity = generateDummyModules(courseId)[0]
-        moduleEntity.contentEntity = generateDummyContent(moduleEntity.moduleId)
+        moduleEntity.contentEntity = generateDummyContent()
         return moduleEntity
     }
 }
