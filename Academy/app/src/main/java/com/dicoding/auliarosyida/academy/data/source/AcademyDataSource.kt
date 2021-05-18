@@ -2,21 +2,29 @@ package com.dicoding.auliarosyida.academy.data.source
 
 import androidx.lifecycle.LiveData
 import com.dicoding.auliarosyida.academy.data.source.local.entity.CourseEntity
+import com.dicoding.auliarosyida.academy.data.source.local.entity.CourseWithModule
 import com.dicoding.auliarosyida.academy.data.source.local.entity.ModuleEntity
+import com.dicoding.auliarosyida.academy.vo.Resource
 
 /**
  *  interface yang nantinya akan digunakan untuk menggabungkan 2 repository
  * */
 interface AcademyDataSource {
 
-    fun getAllCourses(): LiveData<List<CourseEntity>>
+    fun getAllCourses(): LiveData<Resource<List<CourseEntity>>>
 
     fun getBookmarkedCourses(): LiveData<List<CourseEntity>>
 
-    fun getCourseWithModules(courseId: String): LiveData<CourseEntity>
+    fun getCourseWithModules(courseId: String): LiveData<Resource<CourseWithModule>>
 
-    fun getAllModulesByCourse(courseId: String): LiveData<List<ModuleEntity>>
+    fun getAllModulesByCourse(courseId: String): LiveData<Resource<List<ModuleEntity>>>
 
-    fun getContent(courseId: String, moduleId: String): LiveData<ModuleEntity>
+    fun getContent(moduleId: String): LiveData<Resource<ModuleEntity>>
+
+    //fungsi untuk menambahkan course ke daftar bookmark
+    fun setCourseBookmark(course: CourseEntity, state: Boolean)
+
+    //untuk memperlihatkan module mana yang terakhir dibaca.
+    fun setReadModule(module: ModuleEntity)
 
 }
