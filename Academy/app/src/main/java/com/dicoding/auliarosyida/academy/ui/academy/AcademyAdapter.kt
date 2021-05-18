@@ -3,21 +3,28 @@ package com.dicoding.auliarosyida.academy.ui.academy
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.auliarosyida.academy.R
 import com.dicoding.auliarosyida.academy.data.source.local.entity.CourseEntity
 import com.dicoding.auliarosyida.academy.databinding.ItemsAcademyBinding
+import com.dicoding.auliarosyida.academy.ui.bookmark.BookmarkAdapter
 import com.dicoding.auliarosyida.academy.ui.detail.DetailCourseActivity
 
-class AcademyAdapter: RecyclerView.Adapter<AcademyAdapter.CourseViewHolder>() {
-    private var listCourses = ArrayList<CourseEntity>()
+class AcademyAdapter: PagedListAdapter<CourseEntity, AcademyAdapter.CourseViewHolder>(DIFF_CALLBACK) {
 
-    fun setCourses(courses: List<CourseEntity>?) {
-        if (courses == null) return
-        this.listCourses.clear()
-        this.listCourses.addAll(courses)
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<CourseEntity>() {
+            override fun areItemsTheSame(oldItem: CourseEntity, newItem: CourseEntity): Boolean {
+                return oldItem.courseId == newItem.courseId
+            }
+            override fun areContentsTheSame(oldItem: CourseEntity, newItem: CourseEntity): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseViewHolder {
@@ -26,12 +33,11 @@ class AcademyAdapter: RecyclerView.Adapter<AcademyAdapter.CourseViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: CourseViewHolder, position: Int) {
-        val course = listCourses[position]
-        holder.bind(course)
+        val course = getItem(position)
+        if (course != null){
+            holder.bind(course)
+        }
     }
-
-    override fun getItemCount(): Int = listCourses.size
-
 
     class CourseViewHolder(private val binding: ItemsAcademyBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(course: CourseEntity) {
