@@ -18,6 +18,8 @@ import com.dicoding.auliarosyida.academy.vo.Status
  * */
 class ModuleContentFragment : Fragment() {
 
+    private lateinit var viewModel: CourseReaderViewModel
+
     companion object {
         val TAG: String = ModuleContentFragment::class.java.simpleName
         fun newInstance(): ModuleContentFragment = ModuleContentFragment()
@@ -41,7 +43,7 @@ class ModuleContentFragment : Fragment() {
             //Fragment akan menggunakan ViewModel yang ada pada Activity (shared ViewModel).
             // Jika Anda ganti requireActivity() dengan this, maka Fragment tidak akan mengambil ViewModel dari Activity tetapi akan membuat ViewModel baru.
             val factory = ViewModelFactory.getInstance(requireActivity())
-            val viewModel = ViewModelProvider(requireActivity(), factory)[CourseReaderViewModel::class.java]
+            viewModel = ViewModelProvider(requireActivity(), factory)[CourseReaderViewModel::class.java]
 
             fragmentModuleContentBinding.progressBar.visibility = View.VISIBLE
             viewModel.selectedModule.observe(viewLifecycleOwner, { moduleEntity ->
@@ -53,7 +55,7 @@ class ModuleContentFragment : Fragment() {
                             if (moduleEntity.data.contentEntity != null) {
                                 populateWebView(moduleEntity.data)
                             }
-//                            setButtonNextPrevState(moduleEntity.data)
+                            setButtonNextPrevState(moduleEntity.data)
                             if (!moduleEntity.data.read) {
                                 viewModel.readContent(moduleEntity.data)
                             }
@@ -63,6 +65,8 @@ class ModuleContentFragment : Fragment() {
                             Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
                         }
                     }
+                    fragmentModuleContentBinding.btnNext.setOnClickListener { viewModel.setNextPage() }
+                    fragmentModuleContentBinding.btnPrev.setOnClickListener { viewModel.setPrevPage() }
                 }
             })
         }
@@ -70,5 +74,26 @@ class ModuleContentFragment : Fragment() {
 
     private fun populateWebView(module: ModuleEntity) {
         fragmentModuleContentBinding.webView.loadData(module.contentEntity?.content ?: "", "text/html", "UTF-8")
+    }
+
+    private fun setButtonNextPrevState(module: ModuleEntity) {
+        if (activity != null) {
+            fragmentModuleContentBinding.apply {
+                when (module.position) {
+                    0 -> {
+                        btnPrev.isEnabled = false
+                        btnNext.isEnabled = true
+                    }
+                    viewModel.getModuleSize() - 1 -> {
+                        btnPrev.isEnabled = true
+                        btnNext.isEnabled = false
+                    }
+                    else -> {
+                        btnPrev.isEnabled = true
+                        btnNext.isEnabled = true
+                    }
+                }
+            }
+        }
     }
 }
