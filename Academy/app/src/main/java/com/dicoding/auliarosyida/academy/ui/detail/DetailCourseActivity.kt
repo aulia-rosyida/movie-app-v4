@@ -3,6 +3,7 @@ package com.dicoding.auliarosyida.academy.ui.detail
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -16,6 +17,7 @@ import com.dicoding.auliarosyida.academy.databinding.ActivityDetailCourseBinding
 import com.dicoding.auliarosyida.academy.databinding.ContentDetailCourseBinding
 import com.dicoding.auliarosyida.academy.ui.reader.CourseReaderActivity
 import com.dicoding.auliarosyida.academy.viewmodel.ViewModelFactory
+import com.dicoding.auliarosyida.academy.vo.Status
 
 /**
  * DetailCourseActivity: Menampilkan detail Course dan menampilkan list Module yang ada tiap Course-nya.
@@ -53,13 +55,24 @@ class DetailCourseActivity : AppCompatActivity() {
                 activityDetailCourseBinding.content.visibility = View.INVISIBLE
 
                 viewModel.setSelectedCourse(courseId) //Dengan bantuan kelas ViewModel, courseId akan dipertahankan sampai Activity masuk ke state onDestroy.
-                viewModel.getModules().observe(this, { modules ->
-                    activityDetailCourseBinding.progressBar.visibility = View.GONE
-                    activityDetailCourseBinding.content.visibility = View.VISIBLE
-                    adapter.setModules(modules)
-                    adapter.notifyDataSetChanged()
+                viewModel.courseModule.observe(this, { courseWithModuleResource ->
+                    if (courseWithModuleResource != null) {
+                        when (courseWithModuleResource.status) {
+                            Status.LOADING -> activityDetailCourseBinding.progressBar.visibility = View.VISIBLE
+                            Status.SUCCESS -> if (courseWithModuleResource.data != null) {
+                                activityDetailCourseBinding.progressBar.visibility = View.GONE
+                                activityDetailCourseBinding.content.visibility = View.VISIBLE
+                                adapter.setModules(courseWithModuleResource.data.mModules)
+                                adapter.notifyDataSetChanged()
+                                populateCourse(courseWithModuleResource.data.mCourse)
+                            }
+                            Status.ERROR -> {
+                                activityDetailCourseBinding.progressBar.visibility = View.GONE
+                                Toast.makeText(applicationContext, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
                 })
-                viewModel.getCourse().observe(this, { course -> populateCourse(course) })
             }
         }
 

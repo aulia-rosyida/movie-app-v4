@@ -5,11 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.auliarosyida.academy.data.source.local.entity.ModuleEntity
 import com.dicoding.auliarosyida.academy.databinding.FragmentModuleContentBinding
 import com.dicoding.auliarosyida.academy.ui.reader.CourseReaderViewModel
 import com.dicoding.auliarosyida.academy.viewmodel.ViewModelFactory
+import com.dicoding.auliarosyida.academy.vo.Status
 
 /**
  * ModuleContentFragment: Menampilkan Content dari Module yang dipilih
@@ -42,10 +44,25 @@ class ModuleContentFragment : Fragment() {
             val viewModel = ViewModelProvider(requireActivity(), factory)[CourseReaderViewModel::class.java]
 
             fragmentModuleContentBinding.progressBar.visibility = View.VISIBLE
-            viewModel.getSelectedModule().observe(requireActivity(), { module ->
-                fragmentModuleContentBinding.progressBar.visibility = View.GONE
-                if (module != null) {
-                    populateWebView(module)
+            viewModel.selectedModule.observe(viewLifecycleOwner, { moduleEntity ->
+                if (moduleEntity != null) {
+                    when (moduleEntity.status) {
+                        Status.LOADING -> fragmentModuleContentBinding.progressBar.visibility = View.VISIBLE
+                        Status.SUCCESS -> if (moduleEntity.data != null) {
+                            fragmentModuleContentBinding.progressBar.visibility = View.GONE
+                            if (moduleEntity.data.contentEntity != null) {
+                                populateWebView(moduleEntity.data)
+                            }
+//                            setButtonNextPrevState(moduleEntity.data)
+                            if (!moduleEntity.data.read) {
+                                viewModel.readContent(moduleEntity.data)
+                            }
+                        }
+                        Status.ERROR -> {
+                            fragmentModuleContentBinding.progressBar.visibility = View.GONE
+                            Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
             })
         }
