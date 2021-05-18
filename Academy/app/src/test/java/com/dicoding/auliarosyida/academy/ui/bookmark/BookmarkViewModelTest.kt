@@ -3,7 +3,7 @@ package com.dicoding.auliarosyida.academy.ui.bookmark
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.dicoding.auliarosyida.academy.data.CourseEntity
+import com.dicoding.auliarosyida.academy.data.source.local.entity.CourseEntity
 import com.dicoding.auliarosyida.academy.data.source.AcademyRepository
 import com.dicoding.auliarosyida.academy.utils.DataDummy
 import com.nhaarman.mockitokotlin2.verify

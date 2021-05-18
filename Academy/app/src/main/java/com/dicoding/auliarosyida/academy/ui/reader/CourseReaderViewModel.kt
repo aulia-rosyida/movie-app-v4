@@ -2,10 +2,8 @@ package com.dicoding.auliarosyida.academy.ui.reader
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.dicoding.auliarosyida.academy.data.ContentEntity
-import com.dicoding.auliarosyida.academy.data.ModuleEntity
+import com.dicoding.auliarosyida.academy.data.source.local.entity.ModuleEntity
 import com.dicoding.auliarosyida.academy.data.source.AcademyRepository
-import com.dicoding.auliarosyida.academy.utils.DataDummy
 
 /**
  * kelas ViewModel yang akan digunakan untuk CourseReaderActivity.

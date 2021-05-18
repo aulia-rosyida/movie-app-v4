@@ -3,8 +3,6 @@ package com.dicoding.auliarosyida.academy.ui.detail
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -13,11 +11,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.auliarosyida.academy.R
-import com.dicoding.auliarosyida.academy.data.CourseEntity
+import com.dicoding.auliarosyida.academy.data.source.local.entity.CourseEntity
 import com.dicoding.auliarosyida.academy.databinding.ActivityDetailCourseBinding
 import com.dicoding.auliarosyida.academy.databinding.ContentDetailCourseBinding
 import com.dicoding.auliarosyida.academy.ui.reader.CourseReaderActivity
-import com.dicoding.auliarosyida.academy.utils.DataDummy
 import com.dicoding.auliarosyida.academy.viewmodel.ViewModelFactory
 
 /**

@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.dicoding.auliarosyida.academy.data.CourseEntity
-import com.dicoding.auliarosyida.academy.data.ModuleEntity
+import com.dicoding.auliarosyida.academy.data.source.local.entity.CourseEntity
+import com.dicoding.auliarosyida.academy.data.source.local.entity.ModuleEntity
 
 /**
  *  kelas Room Database yang berfungsi sebagai builder database dalam aplikasi.

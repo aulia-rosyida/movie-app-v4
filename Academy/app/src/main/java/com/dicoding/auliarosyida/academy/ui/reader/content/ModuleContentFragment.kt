@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.dicoding.auliarosyida.academy.R
-import com.dicoding.auliarosyida.academy.data.ContentEntity
-import com.dicoding.auliarosyida.academy.data.ModuleEntity
+import com.dicoding.auliarosyida.academy.data.source.local.entity.ModuleEntity
 import com.dicoding.auliarosyida.academy.databinding.FragmentModuleContentBinding
 import com.dicoding.auliarosyida.academy.ui.reader.CourseReaderViewModel
 import com.dicoding.auliarosyida.academy.viewmodel.ViewModelFactory

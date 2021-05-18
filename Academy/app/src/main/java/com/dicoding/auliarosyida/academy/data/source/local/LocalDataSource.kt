@@ -1,9 +1,9 @@
 package com.dicoding.auliarosyida.academy.data.source.local
 
 import androidx.lifecycle.LiveData
-import com.dicoding.auliarosyida.academy.data.CourseEntity
-import com.dicoding.auliarosyida.academy.data.CourseWithModule
-import com.dicoding.auliarosyida.academy.data.ModuleEntity
+import com.dicoding.auliarosyida.academy.data.source.local.entity.CourseEntity
+import com.dicoding.auliarosyida.academy.data.source.local.entity.CourseWithModule
+import com.dicoding.auliarosyida.academy.data.source.local.entity.ModuleEntity
 import com.dicoding.auliarosyida.academy.data.source.local.room.AcademyDao
 
 /**

@@ -1,8 +1,8 @@
 package com.dicoding.auliarosyida.academy.data.source
 
 import androidx.lifecycle.LiveData
-import com.dicoding.auliarosyida.academy.data.CourseEntity
-import com.dicoding.auliarosyida.academy.data.ModuleEntity
+import com.dicoding.auliarosyida.academy.data.source.local.entity.CourseEntity
+import com.dicoding.auliarosyida.academy.data.source.local.entity.ModuleEntity
 
 /**
  *  interface yang nantinya akan digunakan untuk menggabungkan 2 repository

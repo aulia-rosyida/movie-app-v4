@@ -2,10 +2,9 @@ package com.dicoding.auliarosyida.academy.ui.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.dicoding.auliarosyida.academy.data.CourseEntity
-import com.dicoding.auliarosyida.academy.data.ModuleEntity
+import com.dicoding.auliarosyida.academy.data.source.local.entity.CourseEntity
+import com.dicoding.auliarosyida.academy.data.source.local.entity.ModuleEntity
 import com.dicoding.auliarosyida.academy.data.source.AcademyRepository
-import com.dicoding.auliarosyida.academy.utils.DataDummy
 
 /**
  *  kode pada kelas tersebut untuk menetapkan atau mendapatkan courseId, mendapatkan list module dan mendapatkan CourseEntity.

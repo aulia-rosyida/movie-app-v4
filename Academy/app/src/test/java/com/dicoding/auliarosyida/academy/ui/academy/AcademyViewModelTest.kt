@@ -3,7 +3,7 @@ package com.dicoding.auliarosyida.academy.ui.academy
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.dicoding.auliarosyida.academy.data.CourseEntity
+import com.dicoding.auliarosyida.academy.data.source.local.entity.CourseEntity
 import com.dicoding.auliarosyida.academy.data.source.AcademyRepository
 import com.dicoding.auliarosyida.academy.utils.DataDummy
 import junit.framework.TestCase.assertEquals
@@ -13,7 +13,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner

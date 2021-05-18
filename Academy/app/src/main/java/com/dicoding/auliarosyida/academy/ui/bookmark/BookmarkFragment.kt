@@ -5,15 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.core.app.ShareCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.auliarosyida.academy.R
-import com.dicoding.auliarosyida.academy.data.CourseEntity
+import com.dicoding.auliarosyida.academy.data.source.local.entity.CourseEntity
 import com.dicoding.auliarosyida.academy.databinding.FragmentBookmarkBinding
-import com.dicoding.auliarosyida.academy.utils.DataDummy
 import com.dicoding.auliarosyida.academy.viewmodel.ViewModelFactory
 
 /**

@@ -1,4 +1,4 @@
-package com.dicoding.auliarosyida.academy.data
+package com.dicoding.auliarosyida.academy.data.source.local.entity
 
 import androidx.room.ColumnInfo
 
