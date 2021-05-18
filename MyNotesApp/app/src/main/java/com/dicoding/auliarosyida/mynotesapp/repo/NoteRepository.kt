@@ -2,6 +2,7 @@ package com.dicoding.auliarosyida.mynotesapp.repo
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import com.dicoding.auliarosyida.mynotesapp.db.Note
 import com.dicoding.auliarosyida.mynotesapp.db.NoteDao
 import com.dicoding.auliarosyida.mynotesapp.db.NoteRoomDatabase
@@ -28,7 +29,7 @@ class NoteRepository (application: Application) {
     }
 
     /** seperti untuk mendapatkan semua data Note*/
-    fun getAllNotes(): LiveData<List<Note>> = mNotesDao.getAllNotes()
+    fun getAllNotes(): DataSource.Factory<Int, Note> = mNotesDao.getAllNotes()
 
     /**
      * pada bagian insert, update dan delete, aksi tersebut harus dijalankan menggunakan ExecutorService.

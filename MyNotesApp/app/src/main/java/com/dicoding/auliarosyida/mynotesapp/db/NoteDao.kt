@@ -1,6 +1,7 @@
 package com.dicoding.auliarosyida.mynotesapp.db
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 
 /**
@@ -38,5 +39,5 @@ interface NoteDao { //DAO = Data Access Object
      * cth: kode di bawah untuk mendapatkan semua note dengan pengurutan berdasarkan id terkecil ke besar
      * */
     @Query("SELECT * from note ORDER BY id ASC")
-    fun getAllNotes(): LiveData<List<Note>>
+    fun getAllNotes(): DataSource.Factory<Int, Note>
 }
