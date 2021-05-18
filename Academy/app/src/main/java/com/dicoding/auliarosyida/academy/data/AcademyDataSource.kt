@@ -1,4 +1,4 @@
-package com.dicoding.auliarosyida.academy.data.source
+package com.dicoding.auliarosyida.academy.data
 
 import androidx.lifecycle.LiveData
 import com.dicoding.auliarosyida.academy.data.source.local.entity.CourseEntity

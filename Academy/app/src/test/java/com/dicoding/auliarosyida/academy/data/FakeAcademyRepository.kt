@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.dicoding.auliarosyida.academy.data.source.local.entity.ContentEntity
 import com.dicoding.auliarosyida.academy.data.source.local.entity.CourseEntity
 import com.dicoding.auliarosyida.academy.data.source.local.entity.ModuleEntity
-import com.dicoding.auliarosyida.academy.data.source.AcademyDataSource
 import com.dicoding.auliarosyida.academy.data.source.remote.RemoteDataSource
 import com.dicoding.auliarosyida.academy.data.source.remote.response.ContentResponse
 import com.dicoding.auliarosyida.academy.data.source.remote.response.CourseResponse

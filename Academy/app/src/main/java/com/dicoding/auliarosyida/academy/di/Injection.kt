@@ -1,7 +1,7 @@
 package com.dicoding.auliarosyida.academy.di
 
 import android.content.Context
-import com.dicoding.auliarosyida.academy.data.source.AcademyRepository
+import com.dicoding.auliarosyida.academy.data.AcademyRepository
 import com.dicoding.auliarosyida.academy.data.source.local.LocalDataSource
 import com.dicoding.auliarosyida.academy.data.source.local.room.AcademyDatabase
 import com.dicoding.auliarosyida.academy.data.source.remote.RemoteDataSource

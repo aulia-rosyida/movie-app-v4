@@ -3,7 +3,7 @@ package com.dicoding.auliarosyida.academy.viewmodel
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.dicoding.auliarosyida.academy.data.source.AcademyRepository
+import com.dicoding.auliarosyida.academy.data.AcademyRepository
 import com.dicoding.auliarosyida.academy.di.Injection
 import com.dicoding.auliarosyida.academy.ui.academy.AcademyViewModel
 import com.dicoding.auliarosyida.academy.ui.bookmark.BookmarkViewModel

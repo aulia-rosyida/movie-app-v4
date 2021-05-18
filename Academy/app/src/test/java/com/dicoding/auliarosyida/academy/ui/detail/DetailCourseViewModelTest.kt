@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.dicoding.auliarosyida.academy.data.source.local.entity.CourseEntity
 import com.dicoding.auliarosyida.academy.data.source.local.entity.ModuleEntity
-import com.dicoding.auliarosyida.academy.data.source.AcademyRepository
+import com.dicoding.auliarosyida.academy.data.AcademyRepository
 import com.dicoding.auliarosyida.academy.utils.DataDummy
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
