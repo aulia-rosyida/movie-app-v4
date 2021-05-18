@@ -21,6 +21,10 @@ interface NoteDao { //DAO = Data Access Object
                                                     // jika data yang dimasukkan datanya sama maka dibiarkan saja.
     fun insert(note: Note)
 
+    //Untuk menambahkan data dummy
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertAll(list: List<Note>)
+
     /**
      * @Update untuk query update item pada database, contohnya adalah mengupdate sebuah item Note.
      * */
