@@ -42,8 +42,7 @@ class BookmarkFragment : Fragment(), BookmarkFragmentCallback {
             fragmentBookmarkBinding.progressBar.visibility = View.VISIBLE
             viewModel.getBookmarks().observe(requireActivity(), { courses ->
                 fragmentBookmarkBinding.progressBar.visibility = View.GONE
-                adapter.setCourses(courses)
-                adapter.notifyDataSetChanged()
+                adapter.submitList(courses)
             })
 
             with(fragmentBookmarkBinding.rvBookmark) {
