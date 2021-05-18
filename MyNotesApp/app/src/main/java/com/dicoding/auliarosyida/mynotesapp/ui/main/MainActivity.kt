@@ -80,6 +80,8 @@ class MainActivity : AppCompatActivity() {
     /**
      * Kode di atas berfungsi untuk meng-observe data dari getAllNotes().
      * Setelah ada perubahan data, maka akan tampil di RecyclerView.
+     *
+     * ketika data sudah menjadi paged list, Anda cukup memanggil submitList untuk menaruh data list ke PagedListAdapter.
      * */
     private val noteObserver = Observer<PagedList<Note>> { noteList ->
         if (noteList != null) {

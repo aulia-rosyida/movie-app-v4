@@ -17,5 +17,12 @@ class MainViewModel(application: Application) : ViewModel() {
     private val mNoteRepository: NoteRepository = NoteRepository(application)
 
     // memanggil getAllNotes(), Activity dengan mudah meng-observe data list notes dan bisa segera ditampilkan.
+
+    /**
+     * LivePagedListBuilder digunakan untuk merubah DataSource menjadi PagedList dalam bentuk LiveData.
+     * PagedList adalah daftar yang memuat data dalam potongan (halaman) dari DataSource.
+     * Item dapat diakses dengan get (int), dan pemuatan lebih lanjut yang dapat dipicu dengan loadAround (int).
+     * Jika diperhatikan, nilai 20 tersebut berarti list akan dimuat setiap 20 item.
+     * */
     fun getAllNotes(): LiveData<PagedList<Note>> = LivePagedListBuilder(mNoteRepository.getAllNotes(), 20).build()
 }

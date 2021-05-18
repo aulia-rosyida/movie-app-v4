@@ -12,6 +12,16 @@ import com.dicoding.auliarosyida.mynotesapp.databinding.ItemNoteBinding
 import com.dicoding.auliarosyida.mynotesapp.db.Note
 import com.dicoding.auliarosyida.mynotesapp.ui.insert.NoteAddUpdateActivity
 
+/**
+ * Penggunaan PagedListAdapter hampir mirip dengan RecyclerView.Adapter.
+ * Sama-sama menghasilkan metode onCreateViewHolder dan onBindViewHolder, isi dari metodenya pun juga sama.
+ *
+ * Bedanya yaitu untuk mengambil data pada PagedListAdapter menggunakan getItem(position)
+ *
+ * Selain itu ia mampu membedakan perubahan antara data baru dan lama.
+ * Sebabnya, PagedListAdapter sudah mendukung DiffUtil.ItemCallback
+ * untuk merubah tampilan sesuai ketika terjadi perubahan data.
+ * */
 class NotePagedListAdapter (private val activity: Activity) : PagedListAdapter<Note, NotePagedListAdapter.NoteViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -40,6 +50,11 @@ class NotePagedListAdapter (private val activity: Activity) : PagedListAdapter<N
     }
 
     companion object {
+
+        /**
+         *  jika data judul dan deskrispi pada note tersebut masih sama, maka RecyclerView tidak di-update.
+         *  Jika berbeda, maka list akan di-update.
+         * */
         private val DIFF_CALLBACK: DiffUtil.ItemCallback<Note> = object : DiffUtil.ItemCallback<Note>() {
             override fun areItemsTheSame(oldNote: Note, newNote: Note): Boolean {
                 return oldNote.title == newNote.title && oldNote.description == newNote.description

@@ -28,7 +28,7 @@ class NoteRepository (application: Application) {
         mNotesDao = db.noteDao()
     }
 
-    /** seperti untuk mendapatkan semua data Note*/
+    /** seperti untuk mendapatkan semua data Note*/ // LiveData berubah menjadi DataSource.Factory
     fun getAllNotes(): DataSource.Factory<Int, Note> = mNotesDao.getAllNotes()
 
     /**
