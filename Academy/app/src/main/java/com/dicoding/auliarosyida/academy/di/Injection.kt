@@ -2,7 +2,10 @@ package com.dicoding.auliarosyida.academy.di
 
 import android.content.Context
 import com.dicoding.auliarosyida.academy.data.source.AcademyRepository
+import com.dicoding.auliarosyida.academy.data.source.local.LocalDataSource
+import com.dicoding.auliarosyida.academy.data.source.local.room.AcademyDatabase
 import com.dicoding.auliarosyida.academy.data.source.remote.RemoteDataSource
+import com.dicoding.auliarosyida.academy.utils.AppExecutors
 import com.dicoding.auliarosyida.academy.utils.JsonHelper
 
 /**
@@ -13,8 +16,12 @@ object Injection {
 
     fun provideRepository(context: Context): AcademyRepository {
 
-        val remoteDataSource = RemoteDataSource.getInstance(JsonHelper(context))
+        val database = AcademyDatabase.getInstance(context)
 
-        return AcademyRepository.getInstance(remoteDataSource)
+        val remoteDataSource = RemoteDataSource.getInstance(JsonHelper(context))
+        val localDataSource = LocalDataSource.getInstance(database.academyDao())
+        val appExecutors = AppExecutors()
+
+        return AcademyRepository.getInstance(remoteDataSource,localDataSource, appExecutors)
     }
 }
