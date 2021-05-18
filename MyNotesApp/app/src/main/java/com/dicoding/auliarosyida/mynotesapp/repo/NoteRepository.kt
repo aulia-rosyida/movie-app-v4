@@ -16,13 +16,27 @@ class NoteRepository (application: Application) {
     private val mNotesDao: NoteDao
     private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
 
+    /**
+     * NoteDao bisa langsung Anda gunakan dengan cara mendefinisikan RoomDatabase.
+     * Dao (Data Access Object) akan secara otomatis terhubung dengan RoomDatabase,
+     * selama kelas tersebut sudah diberi annotation @Dao.
+     * Jadi Anda bisa memakainya untuk menggunakanya ke kelas-kelas lain.
+     * */
     init {
         val db = NoteRoomDatabase.getDatabase(application)
         mNotesDao = db.noteDao()
     }
 
+    /** seperti untuk mendapatkan semua data Note*/
     fun getAllNotes(): LiveData<List<Note>> = mNotesDao.getAllNotes()
 
+    /**
+     * pada bagian insert, update dan delete, aksi tersebut harus dijalankan menggunakan ExecutorService.
+     * Jika proses di atas hanya dilakukan tanpa executorService, maka akan terjadi force close.
+     *
+     * Hal ini disebabkan karena proses insert, update dan delete menggunakan thread yang berbeda
+     * --> yakni background thread.
+     * */
     fun insert(note: Note) {
         executorService.execute { mNotesDao.insert(note) }
     }

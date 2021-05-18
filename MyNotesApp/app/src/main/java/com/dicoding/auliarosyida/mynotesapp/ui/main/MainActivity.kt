@@ -75,6 +75,10 @@ class MainActivity : AppCompatActivity() {
         return ViewModelProvider(activity, factory).get(MainViewModel::class.java)
     }
 
+    /**
+     * Kode di atas berfungsi untuk meng-observe data dari getAllNotes().
+     * Setelah ada perubahan data, maka akan tampil di RecyclerView.
+     * */
     private val noteObserver = Observer<List<Note>> { noteList ->
         if (noteList != null) {
             adapter.setListNotes(noteList)
