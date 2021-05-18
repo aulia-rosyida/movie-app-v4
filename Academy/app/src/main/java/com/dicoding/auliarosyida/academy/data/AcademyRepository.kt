@@ -142,15 +142,29 @@ class AcademyRepository private constructor(
 
         return object : NetworkBoundResource<ModuleEntity, ContentResponse>(appExecutors) {
 
+            //digunakan untuk membaca getAllCourses dari LocalDataSource
             override fun loadFromDB(): LiveData<ModuleEntity> =
                 localDataSource.getModuleWithContent(moduleId)
 
+            /**
+             * Pada bagian shoudFetch ini dilakukan pengecekan apakah ada datanya atau tidak.
+             * Jika balikan dari pengecekan itu true maka akan memanggil fungsi createCall()
+             * */
             override fun shouldFetch(data: ModuleEntity?): Boolean =
                 data?.contentEntity == null
 
             override fun createCall(): LiveData<ApiResponse<ContentResponse>> =
                 remoteDataSource.getContent(moduleId)
 
+            /**
+             * Karena data dari LocalDataSource null atau empty, maka akan dilakukan pengambilan data dari RemoteDataSource.
+             * Dan selanjutnya akan dilakukan proses inserting
+             *
+             * Metode saveCallResult akan terpanggil dan akan melakukan proses insert data yang berasal dari RemoteDataSource.
+             * Kemudian hasilnya dari NetworkBoundResource dibungkus dengan kelas Resource,
+             *
+             * sehingga di bagian Activity atau Fragment akan dapat dipanggil dengan viewModel.getCourses().observe(...
+             * */
             override fun saveCallResult(data: ContentResponse) =
                 localDataSource.updateContent(data.content.toString(), moduleId)
 

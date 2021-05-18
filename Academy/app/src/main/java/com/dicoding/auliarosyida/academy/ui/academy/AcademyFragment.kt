@@ -45,7 +45,11 @@ class AcademyFragment : Fragment() {
             // kode untuk melakukan observe untuk membaca LiveData
             fragmentAcademyBinding.progressBar.visibility = View.VISIBLE
             viewModel.getCourses().observe(viewLifecycleOwner, { courses ->
+
                 if (courses != null) {
+
+                    //state Loading yang berguna untuk menampilkan progressBar dan
+                        // ketika sukses Anda akan mendapatkan sebuah data yang bisa Anda gunakan.
                     when (courses.status) {
                         Status.LOADING -> fragmentAcademyBinding.progressBar.visibility = View.VISIBLE
                         Status.SUCCESS -> {

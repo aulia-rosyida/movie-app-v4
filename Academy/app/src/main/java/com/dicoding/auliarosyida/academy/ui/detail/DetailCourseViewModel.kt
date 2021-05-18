@@ -20,7 +20,12 @@ class DetailCourseViewModel(private val academyRepository: AcademyRepository): V
         this.courseId.value = courseId
     }
 
-    //Metode  Transformations.switchMap digunakan untuk mengambil data setiap kali courseId-nya berubah.
+    /**
+     * Metode  Transformations.switchMap digunakan untuk mengambil data setiap kali courseId-nya berubah.
+     *
+     * Penggunaan fungsi switchMap mirip dengan map,
+     * bedanya perubahan dari sebuah LiveData yang diamati akan memicu pemanggilan LiveData lain
+     * */
     var courseModule: LiveData<Resource<CourseWithModule>> = Transformations.switchMap(courseId) { mCourseId ->
         academyRepository.getCourseWithModules(mCourseId)
     }

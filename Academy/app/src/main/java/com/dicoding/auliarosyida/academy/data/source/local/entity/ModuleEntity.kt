@@ -3,6 +3,13 @@ package com.dicoding.auliarosyida.academy.data.source.local.entity
 import androidx.annotation.NonNull
 import androidx.room.*
 
+/**
+ * aplikasi Academy kali ini Anda menggunakan 4 Entity yang saling berkaitan satu sama lain.
+ * Contohnya seperti entity di bawah,
+ *
+ * ModuleEntity memiliki keterkaitan dengan CourseEntity dan memiliki key yang sama yakni courseId.
+ * Selain itu, ContentEntity juga terdapat dalam ModuleEntity.
+ * */
 @Entity(tableName = "moduleentities",
     primaryKeys = ["moduleId", "courseId"],
     foreignKeys = [ForeignKey(entity = CourseEntity::class,

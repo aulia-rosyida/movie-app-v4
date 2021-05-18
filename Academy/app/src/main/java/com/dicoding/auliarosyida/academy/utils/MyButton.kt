@@ -9,12 +9,24 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import com.dicoding.auliarosyida.academy.R
 
+/**
+ * termasuk customView
+ *
+ * Ketika Anda meng-extend kelas AppCompatButton, Anda bisa memanggil metode-metode yang ada di dalam kelas tersebut.
+ * */
 class MyButton: AppCompatButton {
 
     private var enabledBackground: Drawable? = null
     private var disabledBackground: Drawable? = null
     private var textColour: Int = 0
 
+    /**
+     * Ketika Anda membuat sebuah CustomView,
+     * Anda perlu menambahkan konstruktor pada kelas tersebut.
+     * Dan mengapa harus 3? Karena, kebutuhan dari masing masing peranti itu berbeda-beda.
+     *
+     * ketika Anda akan menambahkan aksi kepada CustomView maka Anda perlu menambahkan di tiap constructor-nya.
+     * */
     constructor(context: Context) : super(context) {
         init()
     }
@@ -27,6 +39,11 @@ class MyButton: AppCompatButton {
         init()
     }
 
+    /**
+     * Sebuah aksi, seperti onClick, onTouch dan aksi lainya maka perlu diletakkan di konstruktor.
+     * Akan tetapi, jika ada perubahan bentuk, taruhlah kodenya dalam metode onDraw().
+     * Metode ini bawaan dari kelas CustomView.
+     * */
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         background = if (isEnabled) enabledBackground else disabledBackground

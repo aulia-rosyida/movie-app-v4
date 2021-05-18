@@ -9,6 +9,9 @@ import com.dicoding.auliarosyida.academy.vo.Resource
 
 /**
  * kelas NetworkBoundResource, Anda bisa memakainya di AcademyRepository untuk menyimpan data RemoteDataSource menjadi LocalDataSource
+ *
+ * NetworkBoundResource akan bekerja jika LocalDataSource tidak menyediakan data,
+ * ia akan otomatis melakukan request ke RemoteDataSource dan akan melakukan insert data
  * */
 abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecutors: AppExecutors) {
 
@@ -34,6 +37,13 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
 
     protected fun onFetchFailed() {}
 
+    /**
+     * punyai 4 komponen utama, yakni :
+     * loadFromDB() yang berfungsi untuk mengakses data dari local dataabse,
+     * shouldFetch untuk mengetahui apakah perlu akses remote database atau tidak,
+     * createCall untuk mengakses remote database
+     * saveCallResult untuk menyimpan data hasil dari remote database ke local database.
+     * */
     protected abstract fun loadFromDB(): LiveData<ResultType>
 
     protected abstract fun shouldFetch(data: ResultType?): Boolean
