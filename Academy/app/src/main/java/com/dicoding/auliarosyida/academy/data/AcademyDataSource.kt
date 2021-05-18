@@ -1,6 +1,7 @@
 package com.dicoding.auliarosyida.academy.data
 
 import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
 import com.dicoding.auliarosyida.academy.data.source.local.entity.CourseEntity
 import com.dicoding.auliarosyida.academy.data.source.local.entity.CourseWithModule
 import com.dicoding.auliarosyida.academy.data.source.local.entity.ModuleEntity
@@ -11,9 +12,9 @@ import com.dicoding.auliarosyida.academy.vo.Resource
  * */
 interface AcademyDataSource {
 
-    fun getAllCourses(): LiveData<Resource<List<CourseEntity>>>
+    fun getAllCourses(): LiveData<Resource<PagedList<CourseEntity>>>
 
-    fun getBookmarkedCourses(): LiveData<List<CourseEntity>>
+    fun getBookmarkedCourses(): LiveData<PagedList<CourseEntity>>
 
     fun getCourseWithModules(courseId: String): LiveData<Resource<CourseWithModule>>
 
