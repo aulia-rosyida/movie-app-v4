@@ -10,14 +10,12 @@ import com.dicoding.auliarosyida.academy.data.source.remote.RemoteDataSource
 import com.dicoding.auliarosyida.academy.utils.AppExecutors
 import com.dicoding.auliarosyida.academy.utils.DataDummy
 import com.dicoding.auliarosyida.academy.utils.LiveDataTestUtil
+import com.dicoding.auliarosyida.academy.vo.Resource
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
 import org.junit.Test
 import org.mockito.Mockito.`when`
-import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.doAnswer
-import com.nhaarman.mockitokotlin2.eq
 import org.junit.Rule
 import org.mockito.Mockito.mock
 
@@ -32,6 +30,8 @@ class AcademyRepositoryTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
+    // untuk memanggil academyRepository.
+    // Bedanya dari pengujian sebelumnya, pada bagian AcademyRepository tidak ada LocalDataSource dan InstantAppExecutors.
     private val remote = mock(RemoteDataSource::class.java)
     private val local = mock(LocalDataSource::class.java)
     private val appExecutors = mock(AppExecutors::class.java)
@@ -50,7 +50,8 @@ class AcademyRepositoryTest {
         dummyCourses.value = DataDummy.generateDummyCourses()
         `when`(local.getAllCourses()).thenReturn(dummyCourses)
 
-        val courseEntities = LiveDataTestUtil.getValue(academyRepository.getAllCourses())
+        //data-nya di bungkus dengan Resource dan untuk mengambil datanya perlu menggunakan .data.
+        val courseEntities: Resource<List<CourseEntity>> = LiveDataTestUtil.getValue(academyRepository.getAllCourses())
         verify(local).getAllCourses()
         assertNotNull(courseEntities.data)
         assertEquals(courseResponses.size.toLong(), courseEntities.data?.size?.toLong())
