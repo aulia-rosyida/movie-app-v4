@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.auliarosyida.mynotesapp.R
 import com.dicoding.auliarosyida.mynotesapp.databinding.ActivityMainBinding
 import com.dicoding.auliarosyida.mynotesapp.db.Note
+import com.dicoding.auliarosyida.mynotesapp.helper.SortUtils
 import com.dicoding.auliarosyida.mynotesapp.helper.ViewModelFactory
 import com.dicoding.auliarosyida.mynotesapp.ui.insert.NoteAddUpdateActivity
 import com.google.android.material.snackbar.Snackbar
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
         val mainViewModel = obtainViewModel(this@MainActivity)
-        mainViewModel.getAllNotes().observe(this, noteObserver)
+        mainViewModel.getAllNotes(SortUtils.NEWEST).observe(this, noteObserver)
 
         adapter = NotePagedListAdapter(this@MainActivity)
         binding?.rvNotes?.layoutManager = LinearLayoutManager(this)
