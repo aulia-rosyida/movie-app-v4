@@ -2,15 +2,20 @@ package com.dicoding.auliarosyida.moviesapp.model.source
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.dicoding.auliarosyida.moviesapp.model.source.localsource.LocalMovieDataSource
 import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.RemoteMovieDataSource
 import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.RemoteMovieDataSource.LoadMoviesCallback
 import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.response.MovieResponse
+import com.dicoding.auliarosyida.moviesapp.utils.AppThreadExecutors
 
 /**
  *  MovieRepository sebagai filter antara remote dan local
  *  agar apa yang ada di View tidak banyak berubah
  * */
-class MovieRepository private constructor(private val remoteMovieDataSource: RemoteMovieDataSource) : InterfaceMovieDataSource {
+class MovieRepository private constructor(private val remoteMovieDataSource: RemoteMovieDataSource,
+                                          private val localMovieDataSource: LocalMovieDataSource,
+                                          private val appThreadExecutors: AppThreadExecutors
+)  : InterfaceMovieDataSource {
 
     companion object {
         @Volatile
@@ -18,9 +23,9 @@ class MovieRepository private constructor(private val remoteMovieDataSource: Rem
         private var instance: MovieRepository? = null
 
         // filter antara remote dan local
-        fun getInstance(remoteData: RemoteMovieDataSource): MovieRepository =
+        fun getInstance(remoteData: RemoteMovieDataSource, localData: LocalMovieDataSource, appExecutors: AppThreadExecutors): MovieRepository =
             instance ?: synchronized(this) {
-                instance ?: MovieRepository(remoteData).apply { instance = this }
+                instance ?: MovieRepository(remoteData, localData, appExecutors).apply { instance = this }
             }
     }
 
