@@ -3,34 +3,35 @@ package com.dicoding.auliarosyida.moviesapp.model.source.localsource.room
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.MovieEntity
+import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.TvShowEntity
 import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.response.MovieResponse
 
 @Dao
 interface InterfaceMovieDao {
 
     @Query("SELECT * FROM movieentities")
-    fun getMovies(): LiveData<List<MovieResponse>>
+    fun getMovies(): LiveData<List<MovieEntity>>
 
     @Query("SELECT * FROM movieentities where favorited = 1")
-    fun getFavoritedMovies(): LiveData<List<MovieResponse>>
+    fun getFavoritedMovies(): LiveData<List<MovieEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovies(courses: List<MovieResponse>)
+    fun insertMovies(courses: List<MovieEntity>)
 
     @Update
     fun updateMovie(course: MovieEntity)
 
     @Query("SELECT * FROM tvshowentities")
-    fun getTvShows(): LiveData<List<MovieResponse>>
+    fun getTvShows(): LiveData<List<TvShowEntity>>
 
     @Query("SELECT * FROM tvshowentities where favorited = 1")
-    fun getFavoritedTvShows(): LiveData<List<MovieResponse>>
+    fun getFavoritedTvShows(): LiveData<List<TvShowEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTvShows(courses: List<MovieResponse>)
+    fun insertTvShows(courses: List<TvShowEntity>)
 
     @Update
-    fun updateTvShow(course: MovieEntity)
+    fun updateTvShow(course: TvShowEntity)
 
 
 }
