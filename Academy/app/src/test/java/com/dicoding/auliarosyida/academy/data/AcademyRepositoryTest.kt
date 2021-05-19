@@ -48,10 +48,12 @@ class AcademyRepositoryTest {
 
     @Test
     fun getAllCourses() {
+        /** bisa membuat sebuah Data.Source dengan membuat data mock nya */
         val dataSourceFactory = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, CourseEntity>
         `when`(local.getAllCourses()).thenReturn(dataSourceFactory)
         academyRepository.getAllCourses()
 
+        /** kemudian memanfaatkan PagedListUtil untuk membuat PagedList. */
         val courseEntities = Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyCourses()))
         verify(local).getAllCourses()
         assertNotNull(courseEntities.data)

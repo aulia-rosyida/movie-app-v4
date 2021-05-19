@@ -45,9 +45,9 @@ class AcademyViewModelTest {
     @Mock
     private lateinit var observer: Observer<Resource<PagedList<CourseEntity>>>
 
+    /**  membuat sebuah pagedList dengan membuat data mock nya */
     @Mock
     private lateinit var pagedList: PagedList<CourseEntity>
-
 
     @Before
     fun setUp() {
