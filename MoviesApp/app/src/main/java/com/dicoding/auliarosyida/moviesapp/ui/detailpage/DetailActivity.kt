@@ -49,22 +49,24 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun populateCard(entity: MovieResponse) {
-        detailContentBinding.progressbarDetailContent.visibility = View.GONE
-        detailContentBinding.textYear.text = entity.releaseYear
-        detailContentBinding.textDuration.text = entity.duration
-        detailContentBinding.textTitle.text = entity.title
-        detailContentBinding.textGenre.text = entity.genre
-
         Glide.with(this)
-                .load(entity.poster)
-                .transform(RoundedCorners(20))
-                .apply(RequestOptions.placeholderOf(R.drawable.ic_loading)
-                        .error(R.drawable.ic_error))
-                .into(detailContentBinding.imagePoster)
+            .load(entity.poster)
+            .transform(RoundedCorners(20))
+            .apply(RequestOptions.placeholderOf(R.drawable.ic_loading)
+                .error(R.drawable.ic_error))
+            .into(detailContentBinding.imagePoster)
 
-        detailContentBinding.textQuote.text = entity.quote
-        detailContentBinding.textOverview.text = entity.overview
-        detailContentBinding.textStatus.text = entity.status
-        detailContentBinding.textLang.text = entity.originalLanguage
+        detailContentBinding.apply {
+            progressbarDetailContent.visibility = View.GONE
+            textYear.text = entity.releaseYear
+            textDuration.text = entity.duration
+            textTitle.text = entity.title
+            textGenre.text = entity.genre
+
+            textQuote.text = entity.quote
+            textOverview.text = entity.overview
+            textStatus.text = entity.status
+            textLang.text = entity.originalLanguage
+        }
     }
 }

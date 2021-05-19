@@ -73,9 +73,9 @@ class MovieRepository private constructor(private val remoteMovieDataSource: Rem
         val detailTvShowResult = MutableLiveData<MovieResponse>()
 
         remoteMovieDataSource.getAllTvShows(object : LoadMoviesCallback {
-            override fun onAllMoviesReceived(tvShowResponses: List<MovieResponse>) {
+            override fun onAllMoviesReceived(movieResponses: List<MovieResponse>) {
                 lateinit var aTvShow: MovieResponse
-                for (response in tvShowResponses) {
+                for (response in movieResponses) {
                     if (response.id == tvShowId) {
                         aTvShow = response
                     }
