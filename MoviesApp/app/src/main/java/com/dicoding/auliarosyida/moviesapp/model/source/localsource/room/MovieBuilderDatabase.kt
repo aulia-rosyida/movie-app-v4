@@ -12,7 +12,7 @@ import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.TvSho
     exportSchema = false)
 abstract class MovieBuilderDatabase : RoomDatabase(){
 
-    abstract fun academyDao(): InterfaceMovieDao
+    abstract fun movieDao(): InterfaceMovieDao
 
     companion object {
 
@@ -24,7 +24,7 @@ abstract class MovieBuilderDatabase : RoomDatabase(){
                 Room.databaseBuilder(
                     context.applicationContext,
                     MovieBuilderDatabase::class.java,
-                    "Academies.db"
+                    "Movies.db"
                 ).build().apply {
                     INSTANCE = this
                 }
