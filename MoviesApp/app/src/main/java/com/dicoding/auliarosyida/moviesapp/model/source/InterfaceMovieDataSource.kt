@@ -7,13 +7,13 @@ import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.response.Mo
 import com.dicoding.auliarosyida.moviesapp.valueobject.ResourceWrapData
 
 interface InterfaceMovieDataSource {
-    fun getAllMovies(): LiveData<ResourceWrapData<List<MovieResponse>>>
+    fun getAllMovies(): LiveData<ResourceWrapData<List<MovieEntity>>>
 
-    fun getAllTvShows(): LiveData<ResourceWrapData<List<MovieResponse>>>
+    fun getAllTvShows(): LiveData<ResourceWrapData<List<TvShowEntity>>>
 
-    fun getDetailMovie(movieId: String): LiveData<ResourceWrapData<MovieResponse>>
+    fun getDetailMovie(movieId: String): LiveData<ResourceWrapData<MovieEntity>>
 
-    fun getDetailTvShow(tvShowId: String): LiveData<ResourceWrapData<MovieResponse>>
+    fun getDetailTvShow(tvShowId: String): LiveData<ResourceWrapData<TvShowEntity>>
 
     fun setFavoriteMovie(movie: MovieEntity, state: Boolean)
 
