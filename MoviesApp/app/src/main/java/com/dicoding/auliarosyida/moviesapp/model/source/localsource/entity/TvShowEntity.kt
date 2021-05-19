@@ -40,6 +40,6 @@ data class TvShowEntity (
     @ColumnInfo(name = "originalLanguage")
     var originalLanguage: String,
 
-    @ColumnInfo(name = "bookmarked")
-    var bookmarked: Boolean = false
+    @ColumnInfo(name = "favorited")
+    var favorited: Boolean = false
 )
