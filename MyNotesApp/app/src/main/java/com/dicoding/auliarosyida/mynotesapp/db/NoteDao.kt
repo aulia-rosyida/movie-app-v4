@@ -40,8 +40,11 @@ interface NoteDao { //DAO = Data Access Object
     fun delete(note: Note)
 
     /**
-     * melakukan query / menjalankan intruksi / perintah untuk mengeksekusi sebuah aksi dengan anotasi @Query.
-     * cth: kode di bawah untuk mendapatkan semua note dengan pengurutan berdasarkan id terkecil ke besar
+     * Anotasi @RawQuery digunakan untuk menandai bahwa fungsi tersebut menggunakan fitur RawQuery,
+     * akibatnya Anda harus menambahkan parameter berupa SupportSQLiteQuery.
+     *
+     * Selain itu supaya data tersebut bisa di-observe ketika ada perubahan data,
+     * gunakanlah observedEntities = Note.class
      * */
     @RawQuery(observedEntities = [Note::class])
     fun getAllNotes(query: SupportSQLiteQuery): DataSource.Factory<Int, Note>

@@ -30,6 +30,7 @@ class NoteRepository (application: Application) {
     }
 
     /** seperti untuk mendapatkan semua data Note*/ // LiveData berubah menjadi DataSource.Factory
+    //sortingnya di method ini
     fun getAllNotes(sort: String): DataSource.Factory<Int, Note> {
         val query = SortUtils.getSortedQuery(sort)
         return mNotesDao.getAllNotes(query)

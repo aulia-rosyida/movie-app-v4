@@ -92,11 +92,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /** Kode tersebut digunakan untuk membuat menu dengan menggunakan berkas menu_main.xml.
+     *  Kemudian kode berikut digunakan untuk memberikan aksi ketika menu dipilih */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
+    /**
+     * Di sini Anda menentukan variabel yang dimasukkan untuk mengambil data berdasarkan menu yang dipilih.
+     * Karena terdapat observer, maka data akan secara otomatis diperbarui ketika opsi berubah.
+     * Setelah itu gunakan kode item.setChecked(true) untuk memberi tanda pada menu yang dipilih.
+     * */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         var sort = ""
         when (item.getItemId()) {
@@ -105,7 +112,7 @@ class MainActivity : AppCompatActivity() {
             R.id.action_random -> sort = SortUtils.RANDOM
         }
         val mainViewModel = obtainViewModel(this@MainActivity)
-        mainViewModel.getAllNotes(sort).observe(this, noteObserver)
+        mainViewModel.getAllNotes(sort).observe(this, noteObserver) //dipanggil di UI spt ini
         item.isChecked = true
         return super.onOptionsItemSelected(item)
     }
