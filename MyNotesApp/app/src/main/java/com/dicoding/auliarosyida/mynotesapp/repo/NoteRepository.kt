@@ -6,6 +6,7 @@ import androidx.paging.DataSource
 import com.dicoding.auliarosyida.mynotesapp.db.Note
 import com.dicoding.auliarosyida.mynotesapp.db.NoteDao
 import com.dicoding.auliarosyida.mynotesapp.db.NoteRoomDatabase
+import com.dicoding.auliarosyida.mynotesapp.helper.SortUtils
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -29,7 +30,10 @@ class NoteRepository (application: Application) {
     }
 
     /** seperti untuk mendapatkan semua data Note*/ // LiveData berubah menjadi DataSource.Factory
-    fun getAllNotes(): DataSource.Factory<Int, Note> = mNotesDao.getAllNotes()
+    fun getAllNotes(sort: String): DataSource.Factory<Int, Note> {
+        val query = SortUtils.getSortedQuery(sort)
+        return mNotesDao.getAllNotes(query)
+    }
 
     /**
      * pada bagian insert, update dan delete, aksi tersebut harus dijalankan menggunakan ExecutorService.

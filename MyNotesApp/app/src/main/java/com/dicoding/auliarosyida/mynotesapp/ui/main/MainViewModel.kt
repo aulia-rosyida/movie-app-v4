@@ -24,5 +24,5 @@ class MainViewModel(application: Application) : ViewModel() {
      * Item dapat diakses dengan get (int), dan pemuatan lebih lanjut yang dapat dipicu dengan loadAround (int).
      * Jika diperhatikan, nilai 20 tersebut berarti list akan dimuat setiap 20 item.
      * */
-    fun getAllNotes(): LiveData<PagedList<Note>> = LivePagedListBuilder(mNoteRepository.getAllNotes(), 20).build()
+    fun getAllNotes(sort: String): LiveData<PagedList<Note>> = LivePagedListBuilder(mNoteRepository.getAllNotes(sort), 20).build()
 }

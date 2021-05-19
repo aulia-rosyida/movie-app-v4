@@ -3,6 +3,7 @@ package com.dicoding.auliarosyida.mynotesapp.db
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteQuery
 
 /**
  * Kelas ini nantinya digunakan untuk melakukan eksekusi quiring.
@@ -42,6 +43,7 @@ interface NoteDao { //DAO = Data Access Object
      * melakukan query / menjalankan intruksi / perintah untuk mengeksekusi sebuah aksi dengan anotasi @Query.
      * cth: kode di bawah untuk mendapatkan semua note dengan pengurutan berdasarkan id terkecil ke besar
      * */
-    @Query("SELECT * from note ORDER BY id ASC")
-    fun getAllNotes(): DataSource.Factory<Int, Note>
+    @RawQuery(observedEntities = [Note::class])
+    fun getAllNotes(query: SupportSQLiteQuery): DataSource.Factory<Int, Note>
+
 }
