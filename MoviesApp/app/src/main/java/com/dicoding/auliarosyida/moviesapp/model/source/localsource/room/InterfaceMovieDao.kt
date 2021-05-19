@@ -21,6 +21,9 @@ interface InterfaceMovieDao {
     @Update
     fun updateMovie(course: MovieEntity)
 
+    @Query("SELECT * FROM movieentities WHERE movieId = :movieId")
+    fun getMovieById(movieId: String): LiveData<MovieEntity>
+
     @Query("SELECT * FROM tvshowentities")
     fun getTvShows(): LiveData<List<TvShowEntity>>
 
@@ -33,5 +36,7 @@ interface InterfaceMovieDao {
     @Update
     fun updateTvShow(course: TvShowEntity)
 
+    @Query("SELECT * FROM tvshowentities WHERE tvShowId = :tvShowId")
+    fun getTvShowById(tvShowId: String): LiveData<TvShowEntity>
 
 }

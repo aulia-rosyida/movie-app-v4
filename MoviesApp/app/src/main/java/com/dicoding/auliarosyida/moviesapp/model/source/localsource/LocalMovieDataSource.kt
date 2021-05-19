@@ -16,9 +16,12 @@ class LocalMovieDataSource private constructor(private val mMovieDao: InterfaceM
 
     fun getAllMovies(): LiveData<List<MovieEntity>> = mMovieDao.getMovies()
 
-    fun getFavoritedMovies(): LiveData<List<MovieEntity>> = mMovieDao.getFavoritedMovies()
-
     fun insertMovies(movies: List<MovieEntity>) = mMovieDao.insertMovies(movies)
+
+    fun getDetailMovie(movieId: String): LiveData<MovieEntity> =
+        mMovieDao.getMovieById(movieId)
+
+    fun getFavoritedMovies(): LiveData<List<MovieEntity>> = mMovieDao.getFavoritedMovies()
 
     fun setFavoriteMovie(aMovie: MovieEntity, favState: Boolean) {
         aMovie.favorited = favState
@@ -27,9 +30,12 @@ class LocalMovieDataSource private constructor(private val mMovieDao: InterfaceM
 
     fun getAllTvShows(): LiveData<List<TvShowEntity>> = mMovieDao.getTvShows()
 
-    fun getFavoritedTvShows(): LiveData<List<TvShowEntity>> = mMovieDao.getFavoritedTvShows()
-
     fun insertTvShows(tvShows: List<TvShowEntity>) = mMovieDao.insertTvShows(tvShows)
+
+    fun getDetailTvShow(tvShowId: String): LiveData<TvShowEntity> =
+        mMovieDao.getTvShowById(tvShowId)
+
+    fun getFavoritedTvShows(): LiveData<List<TvShowEntity>> = mMovieDao.getFavoritedTvShows()
 
     fun setFavoriteTvShow(aShow: TvShowEntity, favState: Boolean) {
         aShow.favorited = favState
