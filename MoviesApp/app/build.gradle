@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-parcelize'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -51,8 +52,12 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v4:$androidXLegacyVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$androidXLifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidXLifecycleVersion"
+
+    //Db
     implementation "com.google.code.gson:gson:$gsonVersion"
     implementation "androidx.test.espresso:espresso-idling-resource:$idleResourceVersion"
+    implementation "androidx.room:room-runtime:$roomRuntimeVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
 
     //testing
     testImplementation "junit:junit:$junitVersion"

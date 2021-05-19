@@ -19,6 +19,10 @@ buildscript {
         gsonVersion = '2.8.6'
         idleResourceVersion = '3.3.0'
 
+        //Db
+        roomVersion = '2.2.3'
+        roomRuntimeVersion = '2.2.5'
+
         //testing
         junitVersion = '4.13.2'
         espressoVersion = '3.3.0'
