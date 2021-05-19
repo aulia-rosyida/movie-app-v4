@@ -80,7 +80,7 @@ class BookmarkFragment : Fragment(), BookmarkFragmentCallback {
                 courseEntity?.let { viewModel.setBookmark(it) }
 
                 val snackbar = Snackbar.make(view as View, R.string.message_undo, Snackbar.LENGTH_LONG)
-                snackbar.setAction(R.string.message_ok) { v ->
+                snackbar.setAction(R.string.message_ok) { _ ->
                     courseEntity?.let { viewModel.setBookmark(it) }
                 }
                 snackbar.show()

@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:baselineAligned="false"
     android:orientation="horizontal"
-    tools:ignore="MissingDefaultResource">
+    tools:ignore="MissingDefaultResource, Overdraw">
 
     <FrameLayout
         android:id="@+id/frame_list"
