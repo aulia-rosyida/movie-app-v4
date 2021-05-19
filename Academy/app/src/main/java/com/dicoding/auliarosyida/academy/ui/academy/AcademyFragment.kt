@@ -54,7 +54,7 @@ class AcademyFragment : Fragment() {
                         Status.LOADING -> fragmentAcademyBinding.progressBar.visibility = View.VISIBLE
                         Status.SUCCESS -> {
                             fragmentAcademyBinding.progressBar.visibility = View.GONE
-                            academyAdapter.submitList(courses.data)
+                            academyAdapter.submitList(courses.data) //untuk memasukkan datanya
                         }
                         Status.ERROR -> {
                             fragmentAcademyBinding.progressBar.visibility = View.GONE

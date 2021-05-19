@@ -14,9 +14,13 @@ import com.dicoding.auliarosyida.academy.databinding.ItemsAcademyBinding
 import com.dicoding.auliarosyida.academy.ui.bookmark.BookmarkAdapter
 import com.dicoding.auliarosyida.academy.ui.detail.DetailCourseActivity
 
+/**  perlu mengubah turunan kelas di adapter yang awalnya RecyclerViewAdapter menjadi PagedListAdapter */
 class AcademyAdapter: PagedListAdapter<CourseEntity, AcademyAdapter.CourseViewHolder>(DIFF_CALLBACK) {
 
     companion object {
+
+        /** DIFF_CALLBACK untuk mengecek data yang yang masuk apakah sama dengan yang sebelumnya atau tidak.
+         *  Jika tidak, maka data akan ditampilkan */
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<CourseEntity>() {
             override fun areItemsTheSame(oldItem: CourseEntity, newItem: CourseEntity): Boolean {
                 return oldItem.courseId == newItem.courseId
@@ -33,7 +37,11 @@ class AcademyAdapter: PagedListAdapter<CourseEntity, AcademyAdapter.CourseViewHo
     }
 
     override fun onBindViewHolder(holder: CourseViewHolder, position: Int) {
+
+        /**  kita tidak perlu membuat variabel dan set data Object.
+         *  Sebagai gantinya cukup didefinisikan di dalam PagedListAdapter dan untuk mengambil data menggunakan kode: */
         val course = getItem(position)
+
         if (course != null){
             holder.bind(course)
         }

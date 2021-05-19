@@ -32,6 +32,11 @@ class CourseReaderActivity : AppCompatActivity(), CourseReaderCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_course_reader)
 
+        /**
+         * digunakan untuk pengecekan apakah ada frame_list atau tidak.
+         * Jika  frame_list null, maka layout tersebut dimaksudkan untuk ukuran 600dp ke bawah.
+         * Dan jika ada id-nya, maka layout yang digunakan untuk 600dp ke atas.
+         * */
         if (findViewById<View>(R.id.frame_list) != null) {
             isLarge = true
         }
@@ -70,6 +75,12 @@ class CourseReaderActivity : AppCompatActivity(), CourseReaderCallback {
         }
     }
 
+    /**
+     * Ukuran besar akan menampilkan ModuleListFragment dan ModuleContentFragment dalam satu layar.
+     *
+     * Dari sini kita juga bisa melihat kelebihan fragment, di mana ia bersifat modular,
+     * sehingga dalam satu Activity bisa berisi 2 fragment dan bebas kita taruh di mana saja.
+     * */
     private fun populateFragment() {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         if (!isLarge) {

@@ -86,11 +86,14 @@ class AcademyRepository private constructor(
     override fun setReadModule(module: ModuleEntity) =
         appExecutors.diskIO().execute { localDataSource.setReadModule(module) }
 
+    /**
+     * , dari DataSource.Factory bisa di ubah menjadi LiveData<PagedList<CourseEntity> dengan LivePagedListBuilder
+     * */
     override fun getBookmarkedCourses(): LiveData<PagedList<CourseEntity>>  {
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
             .setInitialLoadSizeHint(4)
-            .setPageSize(4)
+            .setPageSize(4) //ketika data akan di-load, bisa Anda kustom seperti kode di atas akan di-load sebanyak 4 item sekali.
             .build()
         return LivePagedListBuilder(localDataSource.getBookmarkedCourses(), config).build()
     }

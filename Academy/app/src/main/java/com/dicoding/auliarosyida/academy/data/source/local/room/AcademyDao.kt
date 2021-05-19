@@ -10,6 +10,10 @@ import com.dicoding.auliarosyida.academy.data.source.local.entity.ModuleEntity
 @Dao
 interface AcademyDao {
 
+    /**
+     * DataSource.Factory untuk menampung data Paging. Komponen di dalamnya ada Integer dan CourseEntity,
+     * di mana Integer sebagai posisi dari item-nya dan CourseEntity sebagai data kelas dari satu item.
+     * */
     @Query("SELECT * FROM courseentities")
     fun getCourses(): DataSource.Factory<Int, CourseEntity>
 

@@ -67,6 +67,7 @@ class BookmarkFragment : Fragment(), BookmarkFragmentCallback {
         }
     }
 
+    /** Dengan menggunakan ItemTouchHelper, Anda bisa melakukan swipe ke kanan atau ke kiri untuk menghapus dan mengembalikan data dengan menekan undo. */
     private val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.Callback() {
         override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int =
                 makeMovementFlags(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT)
