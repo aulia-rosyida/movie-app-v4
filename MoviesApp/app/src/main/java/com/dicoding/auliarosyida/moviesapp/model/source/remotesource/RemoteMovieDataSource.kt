@@ -2,6 +2,8 @@ package com.dicoding.auliarosyida.moviesapp.model.source.remotesource
 
 import android.os.Handler
 import android.os.Looper
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.response.MovieResponse
 import com.dicoding.auliarosyida.moviesapp.utils.IdlingResourceEspresso
 import com.dicoding.auliarosyida.moviesapp.utils.JsonResponseHelper
@@ -22,20 +24,30 @@ class RemoteMovieDataSource private constructor(private val jsonResponseHelper: 
             }
     }
 
-    fun getAllMovies(callback: LoadMoviesCallback){
+    fun getAllMovies() : LiveData<NetworkApiResponse<List<MovieResponse>>> {
+
         IdlingResourceEspresso.increment()
+        val resultMovie = MutableLiveData<NetworkApiResponse<List<MovieResponse>>>()
+
         handlerLooper.postDelayed({
-            callback.onAllMoviesReceived(jsonResponseHelper.loadMovies())
+            resultMovie.value = NetworkApiResponse.success(jsonResponseHelper.loadMovies())
             IdlingResourceEspresso.decrement()
          }, serviceLatencyInMillis)
+
+        return resultMovie
     }
 
-    fun getAllTvShows(callback: LoadMoviesCallback){
+    fun getAllTvShows() : LiveData<NetworkApiResponse<List<MovieResponse>>> {
+
         IdlingResourceEspresso.increment()
+        val resultTvShow = MutableLiveData<NetworkApiResponse<List<MovieResponse>>>()
+
         handlerLooper.postDelayed({
-            callback.onAllMoviesReceived(jsonResponseHelper.loadTvShows())
+            resultTvShow.value = NetworkApiResponse.success(jsonResponseHelper.loadTvShows())
             IdlingResourceEspresso.decrement()
         }, serviceLatencyInMillis)
+
+        return resultTvShow
     }
 
     interface LoadMoviesCallback {
