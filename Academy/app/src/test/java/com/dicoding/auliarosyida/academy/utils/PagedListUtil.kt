@@ -1,6 +1,9 @@
 package com.dicoding.auliarosyida.academy.utils
 
 import androidx.paging.PagedList
+import org.mockito.ArgumentMatchers.anyInt
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.mock
 
 /** kelas baru yang berfungsi sebagai kelas pembantu PagedList. */
 object PagedListUtil {

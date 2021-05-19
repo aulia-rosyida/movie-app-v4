@@ -3,6 +3,7 @@ package com.dicoding.auliarosyida.academy.ui.bookmark
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import com.dicoding.auliarosyida.academy.data.source.local.entity.CourseEntity
 import com.dicoding.auliarosyida.academy.data.AcademyRepository
 import com.dicoding.auliarosyida.academy.utils.DataDummy
@@ -15,6 +16,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
 /**
@@ -36,7 +38,10 @@ class BookmarkViewModelTest {
     private lateinit var academyRepository: AcademyRepository
 
     @Mock
-    private lateinit var observer: Observer<List<CourseEntity>>
+    private lateinit var observer: Observer<PagedList<CourseEntity>>
+
+    @Mock
+    private lateinit var pagedList: PagedList<CourseEntity>
 
     @Before
     fun setUp() {
@@ -49,11 +54,12 @@ class BookmarkViewModelTest {
     @Test
     fun getBookmark() {
 
-        val dummyCourses = DataDummy.generateDummyCourses()
-        val courses = MutableLiveData<List<CourseEntity>>()
+        val dummyCourses = pagedList
+        `when`(dummyCourses.size).thenReturn(5)
+        val courses = MutableLiveData<PagedList<CourseEntity>>()
         courses.value = dummyCourses
 
-        Mockito.`when`(academyRepository.getBookmarkedCourses()).thenReturn(courses)
+        `when`(academyRepository.getBookmarkedCourses()).thenReturn(courses)
         val courseEntities = viewModel.getBookmarks().value
         verify(academyRepository).getBookmarkedCourses()
         assertNotNull(courseEntities)
