@@ -1,0 +1,33 @@
+package com.dicoding.auliarosyida.moviesapp.model.source.localsource.room
+
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.MovieEntity
+import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.TvShowEntity
+
+@Database(entities = [MovieEntity::class, TvShowEntity::class],
+    version = 1,
+    exportSchema = false)
+abstract class MovieBuilderDatabase : RoomDatabase(){
+
+    abstract fun academyDao(): InterfaceMovieDao
+
+    companion object {
+
+        @Volatile
+        private var INSTANCE: MovieBuilderDatabase? = null
+
+        fun getInstance(context: Context): MovieBuilderDatabase =
+            INSTANCE ?: synchronized(this) {
+                Room.databaseBuilder(
+                    context.applicationContext,
+                    MovieBuilderDatabase::class.java,
+                    "Academies.db"
+                ).build().apply {
+                    INSTANCE = this
+                }
+            }
+    }
+}
