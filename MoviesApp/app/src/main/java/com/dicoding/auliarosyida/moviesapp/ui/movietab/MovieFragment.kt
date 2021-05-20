@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.auliarosyida.moviesapp.databinding.MovieFragmentBinding
+import com.dicoding.auliarosyida.moviesapp.valueobject.IndicatorStatus
 import com.dicoding.auliarosyida.moviesapp.viewmodel.VMAppFactory
 
 class MovieFragment : Fragment() {
@@ -33,9 +35,20 @@ class MovieFragment : Fragment() {
             movieFragmentBinding.progressbarMovie.visibility = View.VISIBLE
 
             movieViewModel.getMovies().observe(this, { movies ->
-                movieFragmentBinding.progressbarMovie.visibility = View.GONE
-                movieAdapter.setMovies(movies)
-                movieAdapter.notifyDataSetChanged()
+                if (movies != null) {
+                    when (movies.status) {
+                        IndicatorStatus.LOADING -> movieFragmentBinding.progressbarMovie.visibility = View.VISIBLE
+                        IndicatorStatus.SUCCESS -> {
+                            movieFragmentBinding.progressbarMovie.visibility = View.GONE
+                            movieAdapter.setMovies(movies.data)
+                            movieAdapter.notifyDataSetChanged()
+                        }
+                        IndicatorStatus.ERROR -> {
+                            movieFragmentBinding.progressbarMovie.visibility = View.GONE
+                            Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
             })
 
             with(movieFragmentBinding.rvMovie){

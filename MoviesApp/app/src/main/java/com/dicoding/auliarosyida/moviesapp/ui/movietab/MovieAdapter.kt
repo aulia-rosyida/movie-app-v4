@@ -8,13 +8,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.auliarosyida.moviesapp.R
 import com.dicoding.auliarosyida.moviesapp.databinding.ItemsMovieBinding
-import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.response.MovieResponse
-import com.dicoding.auliarosyida.moviesapp.ui.detailpage.DetailActivity
+import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.MovieEntity
+import com.dicoding.auliarosyida.moviesapp.ui.detailpage.DetailMovieActivity
 
 class MovieAdapter: RecyclerView.Adapter<MovieAdapter.CourseViewHolder>() {
-    private var listMovies = ArrayList<MovieResponse>()
+    private var listMovies = ArrayList<MovieEntity>()
 
-    fun setMovies(movies: List<MovieResponse>?) {
+    fun setMovies(movies: List<MovieEntity>?) {
         if (movies.isNullOrEmpty()) return
         this.listMovies.clear()
         this.listMovies.addAll(movies)
@@ -34,7 +34,7 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.CourseViewHolder>() {
 
 
     class CourseViewHolder(private val binding: ItemsMovieBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: MovieResponse) {
+        fun bind(movie: MovieEntity) {
             with(binding) {
                 Glide.with(itemView.context)
                         .load(movie.poster)
@@ -47,8 +47,8 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.CourseViewHolder>() {
                 tvItemQuotes.text = movie.quote
 
                 itemView.setOnClickListener {
-                    val intent = Intent(it.context, DetailActivity::class.java)
-                    intent.putExtra(DetailActivity.extraMovie, movie.id)
+                    val intent = Intent(it.context, DetailMovieActivity::class.java)
+                    intent.putExtra(DetailMovieActivity.extraMovie, movie.movieId)
                     itemView.context.startActivity(intent)
                 }
             }
