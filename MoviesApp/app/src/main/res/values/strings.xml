@@ -13,8 +13,12 @@
     <string name="original_lang">Original Language</string>
 
     <string name="movies">Movies</string>
+    <string name="fav_movies">Favorite Movies</string>
     <string name="tvshow">TV Shows</string>
+    <string name="fav_tvshows">Favorite Tv Shows</string>
     <string name="by_developer">by Aulia Rosyida</string>
     <string name="footprint">Develop patiently</string>
     <string name="icon_movie_app">Icon Movie App</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
