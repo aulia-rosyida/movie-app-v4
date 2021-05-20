@@ -28,6 +28,8 @@ class LocalMovieDataSource private constructor(private val mMovieDao: InterfaceM
         mMovieDao.updateMovie(aMovie)
     }
 
+    fun updateMovie(aMovie: MovieEntity) = mMovieDao.updateMovie(aMovie)
+
     fun getAllTvShows(): LiveData<List<TvShowEntity>> = mMovieDao.getTvShows()
 
     fun insertTvShows(tvShows: List<TvShowEntity>) = mMovieDao.insertTvShows(tvShows)
@@ -41,5 +43,7 @@ class LocalMovieDataSource private constructor(private val mMovieDao: InterfaceM
         aShow.favorited = favState
         mMovieDao.updateTvShow(aShow)
     }
+
+    fun updateTvShow(aTvShow: TvShowEntity)  = mMovieDao.updateTvShow(aTvShow)
 
 }

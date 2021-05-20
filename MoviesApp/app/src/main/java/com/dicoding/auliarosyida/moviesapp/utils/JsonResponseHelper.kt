@@ -59,4 +59,26 @@ class JsonResponseHelper(private val context: Context) {
 
         return listTvShows
     }
+
+    fun loadMovie(movieId: String): MovieResponse {
+        val listMovies = loadMovies()
+        lateinit var aMovie: MovieResponse
+        for (response in listMovies) {
+            if (response.id == movieId) {
+                aMovie = response
+            }
+        }
+        return aMovie
+    }
+
+    fun loadTvShow(tvShowId: String): MovieResponse {
+        val listTvShows = loadTvShows()
+        lateinit var aShow: MovieResponse
+        for (response in listTvShows) {
+            if (response.id == tvShowId) {
+                aShow = response
+            }
+        }
+        return aShow
+    }
 }
