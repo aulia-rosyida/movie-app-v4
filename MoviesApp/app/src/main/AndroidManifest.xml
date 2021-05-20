@@ -35,6 +35,18 @@
                 android:value=".ui.landingpage.LandingActivity" />
         </activity>
 
+        <activity
+            android:name=".ui.detailpage.DetailTvShowActivity"
+            android:label="@string/title_activity_detail_tvshow"
+            android:parentActivityName=".ui.landingpage.LandingActivity"
+            android:theme="@style/Theme.MoviesApp.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.landingpage.LandingActivity" />
+        </activity>
+
+
+
     </application>
 
 </manifest>

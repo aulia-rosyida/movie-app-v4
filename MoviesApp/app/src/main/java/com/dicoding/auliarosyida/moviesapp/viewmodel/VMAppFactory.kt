@@ -5,7 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.auliarosyida.moviesapp.di.RepoInjection
 import com.dicoding.auliarosyida.moviesapp.model.source.MovieRepository
-import com.dicoding.auliarosyida.moviesapp.ui.detailpage.DetailViewModel
+import com.dicoding.auliarosyida.moviesapp.ui.detailpage.DetailMovieViewModel
+import com.dicoding.auliarosyida.moviesapp.ui.detailpage.DetailTvShowViewModel
 import com.dicoding.auliarosyida.moviesapp.ui.movietab.MovieViewModel
 import com.dicoding.auliarosyida.moviesapp.ui.tvshowtab.TvShowViewModel
 
@@ -29,8 +30,11 @@ class VMAppFactory private constructor(private val mMovieRepository: MovieReposi
             modelClass.isAssignableFrom(MovieViewModel::class.java) -> {
                 MovieViewModel(mMovieRepository) as T
             }
-            modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
-                DetailViewModel(mMovieRepository) as T
+            modelClass.isAssignableFrom(DetailMovieViewModel::class.java) -> {
+                DetailMovieViewModel(mMovieRepository) as T
+            }
+            modelClass.isAssignableFrom(DetailTvShowViewModel::class.java) -> {
+                DetailTvShowViewModel(mMovieRepository) as T
             }
             modelClass.isAssignableFrom(TvShowViewModel::class.java) -> {
                 TvShowViewModel(mMovieRepository) as T

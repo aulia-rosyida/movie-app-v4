@@ -46,9 +46,9 @@ class MovieRepository private constructor(private val remoteMovieDataSource: Rem
             public override fun createCall(): LiveData<NetworkApiResponse<List<MovieResponse>>> =
                     remoteMovieDataSource.getAllMovies()
 
-            public override fun saveCallResult(courseResponses: List<MovieResponse>) {
+            public override fun saveCallResult(data: List<MovieResponse>) {
                 val movieList = ArrayList<MovieEntity>()
-                for (response in courseResponses) {
+                for (response in data) {
                     val movie = MovieEntity(response.id,
                             response.poster,
                             response.title,
@@ -80,9 +80,9 @@ class MovieRepository private constructor(private val remoteMovieDataSource: Rem
             public override fun createCall(): LiveData<NetworkApiResponse<List<MovieResponse>>> =
                 remoteMovieDataSource.getAllTvShows()
 
-            public override fun saveCallResult(movieResponses: List<MovieResponse>) {
+            public override fun saveCallResult(data: List<MovieResponse>) {
                 val tvShowList = ArrayList<TvShowEntity>()
-                for (response in movieResponses) {
+                for (response in data) {
                     val tvShow = TvShowEntity(response.id,
                         response.poster,
                         response.title,
@@ -108,8 +108,8 @@ class MovieRepository private constructor(private val remoteMovieDataSource: Rem
             public override fun loadFromDB(): LiveData<MovieEntity> =
                 localMovieDataSource.getDetailMovie(movieId)
 
-            override fun shouldFetch(movie : MovieEntity?): Boolean =
-                movie == null
+            override fun shouldFetch(data : MovieEntity?): Boolean =
+                data == null
 
             public override fun createCall(): LiveData<NetworkApiResponse<MovieResponse>> =
                 remoteMovieDataSource.getDetailMovie(movieId)
@@ -138,8 +138,8 @@ class MovieRepository private constructor(private val remoteMovieDataSource: Rem
             public override fun loadFromDB(): LiveData<TvShowEntity> =
                     localMovieDataSource.getDetailTvShow(tvShowId)
 
-            override fun shouldFetch(tvShow : TvShowEntity?): Boolean =
-                    tvShow == null
+            override fun shouldFetch(data : TvShowEntity?): Boolean =
+                    data == null
 
             public override fun createCall(): LiveData<NetworkApiResponse<MovieResponse>> =
                     remoteMovieDataSource.getDetailTvShow(tvShowId)
