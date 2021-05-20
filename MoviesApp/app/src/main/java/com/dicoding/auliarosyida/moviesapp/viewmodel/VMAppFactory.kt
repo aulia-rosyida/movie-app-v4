@@ -7,6 +7,8 @@ import com.dicoding.auliarosyida.moviesapp.di.RepoInjection
 import com.dicoding.auliarosyida.moviesapp.model.source.MovieRepository
 import com.dicoding.auliarosyida.moviesapp.ui.detailpage.DetailMovieViewModel
 import com.dicoding.auliarosyida.moviesapp.ui.detailpage.DetailTvShowViewModel
+import com.dicoding.auliarosyida.moviesapp.ui.favmovietab.FavMovieViewModel
+import com.dicoding.auliarosyida.moviesapp.ui.favtvshowtab.FavTvShowViewModel
 import com.dicoding.auliarosyida.moviesapp.ui.movietab.MovieViewModel
 import com.dicoding.auliarosyida.moviesapp.ui.tvshowtab.TvShowViewModel
 
@@ -33,11 +35,17 @@ class VMAppFactory private constructor(private val mMovieRepository: MovieReposi
             modelClass.isAssignableFrom(DetailMovieViewModel::class.java) -> {
                 DetailMovieViewModel(mMovieRepository) as T
             }
+            modelClass.isAssignableFrom(TvShowViewModel::class.java) -> {
+                TvShowViewModel(mMovieRepository) as T
+            }
             modelClass.isAssignableFrom(DetailTvShowViewModel::class.java) -> {
                 DetailTvShowViewModel(mMovieRepository) as T
             }
-            modelClass.isAssignableFrom(TvShowViewModel::class.java) -> {
-                TvShowViewModel(mMovieRepository) as T
+            modelClass.isAssignableFrom(FavMovieViewModel::class.java) -> {
+                FavMovieViewModel(mMovieRepository) as T
+            }
+            modelClass.isAssignableFrom(FavTvShowViewModel::class.java) -> {
+                FavTvShowViewModel(mMovieRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

@@ -28,4 +28,5 @@
         <include android:id="@+id/detail_content" layout="@layout/content_detail_movie" />
 
     </ScrollView>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
