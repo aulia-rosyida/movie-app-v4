@@ -122,8 +122,32 @@ class MovieRepositoryTest {
     }
 
     @Test
+    fun testSetUnFavoritesMovies() {
+        val dataMovieDummy = DataMovies.generateMovies()[0].copy(favorited = true)
+        val newFavState: Boolean = !dataMovieDummy.favorited
+
+        `when`(appExecutors.diskIO()).thenReturn(testExecutors.diskIO())
+        doNothing().`when`(local).setFavoriteMovie(dataMovieDummy, newFavState)
+
+        movieRepository.setFavoriteMovie(dataMovieDummy, newFavState)
+        verify(local, times(1)).setFavoriteMovie(dataMovieDummy, newFavState)
+    }
+
+    @Test
     fun testSetFavoritesTvShows() {
         val dataTvShowDummy = DataMovies.generateTvShows()[0].copy(favorited = false)
+        val newFavState: Boolean = !dataTvShowDummy.favorited
+
+        `when`(appExecutors.diskIO()).thenReturn(testExecutors.diskIO())
+        doNothing().`when`(local).setFavoriteTvShow(dataTvShowDummy, newFavState)
+
+        movieRepository.setFavoriteTvShow(dataTvShowDummy, newFavState)
+        verify(local, times(1)).setFavoriteTvShow(dataTvShowDummy, newFavState)
+    }
+
+    @Test
+    fun testSetUnFavoritesTvShows() {
+        val dataTvShowDummy = DataMovies.generateTvShows()[0].copy(favorited = true)
         val newFavState: Boolean = !dataTvShowDummy.favorited
 
         `when`(appExecutors.diskIO()).thenReturn(testExecutors.diskIO())
