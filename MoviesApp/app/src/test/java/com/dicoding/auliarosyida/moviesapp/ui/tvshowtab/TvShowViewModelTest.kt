@@ -4,8 +4,10 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.dicoding.auliarosyida.moviesapp.model.source.MovieRepository
+import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.TvShowEntity
 import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.response.MovieResponse
 import com.dicoding.auliarosyida.moviesapp.utils.DataMovies
+import com.dicoding.auliarosyida.moviesapp.valueobject.ResourceWrapData
 import junit.framework.TestCase
 import org.junit.Before
 import org.junit.Rule
@@ -29,7 +31,7 @@ class TvShowViewModelTest {
     private lateinit var movieRepository: MovieRepository
 
     @Mock
-    private lateinit var tvShowObserver: Observer<List<MovieResponse>>
+    private lateinit var tvShowObserver: Observer<ResourceWrapData<List<TvShowEntity>>>
 
     @Before
     fun setUp() {
@@ -38,12 +40,12 @@ class TvShowViewModelTest {
 
     @Test
     fun testGetTvShows() {
-        val dummyTvShows = DataMovies.generateTvShows()
-        val tvShows = MutableLiveData<List<MovieResponse>>()
+        val dummyTvShows = ResourceWrapData.success(DataMovies.generateTvShows())
+        val tvShows = MutableLiveData<ResourceWrapData<List<TvShowEntity>>>()
         tvShows.value = dummyTvShows
 
         `when`(movieRepository.getAllTvShows()).thenReturn(tvShows)
-        val tvShowEntities = viewModel.getTvShows().value
+        val tvShowEntities = viewModel.getTvShows().value?.data
         verify(movieRepository).getAllTvShows()
 
         TestCase.assertNotNull(tvShowEntities)

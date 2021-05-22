@@ -1,5 +1,7 @@
 package com.dicoding.auliarosyida.moviesapp.utils
 
+import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.MovieEntity
+import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.TvShowEntity
 import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.response.MovieResponse
 
 object DataMovies {
@@ -93,22 +95,24 @@ object DataMovies {
         "1h 59m",
         "2h 14m")
 
-    fun generateMovies(): List<MovieResponse> {
+    fun generateMovies(): List<MovieEntity> {
 
-        val listMovieData = ArrayList<MovieResponse>()
+        val listMovieData = ArrayList<MovieEntity>()
 
         for (position in moviePosters.indices) {
-            val movie = MovieResponse()
-            movie.id = movieId[position]
-            movie.poster = moviePosters[position]
-            movie.title = movieTitles[position]
-            movie.quote = movieQuotes[position]
-            movie.overview = movieOverviews[position]
-            movie.releaseYear = movieReleaseYears[position]
-            movie.genre = movieGenres[position]
-            movie.duration = movieDurations[position]
-            movie.status = "Released"
-            movie.originalLanguage = "English"
+            val movie = MovieEntity(
+                    movieId[position],
+                    moviePosters[position],
+                    movieTitles[position],
+                    movieQuotes[position],
+                    movieOverviews[position],
+                    movieReleaseYears[position],
+                    movieGenres[position],
+                    movieDurations[position],
+                    "Released",
+                    "English"
+            )
+
             listMovieData.add(movie)
         }
             return listMovieData
@@ -245,20 +249,21 @@ object DataMovies {
         "English",
         "English")
 
-    fun generateTvShows(): List<MovieResponse> {
-        val listTvShowData = ArrayList<MovieResponse>()
+    fun generateTvShows(): List<TvShowEntity> {
+        val listTvShowData = ArrayList<TvShowEntity>()
         for (position in tvShowPosters.indices) {
-            val tvshow = MovieResponse()
-            tvshow.id = tvShowId[position]
-            tvshow.poster = tvShowPosters[position]
-            tvshow.title = tvShowTitles[position]
-            tvshow.quote = tvShowQuotes[position]
-            tvshow.overview = tvShowOverviews[position]
-            tvshow.releaseYear = tvShowReleaseYears[position]
-            tvshow.genre = tvShowGenres[position]
-            tvshow.duration = tvShowDurations[position]
-            tvshow.status = tvShowStatus[position]
-            tvshow.originalLanguage = tvShowOriginalLanguages[position]
+            val tvshow = TvShowEntity(
+            tvShowId[position],
+            tvShowPosters[position],
+            tvShowTitles[position],
+            tvShowQuotes[position],
+            tvShowOverviews[position],
+            tvShowReleaseYears[position],
+            tvShowGenres[position],
+            tvShowDurations[position],
+            tvShowStatus[position],
+            tvShowOriginalLanguages[position]
+            )
             listTvShowData.add(tvshow)
         }
         return listTvShowData
@@ -281,5 +286,37 @@ object DataMovies {
             remoteTvShows.add(tvshow)
         }
         return remoteTvShows
+    }
+
+    fun generateDummyMovie(movieId: String): MovieEntity? {
+
+        return MovieEntity(
+                movieId,
+                moviePosters[0],
+                movieTitles[0],
+                movieQuotes[0],
+                movieOverviews[0],
+                movieReleaseYears[0],
+                movieGenres[0],
+                movieDurations[0],
+                "Released",
+                "English"
+        )
+    }
+
+    fun generateDummyTvShow(tvShowId: String): TvShowEntity? {
+
+        return TvShowEntity(
+                tvShowId,
+                tvShowPosters[0],
+                tvShowTitles[0],
+                tvShowQuotes[0],
+                tvShowOverviews[0],
+                tvShowReleaseYears[0],
+                tvShowGenres[0],
+                tvShowDurations[0],
+                tvShowStatus[0],
+                tvShowOriginalLanguages[0]
+        )
     }
 }

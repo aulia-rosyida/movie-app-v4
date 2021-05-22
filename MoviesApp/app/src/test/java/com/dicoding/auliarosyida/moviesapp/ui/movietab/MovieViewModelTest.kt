@@ -4,8 +4,10 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.dicoding.auliarosyida.moviesapp.model.source.MovieRepository
+import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.MovieEntity
 import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.response.MovieResponse
 import com.dicoding.auliarosyida.moviesapp.utils.DataMovies
+import com.dicoding.auliarosyida.moviesapp.valueobject.ResourceWrapData
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
 import org.junit.Before
@@ -29,7 +31,7 @@ class MovieViewModelTest {
     private lateinit var movieRepository: MovieRepository
 
     @Mock
-    private lateinit var observer: Observer<List<MovieResponse>>
+    private lateinit var observer: Observer<ResourceWrapData<List<MovieEntity>>>
 
     @Before
     fun setUp() {
@@ -38,12 +40,12 @@ class MovieViewModelTest {
     
     @Test
     fun testGetMovies() {
-        val dummyMovies = DataMovies.generateMovies()
-        val movies = MutableLiveData<List<MovieResponse>>()
+        val dummyMovies = ResourceWrapData.success(DataMovies.generateMovies())
+        val movies = MutableLiveData<ResourceWrapData<List<MovieEntity>>>()
         movies.value = dummyMovies
 
         `when`(movieRepository.getAllMovies()).thenReturn(movies)
-        val movieEntities = viewModel.getMovies().value
+        val movieEntities = viewModel.getMovies().value?.data
         verify(movieRepository).getAllMovies()
 
         assertNotNull(movieEntities)

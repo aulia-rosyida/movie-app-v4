@@ -7,7 +7,6 @@ import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.Movie
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.TvShowEntity
 import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.NetworkApiResponse
 import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.RemoteMovieDataSource
-import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.RemoteMovieDataSource.LoadMoviesCallback
 import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.response.MovieResponse
 import com.dicoding.auliarosyida.moviesapp.utils.AppThreadExecutors
 import com.dicoding.auliarosyida.moviesapp.valueobject.ResourceWrapData

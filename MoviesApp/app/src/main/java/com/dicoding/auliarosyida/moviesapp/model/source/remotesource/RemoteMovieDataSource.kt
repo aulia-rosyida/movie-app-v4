@@ -76,10 +76,6 @@ class RemoteMovieDataSource private constructor(private val jsonResponseHelper: 
         return resultDetailTvShow
 
     }
-
-    interface LoadMoviesCallback {
-        fun onAllMoviesReceived(movieResponses: List<MovieResponse>)
-    }
 }
 
 
