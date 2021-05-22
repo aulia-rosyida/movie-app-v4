@@ -55,14 +55,32 @@ class DetailMovieViewModelTest {
         val dummyTestMovie: ResourceWrapData<MovieEntity> = ResourceWrapData.success(dummyMovie)
         val movie: MutableLiveData<ResourceWrapData<MovieEntity>> = MutableLiveData<ResourceWrapData<MovieEntity>>()
         movie.value = dummyTestMovie
+        movie.value?.data?.favorited = false
 
         `when`(movieRepository.getDetailMovie(tempMovieId)).thenReturn(movie)
         viewModel.detailMovie.observeForever(detailObserver)
 
         dummyTestMovie.data?.let {
-            doNothing().`when`(movieRepository).setFavoriteMovie(it, true)
+            doNothing().`when`(movieRepository).setFavoriteMovie(it, !it.favorited)
             viewModel.setFavoriteMovie()
-            verify(movieRepository).setFavoriteMovie(it, true)
+            verify(movieRepository).setFavoriteMovie(it, !it.favorited)
+        }
+    }
+
+    @Test
+    fun testSetUnFavoriteMovie() {
+        val dummyTestMovie: ResourceWrapData<MovieEntity> = ResourceWrapData.success(dummyMovie)
+        val movie: MutableLiveData<ResourceWrapData<MovieEntity>> = MutableLiveData<ResourceWrapData<MovieEntity>>()
+        movie.value = dummyTestMovie
+        movie.value?.data?.favorited = true
+
+        `when`(movieRepository.getDetailMovie(tempMovieId)).thenReturn(movie)
+        viewModel.detailMovie.observeForever(detailObserver)
+
+        dummyTestMovie.data?.let {
+            doNothing().`when`(movieRepository).setFavoriteMovie(it, !it.favorited)
+            viewModel.setFavoriteMovie()
+            verify(movieRepository).setFavoriteMovie(it, !it.favorited)
         }
     }
 }

@@ -6,10 +6,8 @@ import androidx.lifecycle.Observer
 import com.dicoding.auliarosyida.moviesapp.model.source.MovieRepository
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.MovieEntity
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.TvShowEntity
-import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.response.MovieResponse
 import com.dicoding.auliarosyida.moviesapp.utils.DataMovies
 import com.dicoding.auliarosyida.moviesapp.valueobject.ResourceWrapData
-import junit.framework.TestCase
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -55,14 +53,33 @@ class DetailTvShowViewModelTest {
         val dummyTestTvShow: ResourceWrapData<TvShowEntity> = ResourceWrapData.success(dummyTvShow)
         val tvshow: MutableLiveData<ResourceWrapData<TvShowEntity>> = MutableLiveData<ResourceWrapData<TvShowEntity>>()
         tvshow.value = dummyTestTvShow
+        tvshow.value?.data?.favorited = false
 
         Mockito.`when`(movieRepository.getDetailTvShow(tempTvShowId)).thenReturn(tvshow)
         viewModel.detailTvShow.observeForever(detailObserver)
 
         dummyTestTvShow.data?.let {
-            Mockito.doNothing().`when`(movieRepository).setFavoriteTvShow(it, true)
+            Mockito.doNothing().`when`(movieRepository).setFavoriteTvShow(it, !it.favorited)
             viewModel.setFavoriteTvShow()
-            Mockito.verify(movieRepository).setFavoriteTvShow(it, true)
+            Mockito.verify(movieRepository).setFavoriteTvShow(it, !it.favorited)
         }
     }
+
+    @Test
+    fun testUnFavoriteTvShow() {
+        val dummyTestTvShow: ResourceWrapData<TvShowEntity> = ResourceWrapData.success(dummyTvShow)
+        val tvshow: MutableLiveData<ResourceWrapData<TvShowEntity>> = MutableLiveData<ResourceWrapData<TvShowEntity>>()
+        tvshow.value = dummyTestTvShow
+        tvshow.value?.data?.favorited = true
+
+        Mockito.`when`(movieRepository.getDetailTvShow(tempTvShowId)).thenReturn(tvshow)
+        viewModel.detailTvShow.observeForever(detailObserver)
+
+        dummyTestTvShow.data?.let {
+            Mockito.doNothing().`when`(movieRepository).setFavoriteTvShow(it, !it.favorited)
+            viewModel.setFavoriteTvShow()
+            Mockito.verify(movieRepository).setFavoriteTvShow(it, !it.favorited)
+        }
+    }
+
 }
