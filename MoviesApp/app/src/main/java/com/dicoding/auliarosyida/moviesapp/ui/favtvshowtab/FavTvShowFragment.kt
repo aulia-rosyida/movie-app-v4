@@ -40,11 +40,12 @@ class FavTvShowFragment : Fragment() {
             viewModel.getFavoriteTvShows().observe(this, { shows ->
                 binding?.progressbarFavmovie?.visibility = View.GONE
                 adapter.setFavTvShows(shows)
+                adapter.notifyDataSetChanged()
             })
 
-            binding?.rvBookmark?.layoutManager = LinearLayoutManager(context)
-            binding?.rvBookmark?.setHasFixedSize(true)
-            binding?.rvBookmark?.adapter = adapter
+            binding?.rvFavMovie?.layoutManager = LinearLayoutManager(context)
+            binding?.rvFavMovie?.setHasFixedSize(true)
+            binding?.rvFavMovie?.adapter = adapter
         }
     }
 }

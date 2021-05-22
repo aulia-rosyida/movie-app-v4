@@ -1,6 +1,7 @@
 package com.dicoding.auliarosyida.moviesapp.ui.favmovietab
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +16,9 @@ class FavMovieAdapter: RecyclerView.Adapter<FavMovieAdapter.CourseViewHolder>() 
     private val listFavMovies = ArrayList<MovieEntity>()
 
     fun setFavMovies(favMovies: List<MovieEntity>?) {
-        if (favMovies == null) return
+        if (favMovies == null) {
+            return
+        }
         this.listFavMovies.clear()
         this.listFavMovies.addAll(favMovies)
     }
@@ -26,8 +29,8 @@ class FavMovieAdapter: RecyclerView.Adapter<FavMovieAdapter.CourseViewHolder>() 
     }
 
     override fun onBindViewHolder(holder: CourseViewHolder, position: Int) {
-        val course = listFavMovies[position]
-        holder.bind(course)
+        val fav = listFavMovies[position]
+        holder.bind(fav)
     }
 
     override fun getItemCount(): Int = listFavMovies.size

@@ -5,14 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.auliarosyida.moviesapp.databinding.FragmentFavMovieBinding
+import com.dicoding.auliarosyida.moviesapp.valueobject.IndicatorStatus
 import com.dicoding.auliarosyida.moviesapp.viewmodel.VMAppFactory
 
 class FavMovieFragment : Fragment() {
 
-    private var _fragmentFavoriteBinding: FragmentFavMovieBinding? = null
+    private lateinit var _fragmentFavoriteBinding: FragmentFavMovieBinding
     private val binding get() = _fragmentFavoriteBinding
 
     private lateinit var viewModel: FavMovieViewModel
@@ -22,7 +24,7 @@ class FavMovieFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         _fragmentFavoriteBinding = FragmentFavMovieBinding.inflate(inflater, container, false)
-        return binding?.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,15 +35,18 @@ class FavMovieFragment : Fragment() {
             viewModel = ViewModelProvider(this, factory)[FavMovieViewModel::class.java]
 
             adapter = FavMovieAdapter()
-            binding?.progressbarFavmovie?.visibility = View.VISIBLE
+            binding.progressbarFavmovie.visibility = View.VISIBLE
             viewModel.getFavoriteMovies().observe(this, { movies ->
-                binding?.progressbarFavmovie?.visibility = View.GONE
+                binding.progressbarFavmovie.visibility = View.GONE
                 adapter.setFavMovies(movies)
+                adapter.notifyDataSetChanged()
             })
 
-            binding?.rvBookmark?.layoutManager = LinearLayoutManager(context)
-            binding?.rvBookmark?.setHasFixedSize(true)
-            binding?.rvBookmark?.adapter = adapter
+            with(binding){
+                rvFavMovie.layoutManager = LinearLayoutManager(context)
+                rvFavMovie.setHasFixedSize(true)
+                rvFavMovie.adapter = adapter
+            }
         }
     }
 }

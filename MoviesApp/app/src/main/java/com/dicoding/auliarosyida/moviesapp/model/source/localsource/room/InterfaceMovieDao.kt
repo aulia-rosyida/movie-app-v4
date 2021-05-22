@@ -16,10 +16,10 @@ interface InterfaceMovieDao {
     fun getFavoritedMovies(): LiveData<List<MovieEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovies(courses: List<MovieEntity>)
+    fun insertMovies(movies: List<MovieEntity>)
 
     @Update
-    fun updateMovie(course: MovieEntity)
+    fun updateMovie(movie: MovieEntity)
 
     @Query("SELECT * FROM movieentities WHERE movieId = :movieId")
     fun getMovieById(movieId: String): LiveData<MovieEntity>
@@ -31,10 +31,10 @@ interface InterfaceMovieDao {
     fun getFavoritedTvShows(): LiveData<List<TvShowEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTvShows(courses: List<TvShowEntity>)
+    fun insertTvShows(tvShows: List<TvShowEntity>)
 
     @Update
-    fun updateTvShow(course: TvShowEntity)
+    fun updateTvShow(tvShow: TvShowEntity)
 
     @Query("SELECT * FROM tvshowentities WHERE tvShowId = :tvShowId")
     fun getTvShowById(tvShowId: String): LiveData<TvShowEntity>

@@ -108,7 +108,7 @@ class DetailMovieActivity : AppCompatActivity() {
                         IndicatorStatus.SUCCESS -> if (detailMovie.data != null) {
                             progressbarDetailContent.visibility = View.GONE
                             val state = detailMovie.data.favorited
-                            setBookmarkState(state)
+                            setFavoriteState(state)
                         }
                         IndicatorStatus.ERROR -> {
                             progressbarDetailContent.visibility = View.GONE
@@ -127,7 +127,7 @@ class DetailMovieActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-    private fun setBookmarkState(state: Boolean) {
+    private fun setFavoriteState(state: Boolean) {
         if (menu == null) return
         val menuItem = menu?.findItem(R.id.action_favorite)
         if (state) {
