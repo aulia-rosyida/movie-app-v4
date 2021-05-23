@@ -3,7 +3,9 @@ package com.dicoding.auliarosyida.moviesapp.ui.tvshowtab
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import com.dicoding.auliarosyida.moviesapp.model.source.MovieRepository
+import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.MovieEntity
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.TvShowEntity
 import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.response.MovieResponse
 import com.dicoding.auliarosyida.moviesapp.utils.DataMovies
@@ -31,7 +33,10 @@ class TvShowViewModelTest {
     private lateinit var movieRepository: MovieRepository
 
     @Mock
-    private lateinit var tvShowObserver: Observer<ResourceWrapData<List<TvShowEntity>>>
+    private lateinit var tvShowObserver: Observer<ResourceWrapData<PagedList<TvShowEntity>>>
+
+    @Mock
+    private lateinit var pagedListTvShows: PagedList<TvShowEntity>
 
     @Before
     fun setUp() {
@@ -40,8 +45,9 @@ class TvShowViewModelTest {
 
     @Test
     fun testGetTvShows() {
-        val dummyTvShows = ResourceWrapData.success(DataMovies.generateTvShows())
-        val tvShows = MutableLiveData<ResourceWrapData<List<TvShowEntity>>>()
+        val dummyTvShows = ResourceWrapData.success(pagedListTvShows)
+        `when`(dummyTvShows.data?.size).thenReturn(10)
+        val tvShows = MutableLiveData<ResourceWrapData<PagedList<TvShowEntity>>>()
         tvShows.value = dummyTvShows
 
         `when`(movieRepository.getAllTvShows()).thenReturn(tvShows)

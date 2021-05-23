@@ -3,6 +3,7 @@ package com.dicoding.auliarosyida.moviesapp.ui.movietab
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import com.dicoding.auliarosyida.moviesapp.model.source.MovieRepository
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.MovieEntity
 import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.response.MovieResponse
@@ -31,7 +32,10 @@ class MovieViewModelTest {
     private lateinit var movieRepository: MovieRepository
 
     @Mock
-    private lateinit var observer: Observer<ResourceWrapData<List<MovieEntity>>>
+    private lateinit var observer: Observer<ResourceWrapData<PagedList<MovieEntity>>>
+
+    @Mock
+    private lateinit var pagedListMovies: PagedList<MovieEntity>
 
     @Before
     fun setUp() {
@@ -40,8 +44,9 @@ class MovieViewModelTest {
     
     @Test
     fun testGetMovies() {
-        val dummyMovies = ResourceWrapData.success(DataMovies.generateMovies())
-        val movies = MutableLiveData<ResourceWrapData<List<MovieEntity>>>()
+        val dummyMovies = ResourceWrapData.success(pagedListMovies)
+        `when`(dummyMovies.data?.size).thenReturn(10)
+        val movies = MutableLiveData<ResourceWrapData<PagedList<MovieEntity>>>()
         movies.value = dummyMovies
 
         `when`(movieRepository.getAllMovies()).thenReturn(movies)
