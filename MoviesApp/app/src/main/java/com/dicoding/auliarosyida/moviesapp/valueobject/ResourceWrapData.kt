@@ -1,7 +1,5 @@
 package com.dicoding.auliarosyida.moviesapp.valueobject
 
-import com.bumptech.glide.load.engine.Resource
-
 data class ResourceWrapData <T>(val status: IndicatorStatus, val data: T?, val message: String?) {
     companion object {
         fun <T> success(data: T?): ResourceWrapData<T> = ResourceWrapData(IndicatorStatus.SUCCESS, data, null)

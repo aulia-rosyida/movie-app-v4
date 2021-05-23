@@ -5,11 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.auliarosyida.moviesapp.databinding.FragmentFavMovieBinding
-import com.dicoding.auliarosyida.moviesapp.valueobject.IndicatorStatus
 import com.dicoding.auliarosyida.moviesapp.viewmodel.VMAppFactory
 
 class FavMovieFragment : Fragment() {
@@ -21,7 +19,7 @@ class FavMovieFragment : Fragment() {
     private lateinit var adapter: FavMovieAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         _fragmentFavoriteBinding = FragmentFavMovieBinding.inflate(inflater, container, false)
         return binding.root

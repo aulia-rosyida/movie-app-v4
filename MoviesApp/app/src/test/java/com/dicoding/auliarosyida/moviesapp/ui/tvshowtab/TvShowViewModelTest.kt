@@ -5,10 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import com.dicoding.auliarosyida.moviesapp.model.source.MovieRepository
-import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.MovieEntity
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.TvShowEntity
-import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.response.MovieResponse
-import com.dicoding.auliarosyida.moviesapp.utils.DataMovies
 import com.dicoding.auliarosyida.moviesapp.valueobject.ResourceWrapData
 import junit.framework.TestCase
 import org.junit.Before

@@ -2,7 +2,6 @@ package com.dicoding.auliarosyida.moviesapp.model.source
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.bumptech.glide.load.engine.Resource
 import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.NetworkApiResponse
 import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.StatusNetworkResponse
 import com.dicoding.auliarosyida.moviesapp.utils.AppThreadExecutors
@@ -30,7 +29,7 @@ abstract class NetworkBoundLocalRemoteResource <ResultType, RequestType>(private
         }
     }
 
-    protected fun onFetchFailed() {}
+    private fun onFetchFailed() {}
 
     protected abstract fun loadFromDB(): LiveData<ResultType>
 

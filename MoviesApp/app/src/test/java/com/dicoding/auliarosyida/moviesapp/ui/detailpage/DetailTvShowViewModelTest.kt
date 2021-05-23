@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.dicoding.auliarosyida.moviesapp.model.source.MovieRepository
-import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.MovieEntity
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.TvShowEntity
 import com.dicoding.auliarosyida.moviesapp.utils.DataMovies
 import com.dicoding.auliarosyida.moviesapp.valueobject.ResourceWrapData

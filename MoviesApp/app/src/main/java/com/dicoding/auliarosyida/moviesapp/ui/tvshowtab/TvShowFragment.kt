@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.auliarosyida.moviesapp.databinding.TvShowFragmentBinding
-import com.dicoding.auliarosyida.moviesapp.ui.movietab.MovieAdapter
 import com.dicoding.auliarosyida.moviesapp.valueobject.IndicatorStatus
 import com.dicoding.auliarosyida.moviesapp.viewmodel.VMAppFactory
 

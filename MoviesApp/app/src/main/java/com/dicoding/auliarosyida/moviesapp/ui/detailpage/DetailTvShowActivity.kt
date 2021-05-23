@@ -14,7 +14,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.dicoding.auliarosyida.moviesapp.R
 import com.dicoding.auliarosyida.moviesapp.databinding.ActivityDetailBinding
 import com.dicoding.auliarosyida.moviesapp.databinding.ContentDetailMovieBinding
-import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.MovieEntity
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.TvShowEntity
 import com.dicoding.auliarosyida.moviesapp.valueobject.IndicatorStatus
 import com.dicoding.auliarosyida.moviesapp.viewmodel.VMAppFactory

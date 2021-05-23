@@ -3,7 +3,6 @@ package com.dicoding.auliarosyida.moviesapp.model.source
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import com.bumptech.glide.load.engine.Resource
 import com.dicoding.auliarosyida.moviesapp.model.FakeMovieRepository
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.LocalMovieDataSource
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.MovieEntity

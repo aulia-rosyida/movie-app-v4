@@ -4,8 +4,6 @@ class NetworkApiResponse<T>(val status: StatusNetworkResponse, val body: T, val 
     companion object {
         fun <T> success(body: T): NetworkApiResponse<T> = NetworkApiResponse(StatusNetworkResponse.SUCCESS, body, null)
 
-        fun <T> empty(msg: String, body: T): NetworkApiResponse<T> = NetworkApiResponse(StatusNetworkResponse.EMPTY, body, msg)
-
         fun <T> error(msg: String, body: T): NetworkApiResponse<T> = NetworkApiResponse(StatusNetworkResponse.ERROR, body, msg)
     }
 }

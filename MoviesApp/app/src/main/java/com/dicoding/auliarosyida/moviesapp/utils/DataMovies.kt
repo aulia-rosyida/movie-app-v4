@@ -288,7 +288,7 @@ object DataMovies {
         return remoteTvShows
     }
 
-    fun generateDummyMovie(movieId: String): MovieEntity? {
+    fun generateDummyMovie(movieId: String): MovieEntity {
 
         return MovieEntity(
                 movieId,
@@ -304,7 +304,7 @@ object DataMovies {
         )
     }
 
-    fun generateDummyTvShow(tvShowId: String): TvShowEntity? {
+    fun generateDummyTvShow(tvShowId: String): TvShowEntity {
 
         return TvShowEntity(
                 tvShowId,
