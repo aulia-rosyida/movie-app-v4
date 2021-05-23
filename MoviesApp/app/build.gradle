@@ -52,6 +52,7 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v4:$androidXLegacyVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$androidXLifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidXLifecycleVersion"
+    implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"
 
     //Db
     implementation "com.google.code.gson:gson:$gsonVersion"
