@@ -3,6 +3,8 @@ package com.dicoding.auliarosyida.moviesapp.ui.favtvshowtab
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -11,14 +13,19 @@ import com.dicoding.auliarosyida.moviesapp.databinding.ItemsMovieBinding
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.TvShowEntity
 import com.dicoding.auliarosyida.moviesapp.ui.detailpage.DetailTvShowActivity
 
-class FavTvShowAdapter: RecyclerView.Adapter<FavTvShowAdapter.CourseViewHolder>() {
-    private val listFavShows = ArrayList<TvShowEntity>()
+class FavTvShowAdapter: PagedListAdapter<TvShowEntity, FavTvShowAdapter.CourseViewHolder>(DIFF_CALLBACK) {
 
-    fun setFavTvShows(favShows: List<TvShowEntity>?) {
-        if (favShows == null) return
-        this.listFavShows.clear()
-        this.listFavShows.addAll(favShows)
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TvShowEntity>() {
+            override fun areItemsTheSame(oldItem: TvShowEntity, newItem: TvShowEntity): Boolean {
+                return oldItem.tvShowId == newItem.tvShowId
+            }
+            override fun areContentsTheSame(oldItem: TvShowEntity, newItem: TvShowEntity): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseViewHolder {
         val itemsFavMoviesBinding = ItemsMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -26,11 +33,11 @@ class FavTvShowAdapter: RecyclerView.Adapter<FavTvShowAdapter.CourseViewHolder>(
     }
 
     override fun onBindViewHolder(holder: CourseViewHolder, position: Int) {
-        val course = listFavShows[position]
-        holder.bind(course)
+        val tvshow = getItem(position)
+        if (tvshow != null) {
+            holder.bind(tvshow)
+        }
     }
-
-    override fun getItemCount(): Int = listFavShows.size
 
     inner class CourseViewHolder(private val binding: ItemsMovieBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(show: TvShowEntity) {
