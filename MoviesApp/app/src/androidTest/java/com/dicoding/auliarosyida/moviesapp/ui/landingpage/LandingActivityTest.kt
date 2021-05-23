@@ -1,5 +1,6 @@
 package com.dicoding.auliarosyida.moviesapp.ui.landingpage
 
+import androidx.test.espresso.matcher.ViewMatchers.hasChildCount
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
@@ -70,25 +71,34 @@ class LandingActivityTest {
         onView(withText(R.string.fav_movies)).check(matches(isDisplayed()))
         onView(withText(R.string.fav_movies)).perform(click())
         onView(withId(R.id.rv_fav_movie)).check(matches(isDisplayed()))
-        onView(withId(R.id.rv_fav_movie)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
+        onView(withId(R.id.rv_fav_movie)).check(matches(hasChildCount(0)))
     }
 
     @Test
-    fun SetFavoriteMovieAndUnfavorite() {
+    fun setFavoriteMovieAndUnfavorite() {
         onView(withId(R.id.rv_movie)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_movie)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+
         onView(withId(R.id.action_favorite)).check(matches(isDisplayed()))
         onView(withId(R.id.action_favorite)).perform(click())
         onView(isRoot()).perform(ViewActions.pressBack())
 
+        onView(withText(R.string.fav_movies)).check(matches(isDisplayed()))
         onView(withText(R.string.fav_movies)).perform(click())
         onView(withId(R.id.rv_fav_movie)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_fav_movie)).check(matches(hasChildCount(1)))
         onView(withId(R.id.rv_fav_movie)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+
         onView(withId(R.id.text_title)).check(matches(isDisplayed()))
         onView(withId(R.id.text_overview)).check(matches(isDisplayed()))
         onView(withId(R.id.action_favorite)).check(matches(isDisplayed()))
         onView(withId(R.id.action_favorite)).perform(click())
         onView(isRoot()).perform(ViewActions.pressBack())
+
+        onView(withText(R.string.fav_movies)).check(matches(isDisplayed()))
+        onView(withText(R.string.fav_movies)).perform(click())
+        onView(withId(R.id.rv_fav_movie)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_fav_movie)).check(matches(hasChildCount(0)))
     }
 
     @Test
@@ -130,11 +140,11 @@ class LandingActivityTest {
         onView(withText(R.string.fav_tvshows)).check(matches(isDisplayed()))
         onView(withText(R.string.fav_tvshows)).perform(click())
         onView(withId(R.id.rv_fav_tvshow)).check(matches(isDisplayed()))
-        onView(withId(R.id.rv_fav_tvshow)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
+        onView(withId(R.id.rv_fav_tvshow)).check(matches(hasChildCount(0)))
     }
 
     @Test
-    fun SetFavoriteTvShowAndUnfavorite() {
+    fun setFavoriteTvShowAndUnfavorite() {
         onView(withText(R.string.tvshow)).check(matches(isDisplayed()))
         onView(withText(R.string.tvshow)).perform(click())
         onView(withId(R.id.rv_tvshow)).check(matches(isDisplayed()))
@@ -147,11 +157,18 @@ class LandingActivityTest {
         onView(withText(R.string.fav_tvshows)).check(matches(isDisplayed()))
         onView(withText(R.string.fav_tvshows)).perform(click())
         onView(withId(R.id.rv_fav_tvshow)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_fav_tvshow)).check(matches(hasChildCount(1)))
         onView(withId(R.id.rv_fav_tvshow)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+
         onView(withId(R.id.text_title)).check(matches(isDisplayed()))
         onView(withId(R.id.text_overview)).check(matches(isDisplayed()))
         onView(withId(R.id.action_favorite)).check(matches(isDisplayed()))
         onView(withId(R.id.action_favorite)).perform(click())
         onView(isRoot()).perform(ViewActions.pressBack())
+
+        onView(withText(R.string.fav_tvshows)).check(matches(isDisplayed()))
+        onView(withText(R.string.fav_tvshows)).perform(click())
+        onView(withId(R.id.rv_fav_tvshow)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_fav_tvshow)).check(matches(hasChildCount(0)))
     }
 }
