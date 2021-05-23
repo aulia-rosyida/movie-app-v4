@@ -4,16 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.MovieEntity
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.TvShowEntity
-import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.response.MovieResponse
+import androidx.paging.DataSource
 
 @Dao
 interface InterfaceMovieDao {
 
     @Query("SELECT * FROM movieentities")
-    fun getMovies(): LiveData<List<MovieEntity>>
+    fun getMovies(): DataSource.Factory<Int, MovieEntity>
 
     @Query("SELECT * FROM movieentities where favorited = 1")
-    fun getFavoritedMovies(): LiveData<List<MovieEntity>>
+    fun getFavoritedMovies(): DataSource.Factory<Int, MovieEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovies(movies: List<MovieEntity>)
@@ -25,10 +25,10 @@ interface InterfaceMovieDao {
     fun getMovieById(movieId: String): LiveData<MovieEntity>
 
     @Query("SELECT * FROM tvshowentities")
-    fun getTvShows(): LiveData<List<TvShowEntity>>
+    fun getTvShows(): DataSource.Factory<Int, TvShowEntity>
 
     @Query("SELECT * FROM tvshowentities where favorited = 1")
-    fun getFavoritedTvShows(): LiveData<List<TvShowEntity>>
+    fun getFavoritedTvShows(): DataSource.Factory<Int, TvShowEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTvShows(tvShows: List<TvShowEntity>)
