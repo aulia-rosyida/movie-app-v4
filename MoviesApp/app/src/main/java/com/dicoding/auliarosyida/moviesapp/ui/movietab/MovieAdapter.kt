@@ -45,17 +45,12 @@ class MovieAdapter: PagedListAdapter<MovieEntity, MovieAdapter.CourseViewHolder>
     class CourseViewHolder(private val binding: ItemsMovieBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: MovieEntity) {
             with(binding) {
-//                Glide.with(itemView.context)
-//                        .load(movie.poster)
-//                        .apply(RequestOptions.placeholderOf(R.drawable.ic_loading)
-//                                .error(R.drawable.ic_error))
-//                        .into(imgPoster)
 
                 movie.poster?.let {
                     imgPoster.loadFromUrl(BuildConfig.TMDB_URL_IMAGE + ConstHelper.SIZE_POSTER + it)
                 }
                 tvItemTitle.text = movie.title
-                tvItemDuration.text = movie.duration
+                tvItemDuration.text = movie.releaseYear?.subSequence(0,4)
                 tvItemQuotes.text = movie.quote
 
                 itemView.setOnClickListener {

@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
 data class MovieResponse(
     @SerializedName("id")
     var id: String = "",
-    @SerializedName("poster")
+    @SerializedName("poster_path")
     var poster: String = "",
     @SerializedName("title")
     var title: String = "",
@@ -16,14 +16,23 @@ data class MovieResponse(
     var quote: String = "",
     @SerializedName("overview")
     var overview: String = "",
-    @SerializedName("releaseYear")
+    @SerializedName("release_date")
     var releaseYear: String = "",
-    @SerializedName("genre")
-    var genre: String = "",
+//    @SerializedName("genre_ids")
+//    var genreIds: ArrayList<>,
     @SerializedName("duration")
     var duration: String = "",
     @SerializedName("status")
     var status: String = "",
-    @SerializedName("originalLanguage")
+    @SerializedName("original_language")
     var originalLanguage: String = ""
 ) : Parcelable
+
+@Parcelize
+data class Genre (
+    @SerializedName("id")
+    var id: String = "",
+
+    @SerializedName("name")
+    var name: String? = "",
+        ): Parcelable

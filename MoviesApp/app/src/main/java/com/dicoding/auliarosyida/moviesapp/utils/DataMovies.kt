@@ -117,24 +117,24 @@ object DataMovies {
             return listMovieData
     }
 
-    fun generateRemoteDummyMovies(): List<MovieResponse> {
-        val remoteMovies = ArrayList<MovieResponse>()
-        for (position in moviePosters.indices) {
-            val movie = MovieResponse()
-            movie.id = movieId[position]
-            movie.poster = moviePosters[position]
-            movie.title = movieTitles[position]
-            movie.quote = movieQuotes[position]
-            movie.overview = movieOverviews[position]
-            movie.releaseYear = movieReleaseYears[position]
-            movie.genre = movieGenres[position]
-            movie.duration = movieDurations[position]
-            movie.status = "Released"
-            movie.originalLanguage = "English"
-            remoteMovies.add(movie)
-        }
-        return remoteMovies
-    }
+//    fun generateRemoteDummyMovies(): List<MovieResponse> {
+//        val remoteMovies = ArrayList<MovieResponse>()
+//        for (position in moviePosters.indices) {
+//            val movie = MovieResponse()
+//            movie.id = movieId[position]
+//            movie.poster = moviePosters[position]
+//            movie.title = movieTitles[position]
+//            movie.quote = movieQuotes[position]
+//            movie.overview = movieOverviews[position]
+//            movie.releaseYear = movieReleaseYears[position]
+//            movie.genre = movieGenres[position]
+//            movie.duration = movieDurations[position]
+//            movie.status = "Released"
+//            movie.originalLanguage = "English"
+//            remoteMovies.add(movie)
+//        }
+//        return remoteMovies
+//    }
 
     fun generateDummyMovie(movieId: String): MovieEntity {
 

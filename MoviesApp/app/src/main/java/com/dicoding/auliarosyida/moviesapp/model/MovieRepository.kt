@@ -59,10 +59,10 @@ class MovieRepository private constructor(private val remoteMovieDataSource: Rem
                     val movie = MovieEntity(response.id,
                             response.poster,
                             response.title,
-                            response.quote,
+                            response.title,
                             response.overview,
                             response.releaseYear,
-                            response.genre,
+                            "",
                             response.duration,
                             response.status,
                             response.originalLanguage)
@@ -88,13 +88,16 @@ class MovieRepository private constructor(private val remoteMovieDataSource: Rem
                 remoteMovieDataSource.getDetailMovie(movieId)
 
             override fun saveCallResult(data: MovieResponse) {
+                val genreBuilder = StringBuilder()
+//                data.genreIds?.forEach { g -> genreBuilder.append(g) }
+
                 val movie = MovieEntity(data.id,
                         data.poster,
                         data.title,
                         data.quote,
                         data.overview,
                         data.releaseYear,
-                        data.genre,
+                        genreBuilder.toString(),
                         data.duration,
                         data.status,
                         data.originalLanguage)
