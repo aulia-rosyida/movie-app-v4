@@ -105,7 +105,6 @@ class DetailMovieActivity : AppCompatActivity() {
                         IndicatorStatus.SUCCESS -> if (detailMovie.data != null) {
                             progressbarDetailContent.visibility = View.GONE
                             val state = detailMovie.data.favorited
-                            Log.d("detailllll", "ini state awal $state")
                             setFavoriteState(state)
                         }
                         IndicatorStatus.ERROR -> {
@@ -120,7 +119,6 @@ class DetailMovieActivity : AppCompatActivity() {
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_favorite) {
-            Log.d("Detail", "lovenya ke klik lhoooo")
             detailMovieViewModel.setFavoriteMovie()
             return true
         }
@@ -130,10 +128,8 @@ class DetailMovieActivity : AppCompatActivity() {
         if (menu == null) return
         val menuItem = menu?.findItem(R.id.action_favorite)
         if (state) {
-            Log.d("Detail", "loved clicked yuhuuuu")
             menuItem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_full_favorite_24)
         } else {
-            Log.d("Detail", "unloved clicked :(")
             menuItem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_border_24)
         }
     }

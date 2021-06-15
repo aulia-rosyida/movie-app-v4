@@ -67,7 +67,6 @@ class RemoteMovieDataSource private constructor(private val apiService: ApiServi
                 response: Response<MovieResponse>
             ) {
                 val dataArray = response.body()
-                Log.d("REMOTE SOURCE", "DETAILLLL : $dataArray")
                 resultDetailMovie.value = if (dataArray != null) ApiResponse.Success(dataArray) else ApiResponse.Empty
             }
 

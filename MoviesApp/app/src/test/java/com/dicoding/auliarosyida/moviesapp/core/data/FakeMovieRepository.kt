@@ -78,7 +78,6 @@ class FakeMovieRepository (private val remoteMovieDataSource: RemoteMovieDataSou
                 remoteMovieDataSource.getDetailMovie(movieId)
 
             override fun saveCallResult(data: MovieResponse) {
-                Log.d("MOVIE REPO DETAIL", "$data")
                 val genreBuilder = StringBuilder()
                 data.genreIds.forEachIndexed { idx, g ->
                     if(idx == 0) genreBuilder.append(g.name)
