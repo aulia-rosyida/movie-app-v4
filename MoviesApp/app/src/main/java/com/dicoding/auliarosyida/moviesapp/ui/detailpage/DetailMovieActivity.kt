@@ -11,10 +11,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.dicoding.auliarosyida.moviesapp.BuildConfig
 import com.dicoding.auliarosyida.moviesapp.R
 import com.dicoding.auliarosyida.moviesapp.databinding.ActivityDetailBinding
 import com.dicoding.auliarosyida.moviesapp.databinding.ContentDetailMovieBinding
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.MovieEntity
+import com.dicoding.auliarosyida.moviesapp.utils.ConstHelper
+import com.dicoding.auliarosyida.moviesapp.utils.loadFromUrl
 import com.dicoding.auliarosyida.moviesapp.valueobject.IndicatorStatus
 import com.dicoding.auliarosyida.moviesapp.viewmodel.VMAppFactory
 
@@ -74,17 +77,15 @@ class DetailMovieActivity : AppCompatActivity() {
     }
 
     private fun populateCard(entity: MovieEntity) {
-        Glide.with(this)
-            .load(entity.poster)
-            .transform(RoundedCorners(20))
-            .apply(RequestOptions.placeholderOf(R.drawable.ic_loading)
-                .error(R.drawable.ic_error))
-            .into(detailContentBinding.imagePoster)
+
+        entity.poster?.let {
+            detailContentBinding.imagePoster.loadFromUrl(BuildConfig.TMDB_URL_IMAGE + ConstHelper.SIZE_POSTER + it)
+        }
 
         detailContentBinding.apply {
             progressbarDetailContent.visibility = View.GONE
-            textYear.text = entity.releaseYear
-            textDuration.text = entity.duration
+            textYear.text = entity.releaseYear?.subSequence(0,4)
+            textDuration.text = "${entity.duration}m"
             textTitle.text = entity.title
             textGenre.text = entity.genre
 

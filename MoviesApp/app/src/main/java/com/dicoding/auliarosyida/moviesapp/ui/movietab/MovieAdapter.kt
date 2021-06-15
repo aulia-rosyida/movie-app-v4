@@ -50,7 +50,7 @@ class MovieAdapter: PagedListAdapter<MovieEntity, MovieAdapter.CourseViewHolder>
                     imgPoster.loadFromUrl(BuildConfig.TMDB_URL_IMAGE + ConstHelper.SIZE_POSTER + it)
                 }
                 tvItemTitle.text = movie.title
-                tvItemDuration.text = movie.releaseYear?.subSequence(0,4)
+                tvItemReleaseYear.text = movie.releaseYear?.subSequence(0,4)
                 tvItemQuotes.text = movie.quote
 
                 itemView.setOnClickListener {

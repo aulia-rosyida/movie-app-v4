@@ -12,16 +12,16 @@ data class MovieResponse(
     var poster: String = "",
     @SerializedName("title")
     var title: String = "",
-    @SerializedName("quote")
+    @SerializedName("tagline")
     var quote: String = "",
     @SerializedName("overview")
     var overview: String = "",
     @SerializedName("release_date")
     var releaseYear: String = "",
-//    @SerializedName("genre_ids")
-//    var genreIds: ArrayList<>,
-    @SerializedName("duration")
-    var duration: String = "",
+    @SerializedName("genres")
+    var genreIds: ArrayList<Genre>,
+    @SerializedName("runtime")
+    var duration: String = "0m",
     @SerializedName("status")
     var status: String = "",
     @SerializedName("original_language")

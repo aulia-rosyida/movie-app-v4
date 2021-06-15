@@ -1,5 +1,6 @@
 package com.dicoding.auliarosyida.moviesapp.model
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
@@ -82,19 +83,26 @@ class MovieRepository private constructor(private val remoteMovieDataSource: Rem
                 localMovieDataSource.getDetailMovie(movieId)
 
             override fun shouldFetch(data : MovieEntity?): Boolean =
-                data == null
+                data != null
 
             public override fun createCall(): LiveData<ApiResponse<MovieResponse>> =
                 remoteMovieDataSource.getDetailMovie(movieId)
 
             override fun saveCallResult(data: MovieResponse) {
+                Log.d("MOVIE REPO DETAIL", "$data")
                 val genreBuilder = StringBuilder()
-//                data.genreIds?.forEach { g -> genreBuilder.append(g) }
+                data.genreIds?.forEachIndexed { idx, g ->
+                    if(idx == 0) genreBuilder.append(g.name)
+                    else genreBuilder.append(", ${g.name}")
+                }
+                var tempQuote =
+                    if (data.quote.isNullOrEmpty()) data.title
+                    else data.quote
 
                 val movie = MovieEntity(data.id,
                         data.poster,
                         data.title,
-                        data.quote,
+                        tempQuote,
                         data.overview,
                         data.releaseYear,
                         genreBuilder.toString(),
