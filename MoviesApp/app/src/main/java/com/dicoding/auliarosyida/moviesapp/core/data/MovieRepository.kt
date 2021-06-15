@@ -58,14 +58,20 @@ class MovieRepository private constructor(private val remoteMovieDataSource: Rem
         }.asLiveData()
     }
 
-    override fun getDetailMovie(movieId: String): LiveData<ResourceWrapData<MovieEntity>> {
+    override fun getDetailMovie(movieId: String): LiveData<ResourceWrapData<Movie>> {
 
-        return object : NetworkBoundLocalRemoteResource<MovieEntity, MovieResponse>(appThreadExecutors) {
+        return object : NetworkBoundLocalRemoteResource<Movie, MovieResponse>(appThreadExecutors) {
 
-            public override fun loadFromDB(): LiveData<MovieEntity> =
-                localMovieDataSource.getDetailMovie(movieId)
+            public override fun loadFromDB(): LiveData<Movie> {
+                return Transformations.map(localMovieDataSource.getDetailMovie(movieId)) {
+                    var tempArrayEntity = ArrayList<MovieEntity>()
+                    tempArrayEntity.add(it)
+                    val movieDomain = DataMapperHelper.mapEntitiesToDomain(tempArrayEntity)
+                    movieDomain[0]
+                }
+            }
 
-            override fun shouldFetch(data : MovieEntity?): Boolean =
+            override fun shouldFetch(data : Movie?): Boolean =
                     data == null || data.title == data.quote || data.duration == null
 
             public override fun createCall(): LiveData<ApiResponse<MovieResponse>> =

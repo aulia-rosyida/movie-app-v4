@@ -2,7 +2,6 @@ package com.dicoding.auliarosyida.moviesapp.core.ui.detailpage
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -14,6 +13,7 @@ import com.dicoding.auliarosyida.moviesapp.R
 import com.dicoding.auliarosyida.moviesapp.databinding.ActivityDetailBinding
 import com.dicoding.auliarosyida.moviesapp.databinding.ContentDetailMovieBinding
 import com.dicoding.auliarosyida.moviesapp.core.data.source.localsource.entity.MovieEntity
+import com.dicoding.auliarosyida.moviesapp.core.domain.model.Movie
 import com.dicoding.auliarosyida.moviesapp.core.utils.ConstHelper
 import com.dicoding.auliarosyida.moviesapp.core.utils.loadFromUrl
 import com.dicoding.auliarosyida.moviesapp.valueobject.IndicatorStatus
@@ -50,17 +50,16 @@ class DetailMovieActivity : AppCompatActivity() {
             val tempId = extras.getString(extraMovie)
             if (tempId != null ) {
 
-                detailMovieViewModel.setSelectedDetail(tempId)
-                detailMovieViewModel.detailMovie.observe(this, { detailEntity ->
+                detailMovieViewModel.detailMovie.observe(this, { detailDomain ->
 
-                    if (detailEntity != null) {
+                    if (detailDomain != null) {
                         detailContentBinding.apply{
-                            when (detailEntity.status) {
+                            when (detailDomain.status) {
                                 IndicatorStatus.LOADING -> progressbarDetailContent.visibility = View.VISIBLE
                                 IndicatorStatus.SUCCESS ->
-                                    if (detailEntity.data != null) {
+                                    if (detailDomain.data != null) {
                                         progressbarDetailContent.visibility = View.VISIBLE
-                                        populateCard(detailEntity.data)
+                                        populateCard(detailDomain.data)
                                     }
                                 IndicatorStatus.ERROR -> {
                                     progressbarDetailContent.visibility = View.GONE
@@ -74,7 +73,7 @@ class DetailMovieActivity : AppCompatActivity() {
         }
     }
 
-    private fun populateCard(entity: MovieEntity) {
+    private fun populateCard(entity: Movie) {
 
         entity.poster?.let {
             detailContentBinding.imagePoster.loadFromUrl(BuildConfig.TMDB_URL_IMAGE + ConstHelper.SIZE_POSTER + it)
@@ -105,7 +104,7 @@ class DetailMovieActivity : AppCompatActivity() {
                         IndicatorStatus.SUCCESS -> if (detailMovie.data != null) {
                             progressbarDetailContent.visibility = View.GONE
                             val state = detailMovie.data.favorited
-                            setFavoriteState(state)
+                            setFavoriteState(detailMovie.data, state)
                         }
                         IndicatorStatus.ERROR -> {
                             progressbarDetailContent.visibility = View.GONE
@@ -117,16 +116,16 @@ class DetailMovieActivity : AppCompatActivity() {
         })
         return true
     }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_favorite) {
-            detailMovieViewModel.setFavoriteMovie()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
-    private fun setFavoriteState(state: Boolean) {
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        if (item.itemId == R.id.action_favorite) {
+//            return true
+//        }
+//        return super.onOptionsItemSelected(item)
+//    }
+    private fun setFavoriteState(movie: Movie, state: Boolean) {
         if (menu == null) return
         val menuItem = menu?.findItem(R.id.action_favorite)
+        detailMovieViewModel.setFavoriteMovie(movie, state)
         if (state) {
             menuItem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_full_favorite_24)
         } else {

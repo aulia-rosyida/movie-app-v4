@@ -15,5 +15,5 @@ data class Movie(
     var duration: String? = "0m",
     var status: String? = "",
     var originalLanguage: String? = "",
-    val favorited: Boolean
+    val favorited: Boolean = false
 ) : Parcelable

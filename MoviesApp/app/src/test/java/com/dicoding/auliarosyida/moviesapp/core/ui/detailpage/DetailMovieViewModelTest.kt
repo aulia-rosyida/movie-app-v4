@@ -60,7 +60,7 @@ class DetailMovieViewModelTest {
 
         dummyTestMovie.data?.let {
             doNothing().`when`(movieRepository).setFavoriteMovie(it, !it.favorited)
-            viewModel.setFavoriteMovie()
+            viewModel.setFavoriteMovie(movie, state)
             verify(movieRepository).setFavoriteMovie(it, !it.favorited)
         }
     }
@@ -77,7 +77,7 @@ class DetailMovieViewModelTest {
 
         dummyTestMovie.data?.let {
             doNothing().`when`(movieRepository).setFavoriteMovie(it, !it.favorited)
-            viewModel.setFavoriteMovie()
+            viewModel.setFavoriteMovie(movie, state)
             verify(movieRepository).setFavoriteMovie(it, !it.favorited)
         }
     }
