@@ -15,15 +15,13 @@ class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager) :
 
     companion object {
         @StringRes
-        private val TAB_TITLES = intArrayOf(R.string.movies, R.string.tvshow, R.string.fav_movies, R.string.fav_tvshows)
+        private val TAB_TITLES = intArrayOf(R.string.movies, R.string.fav_movies)
     }
 
     override fun getItem(position: Int): Fragment =
             when (position) {
                 0 -> MovieFragment()
-                1 -> TvShowFragment()
-                2 -> FavMovieFragment()
-                3 -> FavTvShowFragment()
+                1 -> FavMovieFragment()
                 else -> Fragment()
             }
 
