@@ -9,10 +9,10 @@ import androidx.paging.DataSource
 interface InterfaceMovieDao {
 
     @Query("SELECT * FROM movieentities")
-    fun getMovies(): DataSource.Factory<Int, MovieEntity>
+    fun getMovies(): LiveData<List<MovieEntity>>
 
     @Query("SELECT * FROM movieentities where favorited = 1")
-    fun getFavoritedMovies(): DataSource.Factory<Int, MovieEntity>
+    fun getFavoritedMovies(): LiveData<List<MovieEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovies(movies: List<MovieEntity>)

@@ -1,13 +1,11 @@
 package com.dicoding.auliarosyida.moviesapp.core.data
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.dicoding.auliarosyida.moviesapp.core.data.source.InterfaceMovieDataSource
+import com.dicoding.auliarosyida.moviesapp.core.domain.repository.InterfaceMovieRepository
 import com.dicoding.auliarosyida.moviesapp.core.data.source.localsource.LocalMovieDataSource
 import com.dicoding.auliarosyida.moviesapp.core.data.source.localsource.entity.MovieEntity
-import com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.network.NetworkApiResponse
 import com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.RemoteMovieDataSource
 import com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.network.ApiResponse
 import com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.response.MovieResponse
@@ -22,7 +20,7 @@ import java.util.*
 class FakeMovieRepository (private val remoteMovieDataSource: RemoteMovieDataSource,
                            private val localMovieDataSource: LocalMovieDataSource,
                            private val appThreadExecutors: AppThreadExecutors) :
-    InterfaceMovieDataSource {
+    InterfaceMovieRepository {
 
     override fun getAllMovies(): LiveData<ResourceWrapData<PagedList<MovieEntity>>> {
 

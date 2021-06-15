@@ -13,7 +13,6 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.dicoding.auliarosyida.moviesapp.R
 import com.dicoding.auliarosyida.moviesapp.core.utils.DataMovies
-import com.dicoding.auliarosyida.moviesapp.core.utils.IdlingResourceEspresso
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule

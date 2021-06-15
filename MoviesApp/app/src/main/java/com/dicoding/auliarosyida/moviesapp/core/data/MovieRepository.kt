@@ -1,16 +1,17 @@
 package com.dicoding.auliarosyida.moviesapp.core.data
 
-import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.paging.LivePagedListBuilder
+import androidx.lifecycle.Transformations
 import androidx.paging.PagedList
-import com.dicoding.auliarosyida.moviesapp.core.data.source.InterfaceMovieDataSource
+import com.dicoding.auliarosyida.moviesapp.core.domain.repository.InterfaceMovieRepository
 import com.dicoding.auliarosyida.moviesapp.core.data.source.localsource.LocalMovieDataSource
 import com.dicoding.auliarosyida.moviesapp.core.data.source.localsource.entity.MovieEntity
 import com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.RemoteMovieDataSource
 import com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.network.ApiResponse
 import com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.response.MovieResponse
+import com.dicoding.auliarosyida.moviesapp.core.domain.model.Movie
 import com.dicoding.auliarosyida.moviesapp.core.utils.AppThreadExecutors
+import com.dicoding.auliarosyida.moviesapp.core.utils.DataMapperHelper
 import com.dicoding.auliarosyida.moviesapp.valueobject.ResourceWrapData
 import java.util.*
 
@@ -21,7 +22,7 @@ import java.util.*
 class MovieRepository private constructor(private val remoteMovieDataSource: RemoteMovieDataSource,
                                           private val localMovieDataSource: LocalMovieDataSource,
                                           private val appThreadExecutors: AppThreadExecutors
-)  : InterfaceMovieDataSource {
+)  : InterfaceMovieRepository {
 
     companion object {
         @Volatile
@@ -34,42 +35,25 @@ class MovieRepository private constructor(private val remoteMovieDataSource: Rem
             }
     }
 
-    override fun getAllMovies(): LiveData<ResourceWrapData<PagedList<MovieEntity>>> {
+    override fun getAllMovies(): LiveData<ResourceWrapData<List<Movie>>> {
 
-        return object : NetworkBoundLocalRemoteResource<PagedList<MovieEntity>, List<MovieResponse>>(appThreadExecutors) {
+        return object : NetworkBoundLocalRemoteResource<List<Movie>, List<MovieResponse>>(appThreadExecutors) {
 
-            public override fun loadFromDB(): LiveData<PagedList<MovieEntity>> {
-                val config = PagedList.Config.Builder()
-                    .setEnablePlaceholders(false)
-                    .setInitialLoadSizeHint(4)
-                    .setPageSize(4)
-                    .build()
-                return LivePagedListBuilder(localMovieDataSource.getAllMovies(), config).build()
+            override fun loadFromDB(): LiveData<List<Movie>> {
+                return Transformations.map(localMovieDataSource.getAllMovies()) {
+                    DataMapperHelper.mapEntitiesToDomain(it)
+                }
             }
 
-            override fun shouldFetch(data: PagedList<MovieEntity>?): Boolean =
-                    data == null || data.isEmpty()
+            override fun shouldFetch(data: List<Movie>?): Boolean =
+                data == null || data.isEmpty()
 
             public override fun createCall(): LiveData<ApiResponse<List<MovieResponse>>> =
                     remoteMovieDataSource.getAllMovies()
 
             public override fun saveCallResult(data: List<MovieResponse>) {
-                val movieList = ArrayList<MovieEntity>()
-                for (response in data) {
-                    val movie = MovieEntity(response.id,
-                            response.poster,
-                            response.title,
-                            response.title,
-                            response.overview,
-                            response.releaseYear,
-                            "",
-                            response.duration,
-                            response.status,
-                            response.originalLanguage)
-                    movieList.add(movie)
-                }
-
-                localMovieDataSource.insertMovies(movieList)
+                val movieEntities = DataMapperHelper.mapResponsesToEntities(data)
+                localMovieDataSource.insertMovies(movieEntities)
             }
         }.asLiveData()
     }
@@ -88,41 +72,23 @@ class MovieRepository private constructor(private val remoteMovieDataSource: Rem
                 remoteMovieDataSource.getDetailMovie(movieId)
 
             override fun saveCallResult(data: MovieResponse) {
-                val genreBuilder = StringBuilder()
-                data.genreIds.forEachIndexed { idx, g ->
-                    if(idx == 0) genreBuilder.append(g.name)
-                    else genreBuilder.append(", ${g.name}")
-                }
-                var tempQuote =
-                    if (data.quote.isEmpty()) data.title
-                    else data.quote
-
-                val movie = MovieEntity(data.id,
-                        data.poster,
-                        data.title,
-                        tempQuote,
-                        data.overview,
-                        data.releaseYear,
-                        genreBuilder.toString(),
-                        data.duration,
-                        data.status,
-                        data.originalLanguage)
-                localMovieDataSource.updateMovie(movie)
+                var tempArrayResponse = ArrayList<MovieResponse>()
+                tempArrayResponse.add(data)
+                val movieEntities = DataMapperHelper.mapResponsesToEntities(tempArrayResponse)
+                localMovieDataSource.updateMovie(movieEntities[0])
             }
 
         }.asLiveData()
     }
 
-    override fun getFavoritesMovies(): LiveData<PagedList<MovieEntity>> {
-        val config = PagedList.Config.Builder()
-            .setEnablePlaceholders(false)
-            .setInitialLoadSizeHint(4)
-            .setPageSize(4)
-            .build()
-        return LivePagedListBuilder(localMovieDataSource.getFavoritedMovies(), config).build()
+    override fun getFavoritesMovies(): LiveData<List<Movie>> {
+        return Transformations.map(localMovieDataSource.getFavoritedMovies()) {
+            DataMapperHelper.mapEntitiesToDomain(it)
+        }
     }
 
-    override fun setFavoriteMovie(movie: MovieEntity, favState: Boolean) {
-        appThreadExecutors.diskIO().execute { localMovieDataSource.setFavoriteMovie(movie, favState) }
+    override fun setFavoriteMovie(movie: Movie, favState: Boolean) {
+        val tourismEntity = DataMapperHelper.mapDomainToEntity(movie)
+        appThreadExecutors.diskIO().execute { localMovieDataSource.setFavoriteMovie(tourismEntity, favState) }
     }
 }

@@ -14,14 +14,14 @@ class LocalMovieDataSource private constructor(private val mMovieDao: InterfaceM
             INSTANCE ?: LocalMovieDataSource(academyDao)
     }
 
-    fun getAllMovies(): DataSource.Factory<Int, MovieEntity> = mMovieDao.getMovies()
+    fun getAllMovies(): LiveData<List<MovieEntity>> = mMovieDao.getMovies()
 
     fun insertMovies(movies: List<MovieEntity>) = mMovieDao.insertMovies(movies)
 
     fun getDetailMovie(movieId: String): LiveData<MovieEntity> =
         mMovieDao.getMovieById(movieId)
 
-    fun getFavoritedMovies(): DataSource.Factory<Int, MovieEntity> = mMovieDao.getFavoritedMovies()
+    fun getFavoritedMovies(): LiveData<List<MovieEntity>> = mMovieDao.getFavoritedMovies()
 
     fun setFavoriteMovie(aMovie: MovieEntity, favState: Boolean) {
         aMovie.favorited = favState
