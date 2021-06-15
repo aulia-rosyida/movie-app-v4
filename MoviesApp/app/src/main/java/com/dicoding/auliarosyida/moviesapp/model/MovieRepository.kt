@@ -25,7 +25,6 @@ class MovieRepository private constructor(private val remoteMovieDataSource: Rem
 
     companion object {
         @Volatile
-//        @JvmStatic
         private var instance: MovieRepository? = null
 
         // filter antara remote dan local
