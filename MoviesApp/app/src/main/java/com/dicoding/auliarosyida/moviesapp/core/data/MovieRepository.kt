@@ -12,6 +12,7 @@ import com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.network
 import com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.response.MovieResponse
 import com.dicoding.auliarosyida.moviesapp.core.utils.AppThreadExecutors
 import com.dicoding.auliarosyida.moviesapp.valueobject.ResourceWrapData
+import java.util.*
 
 /**
  *  MovieRepository sebagai filter antara remote dan local
@@ -81,7 +82,7 @@ class MovieRepository private constructor(private val remoteMovieDataSource: Rem
                 localMovieDataSource.getDetailMovie(movieId)
 
             override fun shouldFetch(data : MovieEntity?): Boolean =
-                data != null
+                    data == null || data.title == data.quote || data.duration == null
 
             public override fun createCall(): LiveData<ApiResponse<MovieResponse>> =
                 remoteMovieDataSource.getDetailMovie(movieId)

@@ -34,5 +34,5 @@ data class Genre (
     var id: String = "",
 
     @SerializedName("name")
-    var name: String? = "",
-        ): Parcelable
+    var name: String? = ""
+): Parcelable

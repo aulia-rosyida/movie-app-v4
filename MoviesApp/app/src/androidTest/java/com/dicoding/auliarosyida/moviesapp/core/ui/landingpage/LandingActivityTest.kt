@@ -47,22 +47,11 @@ class LandingActivityTest {
         onView(withId(R.id.rv_movie)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_movie)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
         onView(withId(R.id.text_title)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_title)).check(matches(withText(dummyMovies[0].title)))
-
         onView(withId(R.id.text_quote)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_quote)).check(matches(withText(dummyMovies[0].quote)))
-
         onView(withId(R.id.text_overview)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_overview)).check(matches(withText(dummyMovies[0].overview)))
-
         onView(withId(R.id.text_year)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_year)).check(matches(withText(dummyMovies[0].releaseYear)))
-
         onView(withId(R.id.text_genre)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_genre)).check(matches(withText(dummyMovies[0].genre)))
-
         onView(withId(R.id.text_duration)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_duration)).check(matches(withText(dummyMovies[0].duration)))
     }
 
     @Test

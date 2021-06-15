@@ -32,9 +32,6 @@ class MovieRepositoryTest {
     private val movieResponses = DataMovies.generateRemoteDummyMovies()
     private val movieId = movieResponses[0].id
 
-    private val tvShowResponses = DataMovies.generateRemoteDummyTvShows()
-    private val tvShowId = tvShowResponses[0].id
-
     @Test
     fun testGetAllMovies() {
         val dataMovieSourceFactory = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, MovieEntity>
@@ -49,19 +46,6 @@ class MovieRepositoryTest {
     }
 
     @Test
-    fun testGetAllTvShows() {
-        val dataTvShowSourceFactory = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, TvShowEntity>
-        `when`(local.getAllTvShows()).thenReturn(dataTvShowSourceFactory)
-        movieRepository.getAllTvShows()
-
-        val tvShowEntities = ResourceWrapData.success(UtilPagedList.mockPagedList( DataMovies.generateTvShows()))
-
-        verify(local).getAllTvShows()
-        assertNotNull(tvShowEntities.data)
-        assertEquals(tvShowResponses.size.toLong(), tvShowEntities.data?.size?.toLong())
-    }
-
-    @Test
     fun testGetDetailMovie() {
         val dummyDetailMovie = MutableLiveData<MovieEntity>()
         dummyDetailMovie.value = DataMovies.generateDummyMovie(movieId)
@@ -70,19 +54,7 @@ class MovieRepositoryTest {
         val resultMovie = LiveDataTestUtil.getValue(movieRepository.getDetailMovie(movieId))
         verify(local).getDetailMovie(movieId)
         assertNotNull(resultMovie.data)
-        assertEquals(movieResponses[0].genre, resultMovie.data?.genre)
-    }
-
-    @Test
-    fun testGetDetailTvShow() {
-        val dummyDetailTvShow = MutableLiveData<TvShowEntity>()
-        dummyDetailTvShow.value = DataMovies.generateDummyTvShow(tvShowId)
-        `when`(local.getDetailTvShow(tvShowId)).thenReturn(dummyDetailTvShow)
-
-        val resultTvShow = LiveDataTestUtil.getValue(movieRepository.getDetailTvShow(tvShowId))
-        verify(local).getDetailTvShow(tvShowId)
-        assertNotNull(resultTvShow.data)
-        assertEquals(tvShowResponses[0].genre, resultTvShow.data?.genre)
+        assertEquals(movieResponses[0].releaseYear, resultMovie.data?.releaseYear)
     }
 
     @Test
@@ -95,18 +67,6 @@ class MovieRepositoryTest {
         verify(local).getFavoritedMovies()
         assertNotNull(movieEntities)
         assertEquals(movieResponses.size.toLong(), movieEntities.data?.size?.toLong())
-    }
-
-    @Test
-    fun testGetFavoritesTvShows() {
-        val dataTvShowSourceFactory = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, TvShowEntity>
-        `when`(local.getFavoritedTvShows()).thenReturn(dataTvShowSourceFactory)
-        movieRepository.getFavoritesTvShows()
-        val tvShowEntities = ResourceWrapData.success(UtilPagedList.mockPagedList(DataMovies.generateTvShows()))
-
-        verify(local).getFavoritedTvShows()
-        assertNotNull(tvShowEntities)
-        assertEquals(tvShowResponses.size.toLong(), tvShowEntities.data?.size?.toLong())
     }
 
     @Test
@@ -131,29 +91,5 @@ class MovieRepositoryTest {
 
         movieRepository.setFavoriteMovie(dataMovieDummy, newFavState)
         verify(local, times(1)).setFavoriteMovie(dataMovieDummy, newFavState)
-    }
-
-    @Test
-    fun testSetFavoritesTvShows() {
-        val dataTvShowDummy = DataMovies.generateTvShows()[0].copy(favorited = false)
-        val newFavState: Boolean = !dataTvShowDummy.favorited
-
-        `when`(appExecutors.diskIO()).thenReturn(testExecutors.diskIO())
-        doNothing().`when`(local).setFavoriteTvShow(dataTvShowDummy, newFavState)
-
-        movieRepository.setFavoriteTvShow(dataTvShowDummy, newFavState)
-        verify(local, times(1)).setFavoriteTvShow(dataTvShowDummy, newFavState)
-    }
-
-    @Test
-    fun testSetUnFavoritesTvShows() {
-        val dataTvShowDummy = DataMovies.generateTvShows()[0].copy(favorited = true)
-        val newFavState: Boolean = !dataTvShowDummy.favorited
-
-        `when`(appExecutors.diskIO()).thenReturn(testExecutors.diskIO())
-        doNothing().`when`(local).setFavoriteTvShow(dataTvShowDummy, newFavState)
-
-        movieRepository.setFavoriteTvShow(dataTvShowDummy, newFavState)
-        verify(local, times(1)).setFavoriteTvShow(dataTvShowDummy, newFavState)
     }
 }

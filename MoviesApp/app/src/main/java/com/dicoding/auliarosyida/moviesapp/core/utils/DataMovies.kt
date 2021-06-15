@@ -1,6 +1,8 @@
 package com.dicoding.auliarosyida.moviesapp.core.utils
 
 import com.dicoding.auliarosyida.moviesapp.core.data.source.localsource.entity.MovieEntity
+import com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.response.Genre
+import com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.response.MovieResponse
 
 object DataMovies {
 
@@ -116,24 +118,26 @@ object DataMovies {
             return listMovieData
     }
 
-//    fun generateRemoteDummyMovies(): List<MovieResponse> {
-//        val remoteMovies = ArrayList<MovieResponse>()
-//        for (position in moviePosters.indices) {
-//            val movie = MovieResponse()
-//            movie.id = movieId[position]
-//            movie.poster = moviePosters[position]
-//            movie.title = movieTitles[position]
-//            movie.quote = movieQuotes[position]
-//            movie.overview = movieOverviews[position]
-//            movie.releaseYear = movieReleaseYears[position]
-//            movie.genre = movieGenres[position]
-//            movie.duration = movieDurations[position]
-//            movie.status = "Released"
-//            movie.originalLanguage = "English"
-//            remoteMovies.add(movie)
-//        }
-//        return remoteMovies
-//    }
+    fun generateRemoteDummyMovies(): List<MovieResponse> {
+        val remoteMovies = ArrayList<MovieResponse>()
+        for (position in moviePosters.indices) {
+            val tempGenres = ArrayList<Genre>()
+            tempGenres.add(Genre("g1", movieGenres[position]))
+            val movie = MovieResponse(
+            movieId[position],
+            moviePosters[position],
+            movieTitles[position],
+            movieQuotes[position],
+            movieOverviews[position],
+            movieReleaseYears[position],
+            tempGenres,
+            movieDurations[position],
+            "Released",
+            "English")
+            remoteMovies.add(movie)
+        }
+        return remoteMovies
+    }
 
     fun generateDummyMovie(movieId: String): MovieEntity {
 
