@@ -63,7 +63,7 @@ class DetailMovieActivity : AppCompatActivity() {
                                     }
                                 IndicatorStatus.ERROR -> {
                                     progressbarDetailContent.visibility = View.GONE
-                                    Toast.makeText(applicationContext, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(applicationContext, getString(R.string.error_occured), Toast.LENGTH_SHORT).show()
                                 }
                             }
                         }

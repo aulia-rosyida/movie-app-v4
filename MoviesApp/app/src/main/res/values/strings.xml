@@ -20,4 +20,5 @@
     <string name="footprint">Develop patiently</string>
     <string name="icon_movie_app">Icon Movie App</string>
     <string name="menu_favorite">Favorite</string>
+    <string name="error_occured">Terjadi kesalahan</string>
 </resources>
