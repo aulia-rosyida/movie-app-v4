@@ -20,7 +20,7 @@ interface InterfaceMovieDao {
     @Update
     fun updateMovie(movie: MovieEntity)
 
-    @Query("SELECT * FROM movieentities WHERE movieId = :movieId")
+    @Query("SELECT * FROM movieentities WHERE id = :movieId")
     fun getMovieById(movieId: String): LiveData<MovieEntity>
 
 }

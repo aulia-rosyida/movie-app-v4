@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
-import com.dicoding.auliarosyida.moviesapp.model.source.MovieRepository
+import com.dicoding.auliarosyida.moviesapp.model.MovieRepository
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.MovieEntity
 import org.junit.Before
 import org.junit.Rule

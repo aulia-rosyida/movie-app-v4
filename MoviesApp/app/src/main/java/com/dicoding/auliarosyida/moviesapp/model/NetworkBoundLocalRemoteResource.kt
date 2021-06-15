@@ -1,9 +1,8 @@
-package com.dicoding.auliarosyida.moviesapp.model.source
+package com.dicoding.auliarosyida.moviesapp.model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.NetworkApiResponse
-import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.StatusNetworkResponse
+import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.network.ApiResponse
 import com.dicoding.auliarosyida.moviesapp.utils.AppThreadExecutors
 import com.dicoding.auliarosyida.moviesapp.valueobject.ResourceWrapData
 
@@ -35,7 +34,7 @@ abstract class NetworkBoundLocalRemoteResource <ResultType, RequestType>(private
 
     protected abstract fun shouldFetch(data: ResultType?): Boolean
 
-    protected abstract fun createCall(): LiveData<NetworkApiResponse<RequestType>>
+    protected abstract fun createCall(): LiveData<ApiResponse<RequestType>>
 
     protected abstract fun saveCallResult(data: RequestType)
 
@@ -49,25 +48,25 @@ abstract class NetworkBoundLocalRemoteResource <ResultType, RequestType>(private
         result.addSource(apiResponse) { response ->
             result.removeSource(apiResponse)
             result.removeSource(dbSource)
-            when (response.status) {
-                StatusNetworkResponse.SUCCESS ->
+            when (response) {
+                is ApiResponse.Success ->
                     mExecutors.diskIO().execute {
-                        saveCallResult(response.body)
+                        saveCallResult(response.data)
                         mExecutors.mainThread().execute {
                             result.addSource(loadFromDB()) { newData ->
                                 result.value = ResourceWrapData.success(newData)
                             }
                         }
                     }
-                StatusNetworkResponse.EMPTY -> mExecutors.mainThread().execute {
+                is ApiResponse.Empty -> mExecutors.mainThread().execute {
                     result.addSource(loadFromDB()) { newData ->
                         result.value = ResourceWrapData.success(newData)
                     }
                 }
-                StatusNetworkResponse.ERROR -> {
+                is ApiResponse.Error -> {
                     onFetchFailed()
                     result.addSource(dbSource) { newData ->
-                        result.value = ResourceWrapData.error(response.message, newData)
+                        result.value = ResourceWrapData.error(response.errorMessage, newData)
                     }
                 }
             }

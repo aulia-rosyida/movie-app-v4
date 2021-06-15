@@ -1,10 +1,23 @@
 package com.dicoding.auliarosyida.moviesapp.model.source.remotesource.network
 
+import com.dicoding.auliarosyida.moviesapp.BuildConfig
 import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.response.ListMovieResponse
+import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.response.MovieResponse
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
-    @GET("3/discover/movie?sort_by=popularity.desc&api_key=8dafff561f198363ddcd3fadbbe35349")
-    fun getList(): Call<ListMovieResponse>
+    @GET("discover/movie")
+    fun getList(
+            @Query("sort_by") sortBy: String = "popularity.desc",
+            @Query("api_key") apiKey: String = BuildConfig.API_TOKEN
+    ): Call<ListMovieResponse>
+
+    @GET("movie/{id}")
+    fun getDetail(
+        @Path("id") id: String,
+        @Query("api_key") apiKey: String = BuildConfig.API_TOKEN
+    ): Call<MovieResponse>
 }

@@ -8,10 +8,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.dicoding.auliarosyida.moviesapp.BuildConfig
 import com.dicoding.auliarosyida.moviesapp.R
 import com.dicoding.auliarosyida.moviesapp.databinding.ItemsMovieBinding
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.MovieEntity
 import com.dicoding.auliarosyida.moviesapp.ui.detailpage.DetailMovieActivity
+import com.dicoding.auliarosyida.moviesapp.utils.ConstHelper
+import com.dicoding.auliarosyida.moviesapp.utils.loadFromUrl
 
 class MovieAdapter: PagedListAdapter<MovieEntity, MovieAdapter.CourseViewHolder>(DIFF_CALLBACK) {
 
@@ -42,12 +45,15 @@ class MovieAdapter: PagedListAdapter<MovieEntity, MovieAdapter.CourseViewHolder>
     class CourseViewHolder(private val binding: ItemsMovieBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: MovieEntity) {
             with(binding) {
-                Glide.with(itemView.context)
-                        .load(movie.poster)
-                        .apply(RequestOptions.placeholderOf(R.drawable.ic_loading)
-                                .error(R.drawable.ic_error))
-                        .into(imgPoster)
+//                Glide.with(itemView.context)
+//                        .load(movie.poster)
+//                        .apply(RequestOptions.placeholderOf(R.drawable.ic_loading)
+//                                .error(R.drawable.ic_error))
+//                        .into(imgPoster)
 
+                movie.poster?.let {
+                    imgPoster.loadFromUrl(BuildConfig.TMDB_URL_IMAGE + ConstHelper.SIZE_POSTER + it)
+                }
                 tvItemTitle.text = movie.title
                 tvItemDuration.text = movie.duration
                 tvItemQuotes.text = movie.quote

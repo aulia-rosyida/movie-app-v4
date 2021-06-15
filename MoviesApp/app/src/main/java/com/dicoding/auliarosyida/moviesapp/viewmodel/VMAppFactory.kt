@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.auliarosyida.moviesapp.di.RepoInjection
-import com.dicoding.auliarosyida.moviesapp.model.source.MovieRepository
+import com.dicoding.auliarosyida.moviesapp.model.MovieRepository
 import com.dicoding.auliarosyida.moviesapp.ui.detailpage.DetailMovieViewModel
 import com.dicoding.auliarosyida.moviesapp.ui.favmovietab.FavMovieViewModel
 import com.dicoding.auliarosyida.moviesapp.ui.movietab.MovieViewModel

@@ -2,13 +2,20 @@ package com.dicoding.auliarosyida.moviesapp.model.source.remotesource
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.network.ApiResponse
+import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.network.ApiService
+import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.network.NetworkApiResponse
+import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.response.ListMovieResponse
 import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.response.MovieResponse
 import com.dicoding.auliarosyida.moviesapp.utils.IdlingResourceEspresso
-import com.dicoding.auliarosyida.moviesapp.utils.JsonResponseHelper
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class RemoteMovieDataSource private constructor(private val jsonResponseHelper: JsonResponseHelper) {
+class RemoteMovieDataSource private constructor(private val apiService: ApiService) {
 
     private val handlerLooper = Handler(Looper.getMainLooper())
 
@@ -18,34 +25,59 @@ class RemoteMovieDataSource private constructor(private val jsonResponseHelper: 
         @Volatile
         private var instance: RemoteMovieDataSource? = null
 
-        fun getInstance(helper: JsonResponseHelper): RemoteMovieDataSource =
+        fun getInstance(service: ApiService): RemoteMovieDataSource =
             instance ?: synchronized(this) {
-                instance ?: RemoteMovieDataSource(helper).apply { instance = this }
+                instance ?: RemoteMovieDataSource(service)
             }
     }
 
-    fun getAllMovies() : LiveData<NetworkApiResponse<List<MovieResponse>>> {
+    fun getAllMovies() : LiveData<ApiResponse<List<MovieResponse>>> {
 
-        IdlingResourceEspresso.increment()
-        val resultMovie = MutableLiveData<NetworkApiResponse<List<MovieResponse>>>()
+        val resultMovie = MutableLiveData<ApiResponse<List<MovieResponse>>>()
 
-        handlerLooper.postDelayed({
-            resultMovie.value = NetworkApiResponse.success(jsonResponseHelper.loadMovies())
-            IdlingResourceEspresso.decrement()
-         }, serviceLatencyInMillis)
+        //get data from remote api
+        val client = apiService.getList()
+
+        client.enqueue(object : Callback<ListMovieResponse> {
+            override fun onResponse(
+                call: Call<ListMovieResponse>,
+                response: Response<ListMovieResponse>
+            ) {
+                val dataArray = response.body()?.movies
+                Log.d("REMOTE SOURCE", "$dataArray")
+                resultMovie.value = if (dataArray != null) ApiResponse.Success(dataArray) else ApiResponse.Empty
+            }
+
+            override fun onFailure(call: Call<ListMovieResponse>, t: Throwable) {
+                resultMovie.value = ApiResponse.Error(t.message.toString())
+                Log.e("RemoteAllDataSource", t.message.toString())
+            }
+        })
 
         return resultMovie
     }
 
-    fun getDetailMovie(movieId: String): LiveData<NetworkApiResponse<MovieResponse>> {
+    fun getDetailMovie(movieId: String): LiveData<ApiResponse<MovieResponse>> {
 
-        IdlingResourceEspresso.increment()
-        val resultDetailMovie = MutableLiveData<NetworkApiResponse<MovieResponse>>()
+        val resultDetailMovie = MutableLiveData<ApiResponse<MovieResponse>>()
 
-        handlerLooper.postDelayed({
-            resultDetailMovie.value = NetworkApiResponse.success(jsonResponseHelper.loadMovie(movieId))
-            IdlingResourceEspresso.decrement()
-        }, serviceLatencyInMillis)
+        //get data from remote api
+        val client = apiService.getDetail(movieId)
+
+        client.enqueue(object : Callback<MovieResponse> {
+            override fun onResponse(
+                call: Call<MovieResponse>,
+                response: Response<MovieResponse>
+            ) {
+                val dataArray = response.body()
+                resultDetailMovie.value = if (dataArray != null) ApiResponse.Success(dataArray) else ApiResponse.Empty
+            }
+
+            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+                resultDetailMovie.value = ApiResponse.Error(t.message.toString())
+                Log.e("RemoteDetailDataSource", t.message.toString())
+            }
+        })
 
         return resultDetailMovie
     }

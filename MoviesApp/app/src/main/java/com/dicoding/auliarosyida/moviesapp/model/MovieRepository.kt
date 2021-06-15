@@ -1,12 +1,14 @@
-package com.dicoding.auliarosyida.moviesapp.model.source
+package com.dicoding.auliarosyida.moviesapp.model
 
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import com.dicoding.auliarosyida.moviesapp.model.source.InterfaceMovieDataSource
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.LocalMovieDataSource
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.MovieEntity
-import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.NetworkApiResponse
+import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.network.NetworkApiResponse
 import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.RemoteMovieDataSource
+import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.network.ApiResponse
 import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.response.MovieResponse
 import com.dicoding.auliarosyida.moviesapp.utils.AppThreadExecutors
 import com.dicoding.auliarosyida.moviesapp.valueobject.ResourceWrapData
@@ -48,7 +50,7 @@ class MovieRepository private constructor(private val remoteMovieDataSource: Rem
             override fun shouldFetch(data: PagedList<MovieEntity>?): Boolean =
                     data == null || data.isEmpty()
 
-            public override fun createCall(): LiveData<NetworkApiResponse<List<MovieResponse>>> =
+            public override fun createCall(): LiveData<ApiResponse<List<MovieResponse>>> =
                     remoteMovieDataSource.getAllMovies()
 
             public override fun saveCallResult(data: List<MovieResponse>) {
@@ -82,7 +84,7 @@ class MovieRepository private constructor(private val remoteMovieDataSource: Rem
             override fun shouldFetch(data : MovieEntity?): Boolean =
                 data == null
 
-            public override fun createCall(): LiveData<NetworkApiResponse<MovieResponse>> =
+            public override fun createCall(): LiveData<ApiResponse<MovieResponse>> =
                 remoteMovieDataSource.getDetailMovie(movieId)
 
             override fun saveCallResult(data: MovieResponse) {

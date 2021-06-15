@@ -4,10 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.dicoding.auliarosyida.moviesapp.model.source.InterfaceMovieDataSource
-import com.dicoding.auliarosyida.moviesapp.model.source.NetworkBoundLocalRemoteResource
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.LocalMovieDataSource
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.MovieEntity
-import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.NetworkApiResponse
+import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.network.NetworkApiResponse
 import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.RemoteMovieDataSource
 import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.response.MovieResponse
 import com.dicoding.auliarosyida.moviesapp.utils.AppThreadExecutors
