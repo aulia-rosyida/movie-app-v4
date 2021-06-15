@@ -42,24 +42,6 @@ class JsonResponseHelper(private val context: Context) {
         return listMovies
     }
 
-    fun loadTvShows(): List<MovieResponse> {
-        val listTvShows = ArrayList<MovieResponse>()
-        try {
-            val responseObject = JSONObject(parsingFileJsonToString("TvShowResponses.json").toString())
-            val listArrayTvShow = responseObject.getJSONArray("tvShows")
-            val gson = Gson()
-            for (i in 0 until listArrayTvShow.length()) {
-                val tvShowObject = listArrayTvShow.getJSONObject(i)
-                val dataTvShow = gson.fromJson(tvShowObject.toString(), MovieResponse::class.java)
-                listTvShows.add(dataTvShow)
-            }
-        } catch (e: JSONException) {
-            e.printStackTrace()
-        }
-
-        return listTvShows
-    }
-
     fun loadMovie(movieId: String): MovieResponse {
         val listMovies = loadMovies()
         lateinit var aMovie: MovieResponse
@@ -69,16 +51,5 @@ class JsonResponseHelper(private val context: Context) {
             }
         }
         return aMovie
-    }
-
-    fun loadTvShow(tvShowId: String): MovieResponse {
-        val listTvShows = loadTvShows()
-        lateinit var aShow: MovieResponse
-        for (response in listTvShows) {
-            if (response.id == tvShowId) {
-                aShow = response
-            }
-        }
-        return aShow
     }
 }

@@ -37,19 +37,6 @@ class RemoteMovieDataSource private constructor(private val jsonResponseHelper: 
         return resultMovie
     }
 
-    fun getAllTvShows() : LiveData<NetworkApiResponse<List<MovieResponse>>> {
-
-        IdlingResourceEspresso.increment()
-        val resultTvShow = MutableLiveData<NetworkApiResponse<List<MovieResponse>>>()
-
-        handlerLooper.postDelayed({
-            resultTvShow.value = NetworkApiResponse.success(jsonResponseHelper.loadTvShows())
-            IdlingResourceEspresso.decrement()
-        }, serviceLatencyInMillis)
-
-        return resultTvShow
-    }
-
     fun getDetailMovie(movieId: String): LiveData<NetworkApiResponse<MovieResponse>> {
 
         IdlingResourceEspresso.increment()
@@ -61,20 +48,6 @@ class RemoteMovieDataSource private constructor(private val jsonResponseHelper: 
         }, serviceLatencyInMillis)
 
         return resultDetailMovie
-    }
-
-    fun getDetailTvShow(tvShowId: String): LiveData<NetworkApiResponse<MovieResponse>> {
-
-        IdlingResourceEspresso.increment()
-        val resultDetailTvShow = MutableLiveData<NetworkApiResponse<MovieResponse>>()
-
-        handlerLooper.postDelayed({
-            resultDetailTvShow.value = NetworkApiResponse.success(jsonResponseHelper.loadTvShow(tvShowId))
-            IdlingResourceEspresso.decrement()
-        }, serviceLatencyInMillis)
-
-        return resultDetailTvShow
-
     }
 }
 

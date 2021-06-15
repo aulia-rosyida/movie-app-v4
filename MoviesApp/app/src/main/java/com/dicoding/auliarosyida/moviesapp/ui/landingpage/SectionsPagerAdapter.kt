@@ -7,9 +7,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.dicoding.auliarosyida.moviesapp.R
 import com.dicoding.auliarosyida.moviesapp.ui.favmovietab.FavMovieFragment
-import com.dicoding.auliarosyida.moviesapp.ui.favtvshowtab.FavTvShowFragment
 import com.dicoding.auliarosyida.moviesapp.ui.movietab.MovieFragment
-import com.dicoding.auliarosyida.moviesapp.ui.tvshowtab.TvShowFragment
 
 class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 

@@ -5,9 +5,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.MovieEntity
-import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.TvShowEntity
 
-@Database(entities = [MovieEntity::class, TvShowEntity::class],
+@Database(entities = [MovieEntity::class],
     version = 1,
     exportSchema = false)
 abstract class MovieBuilderDatabase : RoomDatabase(){

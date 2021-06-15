@@ -6,7 +6,6 @@ import androidx.paging.DataSource
 import com.dicoding.auliarosyida.moviesapp.model.FakeMovieRepository
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.LocalMovieDataSource
 import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.MovieEntity
-import com.dicoding.auliarosyida.moviesapp.model.source.localsource.entity.TvShowEntity
 import com.dicoding.auliarosyida.moviesapp.model.source.remotesource.RemoteMovieDataSource
 import com.dicoding.auliarosyida.moviesapp.utils.*
 import com.dicoding.auliarosyida.moviesapp.valueobject.ResourceWrapData

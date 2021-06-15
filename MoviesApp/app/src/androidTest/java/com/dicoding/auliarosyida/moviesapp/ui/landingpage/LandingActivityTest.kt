@@ -21,7 +21,6 @@ import org.junit.Test
 
 class LandingActivityTest {
     private val dummyMovies = DataMovies.generateMovies()
-    private val dummyTvShows = DataMovies.generateTvShows()
 
     @get:Rule
     var activityRule = ActivityScenarioRule(LandingActivity::class.java)
@@ -99,76 +98,5 @@ class LandingActivityTest {
         onView(withText(R.string.fav_movies)).perform(click())
         onView(withId(R.id.rv_fav_movie)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_fav_movie)).check(matches(hasChildCount(0)))
-    }
-
-    @Test
-    fun loadTvShows() {
-        onView(withText(R.string.tvshow)).check(matches(isDisplayed()))
-        onView(withText(R.string.tvshow)).perform(click())
-        onView(withId(R.id.rv_tvshow)).check(matches(isDisplayed()))
-        onView(withId(R.id.rv_tvshow)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyTvShows.size))
-    }
-
-    @Test
-    fun loadDetailTvShow() {
-        onView(withText(R.string.tvshow)).check(matches(isDisplayed()))
-        onView(withText(R.string.tvshow)).perform(click())
-        onView(withId(R.id.rv_tvshow)).check(matches(isDisplayed()))
-        onView(withId(R.id.rv_tvshow)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
-
-        onView(withId(R.id.text_title)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_title)).check(matches(withText(dummyTvShows[0].title)))
-
-        onView(withId(R.id.text_quote)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_quote)).check(matches(withText(dummyTvShows[0].quote)))
-
-        onView(withId(R.id.text_overview)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_overview)).check(matches(withText(dummyTvShows[0].overview)))
-
-        onView(withId(R.id.text_year)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_year)).check(matches(withText(dummyTvShows[0].releaseYear)))
-
-        onView(withId(R.id.text_genre)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_genre)).check(matches(withText(dummyTvShows[0].genre)))
-
-        onView(withId(R.id.text_duration)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_duration)).check(matches(withText(dummyTvShows[0].duration)))
-    }
-
-    @Test
-    fun loadFavoriteTvShows() {
-        onView(withText(R.string.fav_tvshows)).check(matches(isDisplayed()))
-        onView(withText(R.string.fav_tvshows)).perform(click())
-        onView(withId(R.id.rv_fav_tvshow)).check(matches(isDisplayed()))
-        onView(withId(R.id.rv_fav_tvshow)).check(matches(hasChildCount(0)))
-    }
-
-    @Test
-    fun setFavoriteTvShowAndUnfavorite() {
-        onView(withText(R.string.tvshow)).check(matches(isDisplayed()))
-        onView(withText(R.string.tvshow)).perform(click())
-        onView(withId(R.id.rv_tvshow)).check(matches(isDisplayed()))
-        onView(withId(R.id.rv_tvshow)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
-
-        onView(withId(R.id.action_favorite)).check(matches(isDisplayed()))
-        onView(withId(R.id.action_favorite)).perform(click())
-        onView(isRoot()).perform(ViewActions.pressBack())
-
-        onView(withText(R.string.fav_tvshows)).check(matches(isDisplayed()))
-        onView(withText(R.string.fav_tvshows)).perform(click())
-        onView(withId(R.id.rv_fav_tvshow)).check(matches(isDisplayed()))
-        onView(withId(R.id.rv_fav_tvshow)).check(matches(hasChildCount(1)))
-        onView(withId(R.id.rv_fav_tvshow)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
-
-        onView(withId(R.id.text_title)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_overview)).check(matches(isDisplayed()))
-        onView(withId(R.id.action_favorite)).check(matches(isDisplayed()))
-        onView(withId(R.id.action_favorite)).perform(click())
-        onView(isRoot()).perform(ViewActions.pressBack())
-
-        onView(withText(R.string.fav_tvshows)).check(matches(isDisplayed()))
-        onView(withText(R.string.fav_tvshows)).perform(click())
-        onView(withId(R.id.rv_fav_tvshow)).check(matches(isDisplayed()))
-        onView(withId(R.id.rv_fav_tvshow)).check(matches(hasChildCount(0)))
     }
 }
