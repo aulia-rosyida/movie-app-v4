@@ -9,7 +9,7 @@ import com.dicoding.auliarosyida.moviesapp.valueobject.ResourceWrapData
 interface InterfaceMovieRepository {
     fun getAllMovies(): LiveData<ResourceWrapData<List<Movie>>>
 
-    fun getDetailMovie(movieId: String): LiveData<ResourceWrapData<MovieEntity>>
+    fun getDetailMovie(movieId: String): LiveData<ResourceWrapData<Movie>>
 
     fun getFavoritesMovies(): LiveData<List<Movie>>
 

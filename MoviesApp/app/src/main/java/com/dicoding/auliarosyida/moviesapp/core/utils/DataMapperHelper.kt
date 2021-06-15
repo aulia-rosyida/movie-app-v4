@@ -1,5 +1,6 @@
 package com.dicoding.auliarosyida.moviesapp.core.utils
 
+import android.util.Log
 import com.dicoding.auliarosyida.moviesapp.core.data.source.localsource.entity.MovieEntity
 import com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.response.MovieResponse
 import com.dicoding.auliarosyida.moviesapp.core.domain.model.Movie
@@ -10,13 +11,18 @@ object DataMapperHelper {
 
         input.map {
             val genreBuilder = StringBuilder()
-            it.genreIds.forEachIndexed { idx, g ->
-                if(idx == 0) genreBuilder.append(g.name)
-                else genreBuilder.append(", ${g.name}")
-            }
-            var tempQuote =
-                if (it.quote.isEmpty()) it.title
-                else it.quote
+//            try{
+//                it.genreIds.forEachIndexed { idx, g ->
+//                    if(idx == 0) genreBuilder.append("${g.name}")
+//                    else genreBuilder.append(", ${g.name}")
+//                }
+//            } catch(e: Exception) {
+//                Log.d("data mapper exception", "- ${e.printStackTrace()}")
+//            }
+
+            var tempQuote = it.title
+//                if (it.quote.length < 2) it.title
+//                else it.quote
 
             val movie = MovieEntity(
                 movieId = it.id,

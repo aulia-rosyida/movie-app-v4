@@ -8,39 +8,35 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.auliarosyida.moviesapp.BuildConfig
 import com.dicoding.auliarosyida.moviesapp.databinding.ItemsMovieBinding
-import com.dicoding.auliarosyida.moviesapp.core.data.source.localsource.entity.MovieEntity
+import com.dicoding.auliarosyida.moviesapp.core.domain.model.Movie
 import com.dicoding.auliarosyida.moviesapp.core.ui.detailpage.DetailMovieActivity
+import com.dicoding.auliarosyida.moviesapp.core.ui.favmovietab.FavMovieAdapter
 import com.dicoding.auliarosyida.moviesapp.core.utils.ConstHelper
 import com.dicoding.auliarosyida.moviesapp.core.utils.loadFromUrl
 
-class MovieAdapter: PagedListAdapter<MovieEntity, MovieAdapter.CourseViewHolder>(DIFF_CALLBACK) {
+class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
-    companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MovieEntity>() {
-            override fun areItemsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
-                return oldItem.movieId == newItem.movieId
-            }
-            override fun areContentsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
-                return oldItem == newItem
-            }
-        }
+    private var listData = ArrayList<Movie>()
+
+    fun setData(newListData: List<Movie>?) {
+        if (newListData == null) return
+        listData.clear()
+        listData.addAll(newListData)
+        notifyDataSetChanged()
     }
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val itemsAcademyBinding = ItemsMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CourseViewHolder(itemsAcademyBinding)
+        return MovieViewHolder(itemsAcademyBinding)
     }
 
-    override fun onBindViewHolder(holder: CourseViewHolder, position: Int) {
-        val movie = getItem(position)
-        if (movie != null) {
-            holder.bind(movie)
-        }
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+        val movie = listData[position]
+        holder.bind(movie)
     }
 
-    class CourseViewHolder(private val binding: ItemsMovieBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: MovieEntity) {
+    class MovieViewHolder(private val binding: ItemsMovieBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(movie: Movie) {
             with(binding) {
 
                 movie.poster?.let {
@@ -52,10 +48,12 @@ class MovieAdapter: PagedListAdapter<MovieEntity, MovieAdapter.CourseViewHolder>
 
                 itemView.setOnClickListener {
                     val intent = Intent(it.context, DetailMovieActivity::class.java)
-                    intent.putExtra(DetailMovieActivity.extraMovie, movie.movieId)
+                    intent.putExtra(DetailMovieActivity.extraMovie, movie.id)
                     itemView.context.startActivity(intent)
                 }
             }
         }
     }
+
+    override fun getItemCount(): Int= listData.size
 }

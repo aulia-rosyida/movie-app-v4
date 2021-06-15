@@ -5,9 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import com.dicoding.auliarosyida.moviesapp.core.data.MovieRepository
 import com.dicoding.auliarosyida.moviesapp.core.data.source.localsource.entity.MovieEntity
+import com.dicoding.auliarosyida.moviesapp.core.domain.model.Movie
 import com.dicoding.auliarosyida.moviesapp.valueobject.ResourceWrapData
 
 class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel() {
 
-    fun getMovies(): LiveData<ResourceWrapData<PagedList<MovieEntity>>> = movieRepository.getAllMovies()
+    fun getMovies(): LiveData<ResourceWrapData<List<Movie>>> = movieRepository.getAllMovies()
 }
