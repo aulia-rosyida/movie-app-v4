@@ -10,35 +10,35 @@ data class MovieEntity(
 
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "movieId")
+    @ColumnInfo(name = "id")
     var movieId: String,
 
-    @ColumnInfo(name = "poster")
-    var poster: String,
+    @ColumnInfo(name = "poster_path")
+    var poster: String?,
 
     @ColumnInfo(name = "title")
-    var title: String,
+    var title: String?,
 
-    @ColumnInfo(name = "quote")
-    var quote: String,
+    @ColumnInfo(name = "tagline")
+    var quote: String?,
 
     @ColumnInfo(name = "overview")
-    var overview: String,
+    var overview: String?,
 
-    @ColumnInfo(name = "releaseYear")
-    var releaseYear: String,
+    @ColumnInfo(name = "release_date")
+    var releaseYear: String?,
 
-    @ColumnInfo(name = "genre")
-    var genre: String,
+    @ColumnInfo(name = "genres")
+    var genre: String?,
 
-    @ColumnInfo(name = "duration")
-    var duration: String,
+    @ColumnInfo(name = "runtime")
+    var duration: String?,
 
     @ColumnInfo(name = "status")
-    var status: String,
+    var status: String?,
 
-    @ColumnInfo(name = "originalLanguage")
-    var originalLanguage: String,
+    @ColumnInfo(name = "original_language")
+    var originalLanguage: String?,
 
     @ColumnInfo(name = "favorited")
     var favorited: Boolean = false
