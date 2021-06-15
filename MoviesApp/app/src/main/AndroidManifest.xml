@@ -15,7 +15,7 @@
         tools:ignore="GoogleAppIndexingWarning"
         android:fullBackupContent="@xml/backup_descriptor">
 
-        <activity android:name=".ui.SplashScreenActivity"
+        <activity android:name="com.dicoding.auliarosyida.moviesapp.core.ui.SplashScreenActivity"
             android:theme="@style/Theme.MoviesApp.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,26 +24,26 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.landingpage.LandingActivity"/>
+        <activity android:name="com.dicoding.auliarosyida.moviesapp.core.ui.landingpage.LandingActivity"/>
 
         <activity
-            android:name=".ui.detailpage.DetailMovieActivity"
+            android:name="com.dicoding.auliarosyida.moviesapp.core.ui.detailpage.DetailMovieActivity"
             android:label="@string/title_activity_detail_movie"
-            android:parentActivityName=".ui.landingpage.LandingActivity"
+            android:parentActivityName="com.dicoding.auliarosyida.moviesapp.core.ui.landingpage.LandingActivity"
             android:theme="@style/Theme.MoviesApp.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.landingpage.LandingActivity" />
+                android:value="com.dicoding.auliarosyida.moviesapp.core.ui.landingpage.LandingActivity" />
         </activity>
 
         <activity
-            android:name=".ui.detailpage.DetailTvShowActivity"
+            android:name="com.dicoding.auliarosyida.moviesapp.core.ui.detailpage.DetailTvShowActivity"
             android:label="@string/title_activity_detail_tvshow"
-            android:parentActivityName=".ui.landingpage.LandingActivity"
+            android:parentActivityName="com.dicoding.auliarosyida.moviesapp.core.ui.landingpage.LandingActivity"
             android:theme="@style/Theme.MoviesApp.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.landingpage.LandingActivity" />
+                android:value="com.dicoding.auliarosyida.moviesapp.core.ui.landingpage.LandingActivity" />
         </activity>
 
 
