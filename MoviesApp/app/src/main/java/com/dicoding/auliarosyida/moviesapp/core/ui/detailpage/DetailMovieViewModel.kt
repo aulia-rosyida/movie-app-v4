@@ -7,9 +7,10 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.dicoding.auliarosyida.moviesapp.core.data.MovieRepository
 import com.dicoding.auliarosyida.moviesapp.core.domain.model.Movie
+import com.dicoding.auliarosyida.moviesapp.core.domain.usecase.MovieUseCase
 import com.dicoding.auliarosyida.moviesapp.valueobject.ResourceWrapData
 
-class DetailMovieViewModel(private val movieRepository: MovieRepository): ViewModel() {
+class DetailMovieViewModel(private val movieUseCase: MovieUseCase): ViewModel() {
     private val detailId = MutableLiveData<String>()
 
     fun setSelectedDetail(detailId: String) {
@@ -17,7 +18,7 @@ class DetailMovieViewModel(private val movieRepository: MovieRepository): ViewMo
     }
 
     var detailMovie: LiveData<ResourceWrapData<Movie>> = Transformations.switchMap(detailId) { mDetailId ->
-        detailId.value?.let { movieRepository.getDetailMovie(mDetailId) }
+        detailId.value?.let { movieUseCase.getDetailMovie(mDetailId) }
     }
 
     fun setFavoriteMovie() {
@@ -26,8 +27,7 @@ class DetailMovieViewModel(private val movieRepository: MovieRepository): ViewMo
             val movieDomain = movieResource.data
             if (movieDomain != null) {
                 val newState = !movieDomain.favorited
-                Log.d("DetailViewModel", "ini state barunya $newState")
-                movieRepository.setFavoriteMovie(movieDomain, newState)
+                movieUseCase.setFavoriteMovie(movieDomain, newState)
             }
         }
     }

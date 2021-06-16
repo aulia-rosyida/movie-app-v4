@@ -6,13 +6,16 @@ import com.dicoding.auliarosyida.moviesapp.core.data.source.localsource.LocalMov
 import com.dicoding.auliarosyida.moviesapp.core.data.source.localsource.room.MovieBuilderDatabase
 import com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.RemoteMovieDataSource
 import com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.network.ApiConfig
+import com.dicoding.auliarosyida.moviesapp.core.domain.repository.InterfaceMovieRepository
+import com.dicoding.auliarosyida.moviesapp.core.domain.usecase.MovieInteractor
+import com.dicoding.auliarosyida.moviesapp.core.domain.usecase.MovieUseCase
 import com.dicoding.auliarosyida.moviesapp.core.utils.AppThreadExecutors
 
 /**
  * Dengan menggunakan Injection, ViewModelFactory mampu menyediakan kebutuhan MovieRepository.
  * */
 object RepoInjection {
-    fun provideMovieRepository(context: Context): MovieRepository {
+    fun provideMovieRepository(context: Context): InterfaceMovieRepository {
 
         val db = MovieBuilderDatabase.getInstance(context)
 
@@ -21,5 +24,10 @@ object RepoInjection {
         val appThreadExecutors = AppThreadExecutors()
 
         return MovieRepository.getInstance(remoteMovieDataSource, localMovieDataSource, appThreadExecutors)
+    }
+
+    fun provideMovieUseCase(context: Context): MovieUseCase {
+        val repository = provideMovieRepository(context)
+        return MovieInteractor(repository)
     }
 }

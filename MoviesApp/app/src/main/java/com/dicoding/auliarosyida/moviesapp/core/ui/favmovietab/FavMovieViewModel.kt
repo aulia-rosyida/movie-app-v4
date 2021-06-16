@@ -6,8 +6,9 @@ import androidx.paging.PagedList
 import com.dicoding.auliarosyida.moviesapp.core.data.MovieRepository
 import com.dicoding.auliarosyida.moviesapp.core.data.source.localsource.entity.MovieEntity
 import com.dicoding.auliarosyida.moviesapp.core.domain.model.Movie
+import com.dicoding.auliarosyida.moviesapp.core.domain.usecase.MovieUseCase
 
-class FavMovieViewModel(private val movieRepository: MovieRepository) : ViewModel() {
+class FavMovieViewModel(movieUseCase: MovieUseCase) : ViewModel() {
 
-    fun getFavoriteMovies(): LiveData<List<Movie>> = movieRepository.getFavoritesMovies()
+    val favoriteMovie = movieUseCase.getFavoritesMovies()
 }
