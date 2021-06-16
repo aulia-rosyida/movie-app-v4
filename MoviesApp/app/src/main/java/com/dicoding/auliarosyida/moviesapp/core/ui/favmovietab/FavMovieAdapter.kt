@@ -39,8 +39,6 @@ class FavMovieAdapter : RecyclerView.Adapter<FavMovieAdapter.FavMovieViewHolder>
     inner class FavMovieViewHolder(private val binding: ItemsMovieBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
             with(binding) {
-                Log.d("FAV ADAPTER", "ini status favoritnya ${movie.favorited}")
-
                 movie.poster?.let {
                     imgPoster.loadFromUrl(BuildConfig.TMDB_URL_IMAGE + ConstHelper.SIZE_POSTER + it)
                 }

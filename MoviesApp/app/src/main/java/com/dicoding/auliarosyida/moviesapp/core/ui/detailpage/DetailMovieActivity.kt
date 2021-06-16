@@ -48,7 +48,6 @@ class DetailMovieActivity : AppCompatActivity() {
         if (detailMovie != null) {
             detailMovieViewModel.setSelectedDetail(detailMovie.id)
             setFavoriteState(detailMovie.favorited)
-            Log.d("DetailActivity", "ini status favoritnya: ${detailMovie.favorited}")
 
             detailMovieViewModel.detailMovie.observe(this, { detailDomain ->
 
@@ -103,12 +102,11 @@ class DetailMovieActivity : AppCompatActivity() {
                         IndicatorStatus.SUCCESS -> if (detailMovie.data != null) {
                             progressbarDetailContent.visibility = View.GONE
                             val state = detailMovie.data.favorited
-                            Log.d("DetailActivity", "ini state di onCreateOptionMenu: $state")
                             setFavoriteState(state)
                         }
                         IndicatorStatus.ERROR -> {
                             progressbarDetailContent.visibility = View.GONE
-                            Toast.makeText(applicationContext, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(applicationContext, getString(R.string.failed_occured), Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
