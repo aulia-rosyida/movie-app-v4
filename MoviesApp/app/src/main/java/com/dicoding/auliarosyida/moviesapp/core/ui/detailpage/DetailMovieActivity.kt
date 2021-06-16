@@ -2,6 +2,7 @@ package com.dicoding.auliarosyida.moviesapp.core.ui.detailpage
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -43,32 +44,31 @@ class DetailMovieActivity : AppCompatActivity() {
         val detailFactory = VMAppFactory.getInstance(this)
         detailMovieViewModel = ViewModelProvider(this, detailFactory)[DetailMovieViewModel::class.java]
 
-        val extras = intent.extras
-        if (extras != null) {
+        val detailMovie = intent.getParcelableExtra<Movie>(extraMovie)
+        if (detailMovie != null) {
+            detailMovieViewModel.setSelectedDetail(detailMovie.id)
+            setFavoriteState(detailMovie.favorited)
+            Log.d("DetailActivity", "ini status favoritnya: ${detailMovie.favorited}")
 
-            val tempId = extras.getString(extraMovie)
-            if (tempId != null ) {
+            detailMovieViewModel.detailMovie.observe(this, { detailDomain ->
 
-                detailMovieViewModel.detailMovie.observe(this, { detailDomain ->
-
-                    if (detailDomain != null) {
-                        detailContentBinding.apply{
-                            when (detailDomain.status) {
-                                IndicatorStatus.LOADING -> progressbarDetailContent.visibility = View.VISIBLE
-                                IndicatorStatus.SUCCESS ->
-                                    if (detailDomain.data != null) {
-                                        progressbarDetailContent.visibility = View.VISIBLE
-                                        populateCard(detailDomain.data)
-                                    }
-                                IndicatorStatus.ERROR -> {
-                                    progressbarDetailContent.visibility = View.GONE
-                                    Toast.makeText(applicationContext, getString(R.string.error_occured), Toast.LENGTH_SHORT).show()
+                if (detailDomain != null) {
+                    detailContentBinding.apply{
+                        when (detailDomain.status) {
+                            IndicatorStatus.LOADING -> progressbarDetailContent.visibility = View.VISIBLE
+                            IndicatorStatus.SUCCESS ->
+                                if (detailDomain.data != null) {
+                                    progressbarDetailContent.visibility = View.VISIBLE
+                                    populateCard(detailDomain.data)
                                 }
+                            IndicatorStatus.ERROR -> {
+                                progressbarDetailContent.visibility = View.GONE
+                                Toast.makeText(applicationContext, getString(R.string.error_occured), Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
-                })
-            }
+                }
+            })
         }
     }
 
@@ -103,7 +103,8 @@ class DetailMovieActivity : AppCompatActivity() {
                         IndicatorStatus.SUCCESS -> if (detailMovie.data != null) {
                             progressbarDetailContent.visibility = View.GONE
                             val state = detailMovie.data.favorited
-                            setFavoriteState(detailMovie.data, state)
+                            Log.d("DetailActivity", "ini state di onCreateOptionMenu: $state")
+                            setFavoriteState(state)
                         }
                         IndicatorStatus.ERROR -> {
                             progressbarDetailContent.visibility = View.GONE
@@ -115,16 +116,16 @@ class DetailMovieActivity : AppCompatActivity() {
         })
         return true
     }
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        if (item.itemId == R.id.action_favorite) {
-//            return true
-//        }
-//        return super.onOptionsItemSelected(item)
-//    }
-    private fun setFavoriteState(movie: Movie, state: Boolean) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_favorite) {
+            detailMovieViewModel.setFavoriteMovie()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+    private fun setFavoriteState(state: Boolean) {
         if (menu == null) return
         val menuItem = menu?.findItem(R.id.action_favorite)
-        detailMovieViewModel.setFavoriteMovie(movie, state)
         if (state) {
             menuItem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_full_favorite_24)
         } else {

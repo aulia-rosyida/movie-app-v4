@@ -15,10 +15,7 @@ import retrofit2.Response
 
 class RemoteMovieDataSource private constructor(private val apiService: ApiService) {
 
-    private val handlerLooper = Handler(Looper.getMainLooper())
-
     companion object {
-        private const val serviceLatencyInMillis: Long = 2000
 
         @Volatile
         private var instance: RemoteMovieDataSource? = null

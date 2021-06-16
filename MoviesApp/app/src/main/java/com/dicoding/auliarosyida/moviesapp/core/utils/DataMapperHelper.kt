@@ -10,19 +10,7 @@ object DataMapperHelper {
         val movieList = ArrayList<MovieEntity>()
 
         input.map {
-            val genreBuilder = StringBuilder()
-//            try{
-//                it.genreIds.forEachIndexed { idx, g ->
-//                    if(idx == 0) genreBuilder.append("${g.name}")
-//                    else genreBuilder.append(", ${g.name}")
-//                }
-//            } catch(e: Exception) {
-//                Log.d("data mapper exception", "- ${e.printStackTrace()}")
-//            }
-
-            var tempQuote = it.title
-//                if (it.quote.length < 2) it.title
-//                else it.quote
+            val tempQuote = it.title
 
             val movie = MovieEntity(
                 movieId = it.id,
@@ -31,7 +19,7 @@ object DataMapperHelper {
                 quote = tempQuote,
                 overview = it.overview,
                 releaseYear = it.releaseYear,
-                genre = genreBuilder.toString(),
+                genre = "",
                 duration = it.duration,
                 status = it.status,
                 originalLanguage = it.originalLanguage,
@@ -42,22 +30,42 @@ object DataMapperHelper {
         return movieList
     }
 
-    fun mapEntitiesToDomain(input: List<MovieEntity>): List<Movie> =
+    fun mapEntitiesToDomain(input: List<MovieEntity>): List<Movie> {
+        val movieDomain = ArrayList<Movie>()
+
         input.map {
-            Movie(
-                id = it.movieId,
-                poster = it.poster,
-                title = it.title,
-                quote = it.quote,
-                overview = it.overview,
-                releaseYear = it.releaseYear,
-                genre = it.genre,
-                duration = it.duration,
-                status = it.status,
-                originalLanguage = it.originalLanguage,
-                favorited = it.favorited
+            val movie = Movie(
+                    id = it.movieId,
+                    poster = it.poster,
+                    title = it.title,
+                    quote = it.quote,
+                    overview = it.overview,
+                    releaseYear = it.releaseYear,
+                    genre = it.genre,
+                    duration = it.duration,
+                    status = it.status,
+                    originalLanguage = it.originalLanguage,
+                    favorited = it.favorited
             )
+            movieDomain.add(movie)
         }
+
+        return movieDomain
+    }
+
+    fun mapEntityToDomain(input: MovieEntity): Movie = Movie(
+        id = input.movieId,
+        poster = input.poster,
+        title = input.title,
+        quote = input.quote,
+        overview = input.overview,
+        releaseYear = input.releaseYear,
+        genre = input.genre,
+        duration = input.duration,
+        status = input.status,
+        originalLanguage = input.originalLanguage,
+        favorited = input.favorited
+    )
 
     fun mapDomainToEntity(input: Movie) = MovieEntity(
         movieId = input.id,

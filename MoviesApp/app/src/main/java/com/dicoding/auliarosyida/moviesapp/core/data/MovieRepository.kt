@@ -1,5 +1,6 @@
 package com.dicoding.auliarosyida.moviesapp.core.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.PagedList
@@ -64,15 +65,12 @@ class MovieRepository private constructor(private val remoteMovieDataSource: Rem
 
             public override fun loadFromDB(): LiveData<Movie> {
                 return Transformations.map(localMovieDataSource.getDetailMovie(movieId)) {
-                    var tempArrayEntity = ArrayList<MovieEntity>()
-                    tempArrayEntity.add(it)
-                    val movieDomain = DataMapperHelper.mapEntitiesToDomain(tempArrayEntity)
-                    movieDomain[0]
+                    DataMapperHelper.mapEntityToDomain(it)
                 }
             }
 
             override fun shouldFetch(data : Movie?): Boolean =
-                    data == null || data.title == data.quote || data.duration == null
+                    data?.duration == null
 
             public override fun createCall(): LiveData<ApiResponse<MovieResponse>> =
                 remoteMovieDataSource.getDetailMovie(movieId)
@@ -94,6 +92,7 @@ class MovieRepository private constructor(private val remoteMovieDataSource: Rem
     }
 
     override fun setFavoriteMovie(movie: Movie, favState: Boolean) {
+        Log.d("MovieRepository", "ini state yg masuk : $favState")
         val tourismEntity = DataMapperHelper.mapDomainToEntity(movie)
         appThreadExecutors.diskIO().execute { localMovieDataSource.setFavoriteMovie(tourismEntity, favState) }
     }

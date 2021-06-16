@@ -1,6 +1,7 @@
 package com.dicoding.auliarosyida.moviesapp.core.ui.favmovietab
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
@@ -38,6 +39,7 @@ class FavMovieAdapter : RecyclerView.Adapter<FavMovieAdapter.FavMovieViewHolder>
     inner class FavMovieViewHolder(private val binding: ItemsMovieBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
             with(binding) {
+                Log.d("FAV ADAPTER", "ini status favoritnya ${movie.favorited}")
 
                 movie.poster?.let {
                     imgPoster.loadFromUrl(BuildConfig.TMDB_URL_IMAGE + ConstHelper.SIZE_POSTER + it)
@@ -49,7 +51,7 @@ class FavMovieAdapter : RecyclerView.Adapter<FavMovieAdapter.FavMovieViewHolder>
 
                 itemView.setOnClickListener {
                     val intent = Intent(it.context, DetailMovieActivity::class.java)
-                    intent.putExtra(DetailMovieActivity.extraMovie, movie.id)
+                    intent.putExtra(DetailMovieActivity.extraMovie, movie)
                     itemView.context.startActivity(intent)
                 }
             }

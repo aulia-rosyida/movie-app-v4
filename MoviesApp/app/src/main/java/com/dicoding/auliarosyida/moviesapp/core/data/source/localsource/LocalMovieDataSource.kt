@@ -1,5 +1,6 @@
 package com.dicoding.auliarosyida.moviesapp.core.data.source.localsource
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import com.dicoding.auliarosyida.moviesapp.core.data.source.localsource.entity.MovieEntity
@@ -25,6 +26,7 @@ class LocalMovieDataSource private constructor(private val mMovieDao: InterfaceM
 
     fun setFavoriteMovie(aMovie: MovieEntity, favState: Boolean) {
         aMovie.favorited = favState
+        Log.d("LocalMovieDataSource", "ini state yg diubah ${aMovie.favorited}")
         mMovieDao.updateMovie(aMovie)
     }
 

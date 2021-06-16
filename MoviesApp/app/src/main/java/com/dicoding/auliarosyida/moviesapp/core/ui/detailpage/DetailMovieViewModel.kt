@@ -1,5 +1,6 @@
 package com.dicoding.auliarosyida.moviesapp.core.ui.detailpage
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -19,7 +20,15 @@ class DetailMovieViewModel(private val movieRepository: MovieRepository): ViewMo
         detailId.value?.let { movieRepository.getDetailMovie(mDetailId) }
     }
 
-    fun setFavoriteMovie(movie: Movie, state: Boolean) {
-        movieRepository.setFavoriteMovie(movie, state)
+    fun setFavoriteMovie() {
+        val movieResource = detailMovie.value
+        if (movieResource != null) {
+            val movieDomain = movieResource.data
+            if (movieDomain != null) {
+                val newState = !movieDomain.favorited
+                Log.d("DetailViewModel", "ini state barunya $newState")
+                movieRepository.setFavoriteMovie(movieDomain, newState)
+            }
+        }
     }
 }
