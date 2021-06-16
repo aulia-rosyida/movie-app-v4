@@ -10,7 +10,16 @@ object DataMapperHelper {
         val movieList = ArrayList<MovieEntity>()
 
         input.map {
-            val tempQuote = it.title
+            val genreBuilder = StringBuilder()
+            var tempQuote = ""
+            if (it.duration == null ) tempQuote = it.title
+            else {
+                tempQuote = it.quote
+                it.genreIds.forEachIndexed { idx, g ->
+                    if(idx == 0) genreBuilder.append("${g.name}")
+                    else genreBuilder.append(", ${g.name}")
+                }
+            }
 
             val movie = MovieEntity(
                 movieId = it.id,
@@ -19,7 +28,7 @@ object DataMapperHelper {
                 quote = tempQuote,
                 overview = it.overview,
                 releaseYear = it.releaseYear,
-                genre = "",
+                genre = genreBuilder.toString(),
                 duration = it.duration,
                 status = it.status,
                 originalLanguage = it.originalLanguage,
