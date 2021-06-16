@@ -11,9 +11,8 @@ object DataMapperHelper {
 
         input.map {
             val genreBuilder = StringBuilder()
-            var tempQuote = ""
-            if (it.duration == null ) tempQuote = it.title
-            else {
+            var tempQuote = it.title
+            if (it.duration != null ) {
                 tempQuote = it.quote
                 it.genreIds.forEachIndexed { idx, g ->
                     if(idx == 0) genreBuilder.append("${g.name}")
