@@ -1,5 +1,6 @@
 package com.dicoding.auliarosyida.moviesapp.moviepage
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,7 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.auliarosyida.moviesapp.R
 import com.dicoding.auliarosyida.moviesapp.core.data.StatusData
 import com.dicoding.auliarosyida.moviesapp.core.ui.MovieAdapter
+import com.dicoding.auliarosyida.moviesapp.core.utils.ConstHelper
 import com.dicoding.auliarosyida.moviesapp.databinding.MovieFragmentBinding
+import com.dicoding.auliarosyida.moviesapp.detailpage.DetailMovieActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MovieFragment : Fragment() {
@@ -31,6 +34,11 @@ class MovieFragment : Fragment() {
 
         if (activity != null) {
             val movieAdapter = MovieAdapter()
+            movieAdapter.onItemClick = { selectedData ->
+                val intent = Intent(activity, DetailMovieActivity::class.java)
+                intent.putExtra(ConstHelper.EXTRA_MOVIE, selectedData)
+                startActivity(intent)
+            }
             movieFragmentBinding.progressbarMovie.visibility = View.VISIBLE
             movieViewModel.movie.observe(this, { movies ->
                 if (movies != null) {

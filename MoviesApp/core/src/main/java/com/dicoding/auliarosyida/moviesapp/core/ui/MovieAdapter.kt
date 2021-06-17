@@ -1,56 +1,55 @@
 package com.dicoding.auliarosyida.moviesapp.core.ui
 
-import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.dicoding.auliarosyida.moviesapp.BuildConfig
-import com.dicoding.auliarosyida.moviesapp.databinding.ItemsMovieBinding
+import com.dicoding.auliarosyida.moviesapp.core.BuildConfig
+import com.dicoding.auliarosyida.moviesapp.core.databinding.ItemsMovieBinding
 import com.dicoding.auliarosyida.moviesapp.core.domain.model.Movie
 import com.dicoding.auliarosyida.moviesapp.core.utils.ConstHelper
 import com.dicoding.auliarosyida.moviesapp.core.utils.loadFromUrl
-import com.dicoding.auliarosyida.moviesapp.detailpage.DetailMovieActivity
 
 class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
-    private var listData = ArrayList<Movie>()
+    private var listMovie = ArrayList<Movie>()
+    var onItemClick:((Movie) -> Unit)? = null
 
     fun setData(newListData: List<Movie>?) {
         if (newListData == null) return
-        listData.clear()
-        listData.addAll(newListData)
+        listMovie.clear()
+        listMovie.addAll(newListData)
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val itemsAcademyBinding = ItemsMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MovieViewHolder(itemsAcademyBinding)
+        val itemsMovieBinding = ItemsMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MovieViewHolder(itemsMovieBinding)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val movie = listData[position]
+        val movie = listMovie[position]
         holder.bind(movie)
     }
 
-    class MovieViewHolder(private val binding: ItemsMovieBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MovieViewHolder(private val binding: ItemsMovieBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
             with(binding) {
-
                 movie.poster?.let {
                     imgPoster.loadFromUrl(BuildConfig.TMDB_URL_IMAGE + ConstHelper.SIZE_POSTER + it)
                 }
+
                 tvItemTitle.text = movie.title
                 tvItemReleaseYear.text = movie.releaseYear?.subSequence(0,4)
                 tvItemQuotes.text = movie.quote
-
-                itemView.setOnClickListener {
-                    val intent = Intent(it.context, DetailMovieActivity::class.java)
-                    intent.putExtra(ConstHelper.EXTRA_MOVIE, movie)
-                    itemView.context.startActivity(intent)
-                }
+            }
+        }
+        init{
+            binding.root.setOnClickListener {
+                onItemClick?.invoke(listMovie[bindingAdapterPosition])
             }
         }
     }
 
-    override fun getItemCount(): Int= listData.size
+    override fun getItemCount(): Int= listMovie.size
 }

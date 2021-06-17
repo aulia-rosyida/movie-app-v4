@@ -28,7 +28,7 @@ buildscript {
         //UI
         gsonVersion = '2.8.6'
         idleResourceVersion = '3.3.0'
-        pagingVersion = '2.1.1'
+//        pagingVersion = '2.1.1'
 
         //Db
         room_version = '2.2.5'

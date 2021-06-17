@@ -1,9 +1,8 @@
 package com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.network
 
-import com.dicoding.auliarosyida.moviesapp.BuildConfig
+import com.dicoding.auliarosyida.moviesapp.core.BuildConfig
 import com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.response.ListMovieResponse
 import com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.response.MovieResponse
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

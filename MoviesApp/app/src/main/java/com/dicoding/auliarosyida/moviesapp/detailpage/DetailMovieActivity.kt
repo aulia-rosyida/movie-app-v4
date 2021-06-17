@@ -49,7 +49,7 @@ class DetailMovieActivity : AppCompatActivity() {
                             is StatusData.Success ->
                                 if (detailDomain.data != null) {
                                     progressbarDetailContent.visibility = View.VISIBLE
-                                    populateCard(detailDomain.data)
+                                    populateCard(detailDomain.data!!)
                                 }
                             is StatusData.Error -> {
                                 progressbarDetailContent.visibility = View.GONE
@@ -92,7 +92,7 @@ class DetailMovieActivity : AppCompatActivity() {
                         is StatusData.Loading -> progressbarDetailContent.visibility = View.VISIBLE
                         is StatusData.Success -> if (detailMovie.data != null) {
                             progressbarDetailContent.visibility = View.GONE
-                            val state = detailMovie.data.favorited
+                            val state = detailMovie.data!!.favorited
                             setFavoriteState(state)
                         }
                         is StatusData.Error -> {

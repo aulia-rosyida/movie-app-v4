@@ -45,7 +45,7 @@ class MovieRepository(
 
     override fun getDetailMovie(movieId: String): Flow<StatusData<Movie>> {
 
-        return object : NetworkBoundLocalRemoteResource<Movie, MovieResponse>() {
+        return object :NetworkBoundLocalRemoteResource<Movie, MovieResponse>() {
 
             public override fun loadFromDB(): Flow<Movie> {
                 return localMovieDataSource.getDetailMovie(movieId).map {

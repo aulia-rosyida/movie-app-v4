@@ -3,7 +3,7 @@ package com.dicoding.auliarosyida.moviesapp.core.utils
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.dicoding.auliarosyida.moviesapp.R
+import com.dicoding.auliarosyida.moviesapp.core.R
 
 fun ImageView.loadFromUrl(path: String) {
     Glide.with(this).clear(this)

@@ -7,7 +7,7 @@ abstract class NetworkBoundLocalRemoteResource <ResultType, RequestType> {
 
     private var result: Flow<StatusData<ResultType>> = flow {
         emit(StatusData.Loading())
-        val sourceDb = loadFromDB().firstOrNull()
+        val sourceDb = loadFromDB().first()
         if (shouldFetch(sourceDb)) {
             emit(StatusData.Loading())
             when (val apiResponse = createCall().first()) {

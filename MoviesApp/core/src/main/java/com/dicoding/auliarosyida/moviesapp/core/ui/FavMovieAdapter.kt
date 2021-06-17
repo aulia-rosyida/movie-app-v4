@@ -1,19 +1,18 @@
 package com.dicoding.auliarosyida.moviesapp.core.ui
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.dicoding.auliarosyida.moviesapp.BuildConfig
-import com.dicoding.auliarosyida.moviesapp.databinding.ItemsMovieBinding
+import com.dicoding.auliarosyida.moviesapp.core.BuildConfig
+import com.dicoding.auliarosyida.moviesapp.core.databinding.ItemsMovieBinding
 import com.dicoding.auliarosyida.moviesapp.core.domain.model.Movie
 import com.dicoding.auliarosyida.moviesapp.core.utils.ConstHelper
 import com.dicoding.auliarosyida.moviesapp.core.utils.loadFromUrl
-import com.dicoding.auliarosyida.moviesapp.detailpage.DetailMovieActivity
 
 class FavMovieAdapter : RecyclerView.Adapter<FavMovieAdapter.FavMovieViewHolder>() {
 
     private var listData = ArrayList<Movie>()
+    var onItemClick: ((Movie) -> Unit)? = null
 
     fun setData(newListData: List<Movie>?) {
         if (newListData == null) return
@@ -22,7 +21,7 @@ class FavMovieAdapter : RecyclerView.Adapter<FavMovieAdapter.FavMovieViewHolder>
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavMovieViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : FavMovieViewHolder {
         val itemsFavMoviesBinding = ItemsMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FavMovieViewHolder(itemsFavMoviesBinding)
     }
@@ -42,12 +41,11 @@ class FavMovieAdapter : RecyclerView.Adapter<FavMovieAdapter.FavMovieViewHolder>
                 tvItemTitle.text = movie.title
                 tvItemReleaseYear.text = movie.releaseYear?.subSequence(0,4)
                 tvItemQuotes.text = movie.quote
-
-                itemView.setOnClickListener {
-                    val intent = Intent(it.context, DetailMovieActivity::class.java)
-                    intent.putExtra(ConstHelper.EXTRA_MOVIE, movie)
-                    itemView.context.startActivity(intent)
-                }
+            }
+        }
+        init {
+            binding.root.setOnClickListener {
+                onItemClick?.invoke(listData[absoluteAdapterPosition])
             }
         }
     }

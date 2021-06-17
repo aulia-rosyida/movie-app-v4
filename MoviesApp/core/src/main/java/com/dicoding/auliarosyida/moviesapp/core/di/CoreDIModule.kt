@@ -2,7 +2,7 @@ package com.dicoding.auliarosyida.moviesapp.core.di
 
 
 import androidx.room.Room
-import com.dicoding.auliarosyida.moviesapp.BuildConfig
+import com.dicoding.auliarosyida.moviesapp.core.BuildConfig
 import com.dicoding.auliarosyida.moviesapp.core.data.MovieRepository
 import com.dicoding.auliarosyida.moviesapp.core.data.source.localsource.LocalMovieDataSource
 import com.dicoding.auliarosyida.moviesapp.core.data.source.localsource.room.MovieBuilderDatabase
@@ -50,5 +50,10 @@ val repositoryModule = module {
     single { LocalMovieDataSource(get()) }
     single { RemoteMovieDataSource(get()) }
     factory { AppThreadExecutors() }
-    single<InterfaceMovieRepository> { MovieRepository(get(), get()) }
+    single<InterfaceMovieRepository> {
+        MovieRepository(
+            get(),
+            get()
+        )
+    }
 }
