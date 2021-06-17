@@ -16,7 +16,7 @@
         tools:ignore="GoogleAppIndexingWarning"
         android:fullBackupContent="@xml/backup_descriptor">
 
-        <activity android:name="com.dicoding.auliarosyida.moviesapp.core.ui.SplashScreenActivity"
+        <activity android:name="com.dicoding.auliarosyida.moviesapp.SplashScreenActivity"
             android:theme="@style/Theme.MoviesApp.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

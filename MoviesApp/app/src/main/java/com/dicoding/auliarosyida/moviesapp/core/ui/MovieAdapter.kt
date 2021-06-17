@@ -1,4 +1,4 @@
-package com.dicoding.auliarosyida.moviesapp.core.ui.movietab
+package com.dicoding.auliarosyida.moviesapp.core.ui
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.auliarosyida.moviesapp.BuildConfig
 import com.dicoding.auliarosyida.moviesapp.databinding.ItemsMovieBinding
 import com.dicoding.auliarosyida.moviesapp.core.domain.model.Movie
-import com.dicoding.auliarosyida.moviesapp.detailpage.DetailMovieActivity
 import com.dicoding.auliarosyida.moviesapp.core.utils.ConstHelper
 import com.dicoding.auliarosyida.moviesapp.core.utils.loadFromUrl
+import com.dicoding.auliarosyida.moviesapp.detailpage.DetailMovieActivity
 
 class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 

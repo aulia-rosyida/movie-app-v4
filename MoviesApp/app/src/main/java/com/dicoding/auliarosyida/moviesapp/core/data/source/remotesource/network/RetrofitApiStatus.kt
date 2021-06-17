@@ -1,4 +1,4 @@
-package com.dicoding.auliarosyida.moviesapp.core.data.api
+package com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.network
 
 sealed class RetrofitApiStatus<out T> {
     data class Success<out T>(val data: T) : RetrofitApiStatus<T>()

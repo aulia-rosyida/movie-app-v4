@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.auliarosyida.moviesapp.core.ui.favmovietab.FavMovieAdapter
+import com.dicoding.auliarosyida.moviesapp.core.ui.FavMovieAdapter
 import com.dicoding.auliarosyida.moviesapp.databinding.FragmentFavMovieBinding
 import org.koin.android.viewmodel.ext.android.viewModel
 

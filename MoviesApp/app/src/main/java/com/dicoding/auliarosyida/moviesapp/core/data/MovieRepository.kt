@@ -6,7 +6,6 @@ import com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.RemoteM
 import com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.network.ApiResponse
 import com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.response.MovieResponse
 import com.dicoding.auliarosyida.moviesapp.core.domain.model.Movie
-import com.dicoding.auliarosyida.moviesapp.core.utils.AppThreadExecutors
 import com.dicoding.auliarosyida.moviesapp.core.utils.DataMapperHelper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -16,9 +15,9 @@ import java.util.*
  *  MovieRepository sebagai filter antara remote dan local
  *  agar apa yang ada di View tidak banyak berubah
  * */
-class MovieRepository(private val remoteMovieDataSource: RemoteMovieDataSource,
-                      private val localMovieDataSource: LocalMovieDataSource,
-                      private val appThreadExecutors: AppThreadExecutors
+class MovieRepository(
+    private val remoteMovieDataSource: RemoteMovieDataSource,
+    private val localMovieDataSource: LocalMovieDataSource
 )  : InterfaceMovieRepository {
 
     override fun getAllMovies(): Flow<StatusData<List<Movie>>> {

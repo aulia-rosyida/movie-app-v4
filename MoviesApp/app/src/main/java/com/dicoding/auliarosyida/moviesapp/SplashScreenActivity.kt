@@ -1,11 +1,10 @@
-package com.dicoding.auliarosyida.moviesapp.core.ui
+package com.dicoding.auliarosyida.moviesapp
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import com.dicoding.auliarosyida.moviesapp.R
 import com.dicoding.auliarosyida.moviesapp.landingpage.LandingActivity
 
 class SplashScreenActivity : AppCompatActivity() {

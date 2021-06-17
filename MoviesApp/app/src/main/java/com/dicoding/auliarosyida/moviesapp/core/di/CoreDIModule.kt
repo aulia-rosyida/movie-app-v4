@@ -50,5 +50,5 @@ val repositoryModule = module {
     single { LocalMovieDataSource(get()) }
     single { RemoteMovieDataSource(get()) }
     factory { AppThreadExecutors() }
-    single<InterfaceMovieRepository> { MovieRepository(get(), get(), get()) }
+    single<InterfaceMovieRepository> { MovieRepository(get(), get()) }
 }
