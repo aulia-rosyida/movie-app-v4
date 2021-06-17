@@ -9,9 +9,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.auliarosyida.moviesapp.BuildConfig
 import com.dicoding.auliarosyida.moviesapp.databinding.ItemsMovieBinding
-import com.dicoding.auliarosyida.moviesapp.core.data.source.localsource.entity.MovieEntity
 import com.dicoding.auliarosyida.moviesapp.core.domain.model.Movie
-import com.dicoding.auliarosyida.moviesapp.core.ui.detailpage.DetailMovieActivity
+import com.dicoding.auliarosyida.moviesapp.detailpage.DetailMovieActivity
 import com.dicoding.auliarosyida.moviesapp.core.utils.ConstHelper
 import com.dicoding.auliarosyida.moviesapp.core.utils.loadFromUrl
 

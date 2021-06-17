@@ -1,12 +1,9 @@
-package com.dicoding.auliarosyida.moviesapp.core.ui.detailpage
+package com.dicoding.auliarosyida.moviesapp.detailpage
 
-import android.util.Log
 import androidx.lifecycle.*
-import com.dicoding.auliarosyida.moviesapp.core.data.MovieRepository
 import com.dicoding.auliarosyida.moviesapp.core.data.StatusData
 import com.dicoding.auliarosyida.moviesapp.core.domain.model.Movie
 import com.dicoding.auliarosyida.moviesapp.core.domain.usecase.MovieUseCase
-import com.dicoding.auliarosyida.moviesapp.valueobject.ResourceWrapData
 import kotlinx.coroutines.runBlocking
 
 class DetailMovieViewModel(private val movieUseCase: MovieUseCase): ViewModel() {

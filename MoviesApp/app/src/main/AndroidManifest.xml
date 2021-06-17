@@ -25,29 +25,17 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.dicoding.auliarosyida.moviesapp.core.ui.landingpage.LandingActivity"/>
+        <activity android:name="com.dicoding.auliarosyida.moviesapp.landingpage.LandingActivity"/>
 
         <activity
-            android:name="com.dicoding.auliarosyida.moviesapp.core.ui.detailpage.DetailMovieActivity"
+            android:name="com.dicoding.auliarosyida.moviesapp.detailpage.DetailMovieActivity"
             android:label="@string/title_activity_detail_movie"
-            android:parentActivityName="com.dicoding.auliarosyida.moviesapp.core.ui.landingpage.LandingActivity"
+            android:parentActivityName="com.dicoding.auliarosyida.moviesapp.landingpage.LandingActivity"
             android:theme="@style/Theme.MoviesApp.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicoding.auliarosyida.moviesapp.core.ui.landingpage.LandingActivity" />
+                android:value="com.dicoding.auliarosyida.moviesapp.landingpage.LandingActivity" />
         </activity>
-
-        <activity
-            android:name="com.dicoding.auliarosyida.moviesapp.core.ui.detailpage.DetailTvShowActivity"
-            android:label="@string/title_activity_detail_tvshow"
-            android:parentActivityName="com.dicoding.auliarosyida.moviesapp.core.ui.landingpage.LandingActivity"
-            android:theme="@style/Theme.MoviesApp.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicoding.auliarosyida.moviesapp.core.ui.landingpage.LandingActivity" />
-        </activity>
-
-
 
     </application>
 

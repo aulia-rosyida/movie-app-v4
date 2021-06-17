@@ -1,4 +1,4 @@
-package com.dicoding.auliarosyida.moviesapp.core.ui.movietab
+package com.dicoding.auliarosyida.moviesapp.favoritepage
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -8,9 +8,8 @@ import com.dicoding.auliarosyida.moviesapp.core.data.MovieRepository
 import com.dicoding.auliarosyida.moviesapp.core.data.source.localsource.entity.MovieEntity
 import com.dicoding.auliarosyida.moviesapp.core.domain.model.Movie
 import com.dicoding.auliarosyida.moviesapp.core.domain.usecase.MovieUseCase
-import com.dicoding.auliarosyida.moviesapp.valueobject.ResourceWrapData
 
-class MovieViewModel(movieUseCase: MovieUseCase) : ViewModel() {
+class FavMovieViewModel(movieUseCase: MovieUseCase) : ViewModel() {
 
-    val movie = movieUseCase.getAllMovies().asLiveData()
+    val favoriteMovie = movieUseCase.getFavoritesMovies().asLiveData()
 }

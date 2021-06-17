@@ -3,14 +3,11 @@ package com.dicoding.auliarosyida.moviesapp.core.ui.movietab
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.auliarosyida.moviesapp.BuildConfig
 import com.dicoding.auliarosyida.moviesapp.databinding.ItemsMovieBinding
 import com.dicoding.auliarosyida.moviesapp.core.domain.model.Movie
-import com.dicoding.auliarosyida.moviesapp.core.ui.detailpage.DetailMovieActivity
-import com.dicoding.auliarosyida.moviesapp.core.ui.favmovietab.FavMovieAdapter
+import com.dicoding.auliarosyida.moviesapp.detailpage.DetailMovieActivity
 import com.dicoding.auliarosyida.moviesapp.core.utils.ConstHelper
 import com.dicoding.auliarosyida.moviesapp.core.utils.loadFromUrl
 

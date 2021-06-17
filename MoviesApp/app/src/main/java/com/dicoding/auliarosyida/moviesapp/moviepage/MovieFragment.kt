@@ -1,4 +1,4 @@
-package com.dicoding.auliarosyida.moviesapp.core.ui.movietab
+package com.dicoding.auliarosyida.moviesapp.moviepage
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.auliarosyida.moviesapp.R
 import com.dicoding.auliarosyida.moviesapp.core.data.StatusData
+import com.dicoding.auliarosyida.moviesapp.core.ui.movietab.MovieAdapter
 import com.dicoding.auliarosyida.moviesapp.databinding.MovieFragmentBinding
 import org.koin.android.viewmodel.ext.android.viewModel
 

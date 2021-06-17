@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import com.dicoding.auliarosyida.moviesapp.R
-import com.dicoding.auliarosyida.moviesapp.core.ui.landingpage.LandingActivity
+import com.dicoding.auliarosyida.moviesapp.landingpage.LandingActivity
 
 class SplashScreenActivity : AppCompatActivity() {
     private val timeout :Long=3000 // 3 s

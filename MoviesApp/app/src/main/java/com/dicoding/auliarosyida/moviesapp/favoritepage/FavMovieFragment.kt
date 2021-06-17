@@ -1,12 +1,12 @@
-package com.dicoding.auliarosyida.moviesapp.core.ui.favmovietab
+package com.dicoding.auliarosyida.moviesapp.favoritepage
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.auliarosyida.moviesapp.core.ui.favmovietab.FavMovieAdapter
 import com.dicoding.auliarosyida.moviesapp.databinding.FragmentFavMovieBinding
 import org.koin.android.viewmodel.ext.android.viewModel
 

@@ -1,4 +1,4 @@
-package com.dicoding.auliarosyida.moviesapp.core.ui.landingpage
+package com.dicoding.auliarosyida.moviesapp.landingpage
 
 import android.content.Context
 import androidx.annotation.StringRes
@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.dicoding.auliarosyida.moviesapp.R
-import com.dicoding.auliarosyida.moviesapp.core.ui.favmovietab.FavMovieFragment
-import com.dicoding.auliarosyida.moviesapp.core.ui.movietab.MovieFragment
+import com.dicoding.auliarosyida.moviesapp.favoritepage.FavMovieFragment
+import com.dicoding.auliarosyida.moviesapp.moviepage.MovieFragment
 
 class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 

@@ -1,14 +1,12 @@
-package com.dicoding.auliarosyida.moviesapp.core.ui.detailpage
+package com.dicoding.auliarosyida.moviesapp.detailpage
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import com.dicoding.auliarosyida.moviesapp.BuildConfig
 import com.dicoding.auliarosyida.moviesapp.R
 import com.dicoding.auliarosyida.moviesapp.core.data.StatusData
