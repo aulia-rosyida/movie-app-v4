@@ -1,10 +1,7 @@
 package com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.response
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
 data class MovieResponse(
     @SerializedName("id")
     var id: String = "",
@@ -26,13 +23,12 @@ data class MovieResponse(
     var status: String = "",
     @SerializedName("original_language")
     var originalLanguage: String = ""
-) : Parcelable
+)
 
-@Parcelize
 data class Genre (
     @SerializedName("id")
     var id: String = "",
 
     @SerializedName("name")
     var name: String? = ""
-): Parcelable
+)

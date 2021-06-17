@@ -1,26 +1,25 @@
 package com.dicoding.auliarosyida.moviesapp.core.data.source.localsource.room
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.dicoding.auliarosyida.moviesapp.core.data.source.localsource.entity.MovieEntity
-import androidx.paging.DataSource
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface InterfaceMovieDao {
 
     @Query("SELECT * FROM movieentities")
-    fun getMovies(): LiveData<List<MovieEntity>>
+    fun getMovies(): Flow<List<MovieEntity>>
 
     @Query("SELECT * FROM movieentities where favorited = 1")
-    fun getFavoritedMovies(): LiveData<List<MovieEntity>>
+    fun getFavoritedMovies(): Flow<List<MovieEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovies(movies: List<MovieEntity>)
+    suspend fun insertMovies(movies: List<MovieEntity>)
 
     @Update
-    fun updateMovie(movie: MovieEntity)
+    suspend fun updateMovie(movie: MovieEntity)
 
     @Query("SELECT * FROM movieentities WHERE id = :movieId")
-    fun getMovieById(movieId: String): LiveData<MovieEntity>
+    fun getMovieById(movieId: String): Flow<MovieEntity>
 
 }

@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.auliarosyida.moviesapp.BuildConfig
 import com.dicoding.auliarosyida.moviesapp.R
+import com.dicoding.auliarosyida.moviesapp.core.data.StatusData
 import com.dicoding.auliarosyida.moviesapp.databinding.ActivityDetailBinding
 import com.dicoding.auliarosyida.moviesapp.databinding.ContentDetailMovieBinding
 import com.dicoding.auliarosyida.moviesapp.core.domain.model.Movie
@@ -53,14 +54,14 @@ class DetailMovieActivity : AppCompatActivity() {
 
                 if (detailDomain != null) {
                     detailContentBinding.apply{
-                        when (detailDomain.status) {
-                            IndicatorStatus.LOADING -> progressbarDetailContent.visibility = View.VISIBLE
-                            IndicatorStatus.SUCCESS ->
+                        when (detailDomain) {
+                            is StatusData.Loading -> progressbarDetailContent.visibility = View.VISIBLE
+                            is StatusData.Success ->
                                 if (detailDomain.data != null) {
                                     progressbarDetailContent.visibility = View.VISIBLE
                                     populateCard(detailDomain.data)
                                 }
-                            IndicatorStatus.ERROR -> {
+                            is StatusData.Error -> {
                                 progressbarDetailContent.visibility = View.GONE
                                 Toast.makeText(applicationContext, getString(R.string.error_occured), Toast.LENGTH_SHORT).show()
                             }
@@ -97,14 +98,14 @@ class DetailMovieActivity : AppCompatActivity() {
         detailMovieViewModel.detailMovie.observe(this, { detailMovie ->
             if (detailMovie != null) {
                 detailContentBinding.apply{
-                    when (detailMovie.status) {
-                        IndicatorStatus.LOADING -> progressbarDetailContent.visibility = View.VISIBLE
-                        IndicatorStatus.SUCCESS -> if (detailMovie.data != null) {
+                    when (detailMovie) {
+                        is StatusData.Loading -> progressbarDetailContent.visibility = View.VISIBLE
+                        is StatusData.Success -> if (detailMovie.data != null) {
                             progressbarDetailContent.visibility = View.GONE
                             val state = detailMovie.data.favorited
                             setFavoriteState(state)
                         }
-                        IndicatorStatus.ERROR -> {
+                        is StatusData.Error -> {
                             progressbarDetailContent.visibility = View.GONE
                             Toast.makeText(applicationContext, getString(R.string.failed_occured), Toast.LENGTH_SHORT).show()
                         }

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.auliarosyida.moviesapp.R
+import com.dicoding.auliarosyida.moviesapp.core.data.StatusData
 import com.dicoding.auliarosyida.moviesapp.databinding.MovieFragmentBinding
 import com.dicoding.auliarosyida.moviesapp.valueobject.IndicatorStatus
 import com.dicoding.auliarosyida.moviesapp.viewmodel.VMAppFactory
@@ -37,13 +38,13 @@ class MovieFragment : Fragment() {
 
             movieViewModel.movie.observe(this, { movies ->
                 if (movies != null) {
-                    when (movies.status) {
-                        IndicatorStatus.LOADING -> movieFragmentBinding.progressbarMovie.visibility = View.VISIBLE
-                        IndicatorStatus.SUCCESS -> {
+                    when (movies) {
+                        is StatusData.Loading -> movieFragmentBinding.progressbarMovie.visibility = View.VISIBLE
+                        is StatusData.Success -> {
                             movieFragmentBinding.progressbarMovie.visibility = View.GONE
                             movieAdapter.setData(movies.data)
                         }
-                        IndicatorStatus.ERROR -> {
+                        is StatusData.Error -> {
                             movieFragmentBinding.progressbarMovie.visibility = View.GONE
                             Toast.makeText(context, getString(R.string.failed_occured), Toast.LENGTH_SHORT).show()
                         }
