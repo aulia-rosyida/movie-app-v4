@@ -16,21 +16,10 @@ import java.util.*
  *  MovieRepository sebagai filter antara remote dan local
  *  agar apa yang ada di View tidak banyak berubah
  * */
-class MovieRepository private constructor(private val remoteMovieDataSource: RemoteMovieDataSource,
-                                          private val localMovieDataSource: LocalMovieDataSource,
-                                          private val appThreadExecutors: AppThreadExecutors
+class MovieRepository(private val remoteMovieDataSource: RemoteMovieDataSource,
+                      private val localMovieDataSource: LocalMovieDataSource,
+                      private val appThreadExecutors: AppThreadExecutors
 )  : InterfaceMovieRepository {
-
-    companion object {
-        @Volatile
-        private var instance: MovieRepository? = null
-
-        // filter antara remote dan local
-        fun getInstance(remoteData: RemoteMovieDataSource, localData: LocalMovieDataSource, appExecutors: AppThreadExecutors): MovieRepository =
-            instance ?: synchronized(this) {
-                instance ?: MovieRepository(remoteData, localData, appExecutors).apply { instance = this }
-            }
-    }
 
     override fun getAllMovies(): Flow<StatusData<List<Movie>>> {
 

@@ -4,14 +4,7 @@ import com.dicoding.auliarosyida.moviesapp.core.data.source.localsource.entity.M
 import com.dicoding.auliarosyida.moviesapp.core.data.source.localsource.room.InterfaceMovieDao
 import kotlinx.coroutines.flow.Flow
 
-class LocalMovieDataSource private constructor(private val mMovieDao: InterfaceMovieDao) {
-
-    companion object {
-        private var INSTANCE: LocalMovieDataSource? = null
-
-        fun getInstance(academyDao: InterfaceMovieDao): LocalMovieDataSource =
-            INSTANCE ?: LocalMovieDataSource(academyDao)
-    }
+class LocalMovieDataSource(private val mMovieDao: InterfaceMovieDao) {
 
     fun getAllMovies(): Flow<List<MovieEntity>> = mMovieDao.getMovies()
 

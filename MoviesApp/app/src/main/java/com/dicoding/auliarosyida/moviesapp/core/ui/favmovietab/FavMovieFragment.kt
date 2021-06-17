@@ -8,14 +8,14 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.auliarosyida.moviesapp.databinding.FragmentFavMovieBinding
-import com.dicoding.auliarosyida.moviesapp.viewmodel.VMAppFactory
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class FavMovieFragment : Fragment() {
 
     private lateinit var _fragmentFavoriteBinding: FragmentFavMovieBinding
     private val binding get() = _fragmentFavoriteBinding
 
-    private lateinit var viewModel: FavMovieViewModel
+    private val viewModel: FavMovieViewModel by viewModel()
     private lateinit var adapter: FavMovieAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -29,8 +29,6 @@ class FavMovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
-            val factory = VMAppFactory.getInstance(requireActivity())
-            viewModel = ViewModelProvider(this, factory)[FavMovieViewModel::class.java]
 
             adapter = FavMovieAdapter()
             binding.progressbarFavmovie.visibility = View.VISIBLE

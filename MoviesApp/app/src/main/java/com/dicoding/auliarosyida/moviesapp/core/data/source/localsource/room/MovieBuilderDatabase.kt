@@ -12,21 +12,4 @@ import com.dicoding.auliarosyida.moviesapp.core.data.source.localsource.entity.M
 abstract class MovieBuilderDatabase : RoomDatabase(){
 
     abstract fun movieDao(): InterfaceMovieDao
-
-    companion object {
-
-        @Volatile
-        private var INSTANCE: MovieBuilderDatabase? = null
-
-        fun getInstance(context: Context): MovieBuilderDatabase =
-            INSTANCE ?: synchronized(this) {
-                Room.databaseBuilder(
-                    context.applicationContext,
-                    MovieBuilderDatabase::class.java,
-                    "Movies.db"
-                ).build().apply {
-                    INSTANCE = this
-                }
-            }
-    }
 }

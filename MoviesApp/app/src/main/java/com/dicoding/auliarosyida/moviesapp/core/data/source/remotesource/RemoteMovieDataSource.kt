@@ -13,18 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RemoteMovieDataSource private constructor(private val apiService: ApiService) {
-
-    companion object {
-
-        @Volatile
-        private var instance: RemoteMovieDataSource? = null
-
-        fun getInstance(service: ApiService): RemoteMovieDataSource =
-            instance ?: synchronized(this) {
-                instance ?: RemoteMovieDataSource(service)
-            }
-    }
+class RemoteMovieDataSource(private val apiService: ApiService) {
 
     suspend fun getAllMovies() : Flow<ApiResponse<List<MovieResponse>>> {
         //get data from remote api

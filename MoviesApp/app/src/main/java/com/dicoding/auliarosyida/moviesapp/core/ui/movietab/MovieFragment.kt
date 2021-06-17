@@ -1,6 +1,5 @@
 package com.dicoding.auliarosyida.moviesapp.core.ui.movietab
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,12 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.auliarosyida.moviesapp.R
 import com.dicoding.auliarosyida.moviesapp.core.data.StatusData
 import com.dicoding.auliarosyida.moviesapp.databinding.MovieFragmentBinding
-import com.dicoding.auliarosyida.moviesapp.valueobject.IndicatorStatus
-import com.dicoding.auliarosyida.moviesapp.viewmodel.VMAppFactory
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MovieFragment : Fragment() {
 
     private lateinit var movieFragmentBinding: MovieFragmentBinding
+    private val movieViewModel: MovieViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,12 +29,8 @@ class MovieFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         if (activity != null) {
-            val movieFactory = VMAppFactory.getInstance(requireActivity())
-            val movieViewModel = ViewModelProvider(this, movieFactory)[MovieViewModel::class.java]
-
             val movieAdapter = MovieAdapter()
             movieFragmentBinding.progressbarMovie.visibility = View.VISIBLE
-
             movieViewModel.movie.observe(this, { movies ->
                 if (movies != null) {
                     when (movies) {

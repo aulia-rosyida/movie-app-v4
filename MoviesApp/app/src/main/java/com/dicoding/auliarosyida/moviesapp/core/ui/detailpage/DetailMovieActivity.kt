@@ -17,19 +17,14 @@ import com.dicoding.auliarosyida.moviesapp.databinding.ContentDetailMovieBinding
 import com.dicoding.auliarosyida.moviesapp.core.domain.model.Movie
 import com.dicoding.auliarosyida.moviesapp.core.utils.ConstHelper
 import com.dicoding.auliarosyida.moviesapp.core.utils.loadFromUrl
-import com.dicoding.auliarosyida.moviesapp.valueobject.IndicatorStatus
-import com.dicoding.auliarosyida.moviesapp.viewmodel.VMAppFactory
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailMovieActivity : AppCompatActivity() {
 
     private lateinit var activityDetailMovieBinding: ActivityDetailBinding
     private lateinit var detailContentBinding: ContentDetailMovieBinding
-    private lateinit var detailMovieViewModel: DetailMovieViewModel
+    private val detailMovieViewModel: DetailMovieViewModel by viewModel()
     private var menu: Menu? = null
-
-    companion object {
-        const val extraMovie = "extra_movie"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,10 +37,7 @@ class DetailMovieActivity : AppCompatActivity() {
         setSupportActionBar(activityDetailMovieBinding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val detailFactory = VMAppFactory.getInstance(this)
-        detailMovieViewModel = ViewModelProvider(this, detailFactory)[DetailMovieViewModel::class.java]
-
-        val detailMovie = intent.getParcelableExtra<Movie>(extraMovie)
+        val detailMovie = intent.getParcelableExtra<Movie>(ConstHelper.EXTRA_MOVIE)
         if (detailMovie != null) {
             detailMovieViewModel.setSelectedDetail(detailMovie.id)
             setFavoriteState(detailMovie.favorited)
