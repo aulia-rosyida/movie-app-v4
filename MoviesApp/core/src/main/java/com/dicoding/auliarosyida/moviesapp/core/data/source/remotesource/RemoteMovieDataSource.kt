@@ -1,7 +1,6 @@
 package com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.network.ApiResponse
 import com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.network.ApiService
 import com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.response.MovieResponse
@@ -9,9 +8,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class RemoteMovieDataSource(private val apiService: ApiService) {
 

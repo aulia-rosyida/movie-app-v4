@@ -1,6 +1,5 @@
 package com.dicoding.auliarosyida.moviesapp.core.utils
 
-import android.util.Log
 import com.dicoding.auliarosyida.moviesapp.core.data.source.localsource.entity.MovieEntity
 import com.dicoding.auliarosyida.moviesapp.core.data.source.remotesource.response.MovieResponse
 import com.dicoding.auliarosyida.moviesapp.core.domain.model.Movie
