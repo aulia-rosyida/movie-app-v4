@@ -1,4 +1,4 @@
-package com.dicoding.auliarosyida.moviesapp.favorite
+package com.dicoding.auliarosyida.moviesapp.fav
 
 import org.junit.Test
 

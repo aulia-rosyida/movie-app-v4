@@ -1,18 +1,13 @@
 plugins {
     id 'com.android.dynamic-feature'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
-    id 'kotlin-kapt'
 }
-
-apply from: '../shared_dependencies.gradle'
-
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.dicoding.auliarosyida.moviesapp.favorite"
+        applicationId "com.dicoding.auliarosyida.moviesapp.fav"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
@@ -27,22 +22,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
     implementation project(":app")
-    implementation project(":core")
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.5.0'
     testImplementation 'junit:junit:4.+'

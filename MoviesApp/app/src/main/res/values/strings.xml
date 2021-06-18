@@ -23,4 +23,5 @@
     <string name="error_occured">Terjadi kesalahan</string>
     <string name="failed_occured">Terjadi kesalahan</string>
     <string name="title_favorite">Favorite</string>
+    <string name="title_fav">Favorite</string>
 </resources>
