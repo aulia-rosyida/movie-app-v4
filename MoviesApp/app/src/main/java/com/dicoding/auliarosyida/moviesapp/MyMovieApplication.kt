@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.dicoding.auliarosyida.moviesapp
 
 import android.app.Application

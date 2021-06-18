@@ -24,6 +24,7 @@ class FavActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = getString(R.string.fav_title)
 
         loadKoinModules(favModelModule)
 

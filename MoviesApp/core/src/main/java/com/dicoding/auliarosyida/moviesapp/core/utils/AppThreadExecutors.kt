@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.dicoding.auliarosyida.moviesapp.core.utils
 
 import android.os.Handler
@@ -21,12 +23,6 @@ class AppThreadExecutors @VisibleForTesting constructor(
         Executors.newFixedThreadPool(THREAD_COUNT),
         MainThreadExecutor()
     )
-
-    fun diskIO(): Executor = diskIO
-
-    fun networkIO(): Executor = networkIO
-
-    fun mainThread(): Executor = mainThread
 
     private class MainThreadExecutor : Executor {
         private val mainThreadHandler = Handler(Looper.getMainLooper())

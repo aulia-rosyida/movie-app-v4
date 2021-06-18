@@ -14,7 +14,7 @@
     </dist:module>
 
     <application>
-        <activity android:name=".FavActivity"></activity>
+        <activity android:name=".FavActivity"/>
     </application>
 
 </manifest>

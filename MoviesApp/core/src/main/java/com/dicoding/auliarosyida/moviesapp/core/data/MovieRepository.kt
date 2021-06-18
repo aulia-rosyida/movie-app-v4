@@ -60,7 +60,7 @@ class MovieRepository(
                 remoteMovieDataSource.getDetailMovie(movieId)
 
             override suspend fun saveCallResult(data: MovieResponse) {
-                var tempArrayResponse = ArrayList<MovieResponse>()
+                val tempArrayResponse = ArrayList<MovieResponse>()
                 tempArrayResponse.add(data)
                 val movieEntities = DataMapperHelper.mapResponsesToEntities(tempArrayResponse)
                 localMovieDataSource.updateMovie(movieEntities[0])
