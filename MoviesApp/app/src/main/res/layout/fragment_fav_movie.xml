@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dicoding.auliarosyida.moviesapp.favoritepage.FavMovieFragment">
+    tools:context="com.dicoding.auliarosyida.moviesapp.fav.favoritepage.FavMovieFragment">
 
 
     <androidx.recyclerview.widget.RecyclerView

@@ -1,4 +1,4 @@
-package com.dicoding.auliarosyida.moviesapp.favoritepage
+package com.dicoding.auliarosyida.moviesapp.fav
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData

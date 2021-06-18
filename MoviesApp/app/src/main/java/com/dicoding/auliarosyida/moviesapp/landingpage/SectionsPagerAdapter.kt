@@ -6,20 +6,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.dicoding.auliarosyida.moviesapp.R
-import com.dicoding.auliarosyida.moviesapp.favoritepage.FavMovieFragment
 import com.dicoding.auliarosyida.moviesapp.moviepage.MovieFragment
 
 class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     companion object {
         @StringRes
-        private val TAB_TITLES = intArrayOf(R.string.movies, R.string.fav_movies)
+        private val TAB_TITLES = intArrayOf(R.string.movies)
     }
 
     override fun getItem(position: Int): Fragment =
             when (position) {
                 0 -> MovieFragment()
-                1 -> FavMovieFragment()
                 else -> Fragment()
             }
 

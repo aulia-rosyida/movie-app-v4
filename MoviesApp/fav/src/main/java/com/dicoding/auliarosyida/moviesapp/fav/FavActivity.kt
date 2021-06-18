@@ -1,15 +1,53 @@
 package com.dicoding.auliarosyida.moviesapp.fav
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.auliarosyida.moviesapp.core.ui.FavMovieAdapter
+import com.dicoding.auliarosyida.moviesapp.core.utils.ConstHelper
+import com.dicoding.auliarosyida.moviesapp.detailpage.DetailMovieActivity
+import com.dicoding.auliarosyida.moviesapp.fav.databinding.ActivityFavBinding
+import org.koin.android.ext.android.inject
+import org.koin.core.context.loadKoinModules
+
 
 class FavActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityFavBinding
+    private lateinit var adapter: FavMovieAdapter
+    private val viewModel: FavMovieViewModel by inject()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_fav)
+        binding = ActivityFavBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val tvChat = findViewById<TextView>(R.id.tv_chat)
-        tvChat.text = "Hello ! \n Welcome to Favorite Feature"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        loadKoinModules(favModelModule)
+
+        adapter = FavMovieAdapter()
+        adapter.onItemClick = { selectedData ->
+            val intent = Intent(this@FavActivity, DetailMovieActivity::class.java)
+            intent.putExtra(ConstHelper.EXTRA_MOVIE, selectedData)
+            startActivity(intent)
+        }
+        binding.progressbarFavmovie.visibility = View.VISIBLE
+        viewModel.favoriteMovie.observe(this, { movies ->
+            binding.progressbarFavmovie.visibility = View.GONE
+            adapter.setData(movies)
+        })
+
+        with(binding){
+            rvFavMovie.layoutManager = LinearLayoutManager(applicationContext)
+            rvFavMovie.setHasFixedSize(true)
+            rvFavMovie.adapter = adapter
+        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }
